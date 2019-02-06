@@ -1,5 +1,9 @@
 package com.nicetravel.nicetravel.util;
 
-public class Constants {
-    public static final String SCHEMA = "DB_NICE_TRAVEL";
+public interface Constants {
+    String SCHEMA = "DB_NICE_TRAVEL";
+
+    String DEVELOP_MODE = "nice-travel.develop.enabled";
+
+
 }
