@@ -10,9 +10,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockTravelScheduleService implements ITravelScheduleService {
+public class MockTravelScheduleService extends ITravelScheduleService {
+
     @Override
-    public ScheduleDTO generateTravelSchedule(String cityName, int numberOfDays, StyleTravel styleTravel) {
+    public ScheduleDTO createSchedule(String cityName, int numberOfDays, StyleTravel styleTravel) {
 
         List<ActivityDTO> activityDTOList = new ArrayList<>();
         activityDTOList.add(new ActivityDTO()
@@ -57,5 +58,10 @@ public class MockTravelScheduleService implements ITravelScheduleService {
                 .setTotalDays(numberOfDays)
                 .setStyleTravel(styleTravel)
                 .setActivities(scheduleDayDTOS);
+    }
+
+    @Override
+    protected void saveTravelOnDatabase(String cityName, StyleTravel styleTravel) {
+        //Todo HAVE TO BE IMPLEMENTED;
     }
 }

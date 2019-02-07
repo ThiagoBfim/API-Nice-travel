@@ -24,14 +24,14 @@ public class TravelEntity extends BaseEntity {
             @Parameter(name = "enumClass", value = StyleTravel.CLASS_NAME),
             @Parameter(name = "identifierMethod", value = "getAbbreviation"),
             @Parameter(name = "valueOfMethod", value = "valueOfEnum")})
-    @Column(name = "TP_CURRENT_INSTANCE", nullable = false, length = 1)
+    @Column(name = "TP_STYLE_TRAVEL", nullable = false, length = 1)
     private StyleTravel styleTravel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_TRAVEL_TO_CITY"))
+    @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_TRAVEL_TO_CITY"), nullable = false)
     private CityEntity cityEntity;
 
-    @Column(name = "VL_PRICE")
+    @Column(name = "VL_PRICE", nullable = false)
     private BigDecimal price;
 
 
