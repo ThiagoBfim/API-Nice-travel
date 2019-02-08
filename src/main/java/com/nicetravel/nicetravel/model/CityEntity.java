@@ -19,17 +19,39 @@ public class CityEntity extends BaseEntity {
     @Column(name = "DS_NAME", nullable = false, length = 300)
     private String name;
 
+    @Column(name = "DS_COUNTRY", nullable = false, length = 300)
+    private String country;
+
+    @Column(name = "DS_STATE", nullable = false, length = 300)
+    private String state;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "CITY_TYPE", schema = Constants.SCHEMA,
-            joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
+            joinColumns = {@JoinColumn(name = "CO_CITY", nullable = true, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_CITY_TO_TYPE"))},
-            inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = false, updatable = false,
+            inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = true, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_TYPE_TO_CITY"))})
     private List<TypeCityEntity> typeCities;
 
     @Override
     public Long getCod() {
         return cod;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setCod(Long cod) {

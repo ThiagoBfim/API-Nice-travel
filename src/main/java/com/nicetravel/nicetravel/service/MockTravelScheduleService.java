@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockTravelScheduleService extends ITravelScheduleService {
+public class MockTravelScheduleService extends AbstractTravelScheduleService {
 
     @Override
     public ScheduleDTO createSchedule(String cityName, int numberOfDays, StyleTravel styleTravel) {
@@ -61,7 +61,7 @@ public class MockTravelScheduleService extends ITravelScheduleService {
     }
 
     @Override
-    protected void saveTravelOnDatabase(String cityName, StyleTravel styleTravel) {
+    protected void saveCityOnDatabase(String cityName, StyleTravel styleTravel) {
         //Todo HAVE TO BE IMPLEMENTED;
     }
 }

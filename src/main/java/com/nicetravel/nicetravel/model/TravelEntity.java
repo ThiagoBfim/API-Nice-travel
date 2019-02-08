@@ -31,13 +31,16 @@ public class TravelEntity extends BaseEntity {
     @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_TRAVEL_TO_CITY"), nullable = false)
     private CityEntity cityEntity;
 
-    @Column(name = "VL_PRICE", nullable = false)
-    private BigDecimal price;
-
+    @Column(name = "VL_PRICE_HOTEL", nullable = false)
+    private BigDecimal priceOfHotel;
 
     @Override
     public Long getCod() {
         return cod;
+    }
+
+    public void setCod(Long cod) {
+        this.cod = cod;
     }
 
     public StyleTravel getStyleTravel() {
@@ -56,14 +59,12 @@ public class TravelEntity extends BaseEntity {
         this.cityEntity = cityEntity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getPriceOfHotel() {
+        return priceOfHotel;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPriceOfHotel(BigDecimal priceOfHotel) {
+        this.priceOfHotel = priceOfHotel;
     }
-
-
 }
 

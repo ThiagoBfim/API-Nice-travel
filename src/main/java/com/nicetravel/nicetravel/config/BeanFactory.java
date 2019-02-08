@@ -1,6 +1,6 @@
 package com.nicetravel.nicetravel.config;
 
-import com.nicetravel.nicetravel.service.ITravelScheduleService;
+import com.nicetravel.nicetravel.service.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.MockTravelScheduleService;
 import com.nicetravel.nicetravel.service.TravelScheduleImplService;
 import com.nicetravel.nicetravel.util.PropertiesUtil;
@@ -15,7 +15,7 @@ public class BeanFactory {
     private PropertiesUtil propertiesUtil;
 
     @Bean
-    public ITravelScheduleService taskService() {
+    public AbstractTravelScheduleService taskService() {
         if (propertiesUtil.isDevelopMode()) {
             return new MockTravelScheduleService();
         }

@@ -2,7 +2,7 @@ package com.nicetravel.nicetravel.resource;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.enuns.StyleTravel;
-import com.nicetravel.nicetravel.service.ITravelScheduleService;
+import com.nicetravel.nicetravel.service.AbstractTravelScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ public class ScheduleResource {
 
 
     @Autowired
-    private ITravelScheduleService travelScheduleService;
+    private AbstractTravelScheduleService travelScheduleService;
 
     @GetMapping
     public ScheduleDTO criarCategoria(@RequestParam("cityName") String cityName,
