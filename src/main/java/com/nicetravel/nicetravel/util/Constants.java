@@ -5,5 +5,7 @@ public interface Constants {
 
     String DEVELOP_MODE = "nice-travel.develop.enabled";
 
+    String GOOGLE_MAPS_KEY = "nice-travel.google.api-key";
+
 
 }

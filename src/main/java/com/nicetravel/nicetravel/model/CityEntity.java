@@ -19,39 +19,42 @@ public class CityEntity extends BaseEntity {
     @Column(name = "DS_NAME", nullable = false, length = 300)
     private String name;
 
-    @Column(name = "DS_COUNTRY", nullable = false, length = 300)
-    private String country;
+    @Column(name = "DS_LATITUDE", nullable = false, length = 64)
+    private String latitude;
 
-    @Column(name = "DS_STATE", nullable = false, length = 300)
-    private String state;
+    @Column(name = "DS_LONGITUDE", nullable = false, length = 64)
+    private String longitude;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "CITY_TYPE", schema = Constants.SCHEMA,
-            joinColumns = {@JoinColumn(name = "CO_CITY", nullable = true, updatable = false,
+            joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_CITY_TO_TYPE"))},
-            inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = true, updatable = false,
+            inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = false, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_TYPE_TO_CITY"))})
     private List<TypeCityEntity> typeCities;
+
+    @Column(name = "TX_PHOTO", nullable = false, length = 300)
+    private String photo_link;
 
     @Override
     public Long getCod() {
         return cod;
     }
 
-    public String getState() {
-        return state;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getCountry() {
-        return country;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public void setCod(Long cod) {
@@ -72,5 +75,13 @@ public class CityEntity extends BaseEntity {
 
     public void setTypeCities(List<TypeCityEntity> typeCities) {
         this.typeCities = typeCities;
+    }
+
+    public String getPhoto_link() {
+        return photo_link;
+    }
+
+    public void setPhoto_link(String photo_link) {
+        this.photo_link = photo_link;
     }
 }
