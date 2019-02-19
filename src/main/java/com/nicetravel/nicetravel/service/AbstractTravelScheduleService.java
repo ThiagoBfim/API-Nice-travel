@@ -3,6 +3,8 @@ package com.nicetravel.nicetravel.service;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.enuns.StyleTravel;
 
+import javax.transaction.Transactional;
+
 /**
  * This class use Template Method pattern
  */
@@ -20,6 +22,7 @@ public abstract class AbstractTravelScheduleService {
      * @param cityName
      * @param styleTravel
      */
+    @Transactional
     protected abstract void saveCityOnDatabase(String cityName, StyleTravel styleTravel);
 
     protected abstract ScheduleDTO createSchedule(String cityName, int numberOfDays, StyleTravel styleTravel);
