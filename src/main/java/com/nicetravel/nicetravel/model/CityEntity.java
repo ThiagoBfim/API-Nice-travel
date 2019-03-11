@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "TB_CITY", schema = Constants.SCHEMA)
+@Table(name = "TB_CITY", schema = Constants.SCHEMA
+)
 public class CityEntity extends BaseEntity {
 
     private static final String PK_GENERATOR_NAME = "PK_CITY";
@@ -16,7 +17,7 @@ public class CityEntity extends BaseEntity {
     @GeneratedValue(generator = PK_GENERATOR_NAME, strategy = GenerationType.AUTO)
     private Long cod;
 
-    @Column(name = "DS_NAME", nullable = false, length = 300)
+    @Column(name = "DS_NAME", nullable = false, length = 300,unique=true)
     private String name;
 
     @Column(name = "DS_LATITUDE", nullable = false, length = 64)
@@ -24,7 +25,13 @@ public class CityEntity extends BaseEntity {
 
     @Column(name = "DS_LONGITUDE", nullable = false, length = 64)
     private String longitude;
-
+    
+    @Column(name = "DS_COUNTRY",nullable = false, length = 300,unique=true)
+    private String country;
+    
+    @Column(name = "DS_STATE",nullable = true, length = 300,unique=true)
+    private String state;
+    
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "CITY_TYPE", schema = Constants.SCHEMA,
             joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,

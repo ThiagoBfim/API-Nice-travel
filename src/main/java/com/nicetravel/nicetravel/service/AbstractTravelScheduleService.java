@@ -23,7 +23,7 @@ public abstract class AbstractTravelScheduleService {
      * @param styleTravel
      */
     @Transactional
-    protected abstract void saveCityOnDatabase(String cityName, StyleTravel styleTravel);
+        protected abstract void saveCityOnDatabase(String cityName, StyleTravel styleTravel);
 
     protected abstract ScheduleDTO createSchedule(String cityName, int numberOfDays, StyleTravel styleTravel);
 
