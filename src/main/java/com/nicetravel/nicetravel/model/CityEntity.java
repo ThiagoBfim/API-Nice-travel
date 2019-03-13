@@ -17,7 +17,7 @@ public class CityEntity extends BaseEntity {
     @GeneratedValue(generator = PK_GENERATOR_NAME, strategy = GenerationType.AUTO)
     private Long cod;
 
-    @Column(name = "DS_NAME", nullable = false, length = 300,unique=true)
+    @Column(name = "DS_NAME", nullable = false, length = 300,unique=true)//FIXME UK está errada.
     private String name;
 
     @Column(name = "DS_LATITUDE", nullable = false, length = 64)
@@ -26,10 +26,10 @@ public class CityEntity extends BaseEntity {
     @Column(name = "DS_LONGITUDE", nullable = false, length = 64)
     private String longitude;
     
-    @Column(name = "DS_COUNTRY",nullable = false, length = 300,unique=true)
+    @Column(name = "DS_COUNTRY",nullable = false, length = 300,unique=true) //FIXME UK está errada.
     private String country;
     
-    @Column(name = "DS_STATE",nullable = true, length = 300,unique=true)
+    @Column(name = "DS_STATE",nullable = true, length = 300,unique=true)//FIXME UK está errada.
     private String state;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
