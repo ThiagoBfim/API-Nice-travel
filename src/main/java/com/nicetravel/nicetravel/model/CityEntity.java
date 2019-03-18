@@ -31,7 +31,10 @@ public class CityEntity extends BaseEntity {
     
     @Column(name = "DS_STATE",nullable = true, length = 300,unique=true)//FIXME UK está errada.
     private String state;
-    
+
+    @Column(name = "TX_PHOTO", nullable = false, length = 300)
+    private String photoLink;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "CITY_TYPE", schema = Constants.SCHEMA,
             joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
@@ -39,9 +42,6 @@ public class CityEntity extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = false, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_TYPE_TO_CITY"))})
     private List<TypeCityEntity> typeCities;
-
-    @Column(name = "TX_PHOTO", nullable = false, length = 300)
-    private String photo_link;
 
     @Override
     public Long getCod() {
@@ -84,11 +84,27 @@ public class CityEntity extends BaseEntity {
         this.typeCities = typeCities;
     }
 
-    public String getPhoto_link() {
-        return photo_link;
+    public String getPhotoLink() {
+        return photoLink;
     }
 
-    public void setPhoto_link(String photo_link) {
-        this.photo_link = photo_link;
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
