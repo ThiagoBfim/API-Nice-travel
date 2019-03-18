@@ -36,7 +36,7 @@ public class CityEntity extends BaseEntity {
     private String photoLink;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "CITY_TYPE", schema = Constants.SCHEMA,
+    @JoinTable(name = "TB_CITY_TO_TYPE", schema = Constants.SCHEMA,
             joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_CITY_TO_TYPE"))},
             inverseJoinColumns = {@JoinColumn(name = "CO_TYPE", nullable = false, updatable = false,

@@ -20,8 +20,8 @@ public class ScheduleTravel extends BaseEntity {
     @Column(name = "NU_DIAS", nullable = false)
     private Integer numberDays;
 
-    @Column(name = "VL_PRICE_HOTEL") //Talvez seja calculado
-    private BigDecimal priceOfHotel;
+    @Column(name = "VL_PRICE_TRAVEL") //Talvez seja calculado
+    private BigDecimal priceOfTravel;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleTravel")
     private List<ScheduleDay> scheduleDays;
@@ -47,12 +47,12 @@ public class ScheduleTravel extends BaseEntity {
         this.numberDays = numberDays;
     }
 
-    public BigDecimal getPriceOfHotel() {
-        return priceOfHotel;
+    public BigDecimal getPriceOfTravel() {
+        return priceOfTravel;
     }
 
-    public void setPriceOfHotel(BigDecimal priceOfHotel) {
-        this.priceOfHotel = priceOfHotel;
+    public void setPriceOfTravel(BigDecimal priceOfTravel) {
+        this.priceOfTravel = priceOfTravel;
     }
 
     public List<ScheduleDay> getScheduleDays() {
