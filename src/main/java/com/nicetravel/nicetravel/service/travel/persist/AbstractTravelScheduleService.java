@@ -34,11 +34,11 @@ public abstract class AbstractTravelScheduleService {
      * <p>
      * Note: This method have to verify if the city not exits
      *
-     * @param cityName
+     * @param placeID {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI}
      * @return CityEntity
      */
     @Transactional
-    protected abstract CityEntity saveCityOnDatabase(String cityName);
+    protected abstract CityEntity saveCityOnDatabase(String placeID);
 
 
     protected abstract ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity);

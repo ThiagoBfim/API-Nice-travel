@@ -29,9 +29,9 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         return createCityEntity(cityName);
     }
 
-    private CityEntity createCityEntity(String cityName) {
+    private CityEntity createCityEntity(String placeID) {
         CityEntity cityEntity = new CityEntity();
-        cityEntity.setName(cityName);
+        cityEntity.setName(placeID);
         cityEntity.setPhotoLink("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");
         return cityEntity;
     }
