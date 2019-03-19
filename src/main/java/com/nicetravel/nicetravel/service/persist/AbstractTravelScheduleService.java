@@ -1,6 +1,7 @@
 package com.nicetravel.nicetravel.service.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
+import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 
 import javax.transaction.Transactional;
@@ -11,7 +12,8 @@ import javax.transaction.Transactional;
 public abstract class AbstractTravelScheduleService {
 
     public ScheduleDTO generateTravelSchedule(String cityName, int numberDays) {
-        ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravelOnDatabase(cityName, numberDays);
+        CityEntity cityEntity = saveCityOnDatabase(cityName);
+        ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravelOnDatabase(cityEntity, numberDays);
         return createSchedule(scheduleTravelEntity);
     }
 
@@ -20,11 +22,24 @@ public abstract class AbstractTravelScheduleService {
      * <p>
      * Note: This method have to save new Schedule Travel
      *
-     * @param cityName
+     * @param cityEntity
      * @param styleTravel
+     * @return ScheduleTravelEntity
      */
     @Transactional
-    protected abstract ScheduleTravelEntity saveScheduleTravelOnDatabase(String cityName, int styleTravel);
+    protected abstract ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int styleTravel);
+
+    /**
+     * This method have to find city int Google API {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI} and save the City.
+     * <p>
+     * Note: This method have to verify if the city not exits
+     *
+     * @param cityName
+     * @return CityEntity
+     */
+    @Transactional
+    protected abstract CityEntity saveCityOnDatabase(String cityName);
+
 
     protected abstract ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity);
 

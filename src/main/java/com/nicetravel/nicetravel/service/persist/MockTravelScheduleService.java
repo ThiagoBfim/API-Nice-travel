@@ -40,9 +40,8 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(String cityName, int numberDays) {
+    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
-        CityEntity cityEntity = createCityEntity(cityName);
         travelEntity.setCityEntity(cityEntity);
         travelEntity.setNumberDays(numberDays);
 
@@ -58,7 +57,12 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         return travelEntity;
     }
 
-    private List<ActivityEntity> createActivities(){
+    @Override
+    protected CityEntity saveCityOnDatabase(String cityName) {
+        return createCityEntity(cityName);
+    }
+
+    private List<ActivityEntity> createActivities() {
         List<ActivityEntity> activityEntities = new ArrayList<>();
 
         ActivityEntity activityEntity = new ActivityEntity();
@@ -96,6 +100,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         return activityEntities;
 
     }
+
     private CityEntity createCityEntity(String cityName) {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setName(cityName);
