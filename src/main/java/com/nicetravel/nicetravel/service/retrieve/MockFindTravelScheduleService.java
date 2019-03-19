@@ -23,6 +23,20 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
     }
 
     private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
+        List<ScheduleDayDTO> scheduleDayDTOS = new ArrayList<>();
+        for (int i = 1; i <= qtdDias; i++) {
+            scheduleDayDTOS.add(new ScheduleDayDTO()
+                    .setActivities(createActivities())
+                    .setDay(i));
+        }
+        return new ScheduleDTO()
+                .setQtdDays(qtdDias)
+                .setNameCity(cityName)
+                .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV")
+                .setScheduleDay(scheduleDayDTOS);
+    }
+
+    private List<ActivityDTO> createActivities() {
         List<ActivityDTO> activityDTOList = new ArrayList<>();
         activityDTOList.add(new ActivityDTO()
                 .setNameOfPlace("Faby Buggy Turismo")
@@ -31,7 +45,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
                         "lazer e sossego com total segurança Responsabilidade e pontualidade")
                 .setStartActivity(LocalTime.of(7, 30))
                 .setFinishActivity(LocalTime.of(18, 00))
-                .setPrice(new BigDecimal(250)));
+                .setPrice(new BigDecimal(new Random().nextInt(250) + 100)));
 
         activityDTOList.add(new ActivityDTO()
                 .setNameOfPlace("Tomar Banho e se arrumar")
@@ -45,7 +59,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
                         "é imperdível. Cardápio variado: carnes, aves, peixes e pizzas.")
                 .setStartActivity(LocalTime.of(19, 40))
                 .setFinishActivity(LocalTime.of(21, 20))
-                .setPrice(new BigDecimal(50)));
+                .setPrice(new BigDecimal(new Random().nextInt(60) + 15)));
 
 
         activityDTOList.add(new ActivityDTO()
@@ -53,20 +67,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
                 .setDescription("Cachaças de vários sabores, com diversidade de gosto, preços de alcance para todos, muita variedade, com frutas, madeiras")
                 .setStartActivity(LocalTime.of(21, 40))
                 .setFinishActivity(LocalTime.of(23, 59))
-                .setPrice(new BigDecimal(60)));
-
-        List<ScheduleDayDTO> scheduleDayDTOS = new ArrayList<>();
-        for (int i = 1; i <= qtdDias; i++) {
-            scheduleDayDTOS.add(new ScheduleDayDTO()
-                    .setActivities(activityDTOList)
-                    .setDay(i));
-        }
-
-        return new ScheduleDTO()
-                .setQtdDays(qtdDias)
-                .setNameCity(cityName)
-                .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV")
-                .setScheduleDay(scheduleDayDTOS);
+                .setPrice(new BigDecimal(new Random().nextInt(120))));
+        return activityDTOList;
     }
-
 }
