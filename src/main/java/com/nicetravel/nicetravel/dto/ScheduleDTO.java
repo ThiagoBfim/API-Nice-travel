@@ -36,9 +36,7 @@ public class ScheduleDTO {
     public BigDecimal getPriceFinal() {
         return getScheduleDay()
                 .stream()
-                .map(day -> day.getActivities().stream()
-                        .map(ActivityDTO::getPrice)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add))
+                .map(ScheduleDayDTO::getPriceDay)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

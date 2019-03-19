@@ -1,5 +1,6 @@
 package com.nicetravel.nicetravel.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,5 +25,11 @@ public class ScheduleDayDTO {
     public ScheduleDayDTO setDay(int day) {
         this.day = day;
         return this;
+    }
+
+    public BigDecimal getPriceDay() {
+        return getActivities().stream()
+                .map(ActivityDTO::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
