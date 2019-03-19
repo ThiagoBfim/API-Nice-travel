@@ -3,6 +3,9 @@ package com.nicetravel.nicetravel.config;
 import com.nicetravel.nicetravel.service.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.persist.MockTravelScheduleService;
 import com.nicetravel.nicetravel.service.persist.TravelScheduleImplService;
+import com.nicetravel.nicetravel.service.retrieve.AbstractFindTravelScheduleService;
+import com.nicetravel.nicetravel.service.retrieve.FindTravelScheduleImplService;
+import com.nicetravel.nicetravel.service.retrieve.MockFindTravelScheduleService;
 import com.nicetravel.nicetravel.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +18,19 @@ public class BeanFactory {
     private PropertiesUtil propertiesUtil;
 
     @Bean
-    public AbstractTravelScheduleService taskService() {
+    public AbstractTravelScheduleService travelSchedule() {
         if (propertiesUtil.isDevelopMode()) {
             return new MockTravelScheduleService();
         }
         return new TravelScheduleImplService();
+    }
+
+    @Bean
+    public AbstractFindTravelScheduleService findTravelSchedule() {
+        if (propertiesUtil.isDevelopMode()) {
+            return new MockFindTravelScheduleService();
+        }
+        return new FindTravelScheduleImplService();
     }
 
 }
