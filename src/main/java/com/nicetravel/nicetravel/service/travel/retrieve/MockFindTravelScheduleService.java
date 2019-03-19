@@ -32,6 +32,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return new ScheduleDTO()
                 .setQtdDays(qtdDias)
                 .setNameCity(cityName)
+                .setScheduleCod(qtdDias + 1L)
                 .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV")
                 .setScheduleDay(scheduleDayDTOS);
     }

@@ -1,5 +1,7 @@
 package com.nicetravel.nicetravel.dto;
 
+import org.springframework.util.CollectionUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ public class ScheduleDTO {
     private List<ScheduleDayDTO> scheduleDay = new ArrayList<>();
     private String imageUrl;
     private String nameCity;
+    private Long scheduleCod;
 
     public int getQtdDays() {
         return qtdDays;
@@ -34,8 +37,12 @@ public class ScheduleDTO {
     }
 
     public BigDecimal getPriceFinal() {
+        if(CollectionUtils.isEmpty(getScheduleDay())){
+            return BigDecimal.ZERO;
+        }
         return getScheduleDay()
                 .stream()
+                .filter(s -> s.getPriceDay() != null)
                 .map(ScheduleDayDTO::getPriceDay)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -51,6 +58,15 @@ public class ScheduleDTO {
 
     public ScheduleDTO setNameCity(String nameCity) {
         this.nameCity = nameCity;
+        return this;
+    }
+
+    public Long getScheduleCod() {
+        return scheduleCod;
+    }
+
+    public ScheduleDTO setScheduleCod(Long scheduleCod) {
+        this.scheduleCod = scheduleCod;
         return this;
     }
 }
