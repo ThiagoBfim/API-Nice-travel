@@ -28,7 +28,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     private GoogleMapsAPI googleMapsAPI;
 
     @Override
-    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int styleTravel) {
+    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
         throw new UnsupportedOperationException("HAVE TO BE IMPLEMENTED");
     }
 

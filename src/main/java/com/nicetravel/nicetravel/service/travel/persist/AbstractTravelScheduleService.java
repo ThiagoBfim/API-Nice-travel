@@ -18,19 +18,17 @@ public abstract class AbstractTravelScheduleService {
     }
 
     /**
-     * This method have to save the  {@link ScheduleTravelEntity} and {@link com.nicetravel.nicetravel.model.CityEntity} if necessery.
-     * <p>
-     * Note: This method have to save new Schedule Travel
+     * This method have to save the  {@link ScheduleTravelEntity}.
      *
      * @param cityEntity
-     * @param styleTravel
+     * @param numberDays
      * @return ScheduleTravelEntity
      */
     @Transactional
-    protected abstract ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int styleTravel);
+    protected abstract ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays);
 
     /**
-     * This method have to find city int Google API {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI} and save the City.
+     * This method have to find city in Google API {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI} and save the City.
      * <p>
      * Note: This method have to verify if the city not exits
      *
@@ -40,8 +38,6 @@ public abstract class AbstractTravelScheduleService {
     @Transactional
     protected abstract CityEntity saveCityOnDatabase(String placeID);
 
-
     protected abstract ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity);
-
 
 }
