@@ -20,13 +20,13 @@ public class ScheduleResource {
 
     @GetMapping("/city")
     public List<ScheduleDTO> getScheduleByCity(@RequestParam("cityName") String cityName,
-                                               @RequestParam("sizeElements") int sizeElements) {
+                                               @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
         return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
     }
 
     @PostMapping
     public ScheduleDTO createTravelSchedule(@RequestParam("cityName") String cityName,
-                                      @RequestParam("numberDays") int numberDays) {
+                                            @RequestParam("numberDays") int numberDays) {
         return travelScheduleService.generateTravelSchedule(cityName, numberDays);
     }
 
