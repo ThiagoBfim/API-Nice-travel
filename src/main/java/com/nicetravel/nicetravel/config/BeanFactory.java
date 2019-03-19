@@ -1,8 +1,8 @@
 package com.nicetravel.nicetravel.config;
 
-import com.nicetravel.nicetravel.service.AbstractTravelScheduleService;
-import com.nicetravel.nicetravel.service.MockTravelScheduleService;
-import com.nicetravel.nicetravel.service.TravelScheduleImplService;
+import com.nicetravel.nicetravel.service.persist.AbstractTravelScheduleService;
+import com.nicetravel.nicetravel.service.persist.MockTravelScheduleService;
+import com.nicetravel.nicetravel.service.persist.TravelScheduleImplService;
 import com.nicetravel.nicetravel.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

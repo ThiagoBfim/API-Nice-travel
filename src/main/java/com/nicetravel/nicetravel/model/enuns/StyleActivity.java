@@ -5,13 +5,15 @@ import org.springframework.lang.NonNull;
 public enum StyleActivity {
 
     RESTAURANT( "Restaurant"),
+    BAR( "Bar"),
     MUSEUM("Museum"),
     SHOP( "Shopping"),
     HISTORICAL_MONUMENT( "Historical monument"),
     SWIMMING( "Swimming"),
     PARK( "Park"),
     CHURCH( "Church"),
-    SPORT( "Sport");
+    SPORT( "Sport"),
+    OTHER( "Other");
 
     public static final String CLASS_NAME = "com.nicetravel.nicetravel.model.enuns.StyleActivity";
 

@@ -7,11 +7,11 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "TB_ACTIVITY", schema = Constants.SCHEMA)
-public class Activity extends BaseEntity {
+public class ActivityEntity extends BaseEntity {
 
     private static final String PK_GENERATOR_NAME = "PK_ACTIVITY";
 
@@ -34,17 +34,17 @@ public class Activity extends BaseEntity {
     private StyleActivity styleActivity;
 
     @Column(name = "VL_PRICE", nullable = false)
-    private BigDecimal priceOfHotel;
+    private BigDecimal price;
 
     @Column(name = "DT_START", nullable = false)
-    private LocalDateTime dtStart;
+    private LocalTime dtStart;
 
     @Column(name = "DT_END")
-    private LocalDateTime dtEnd;
+    private LocalTime dtEnd;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CO_SCHEDULE_DAY", foreignKey = @ForeignKey(name = "FK_ACTIVITY_TO_SCHEDULE_DAY"), nullable = false)
-    private ScheduleDay scheduleDay;
+    private ScheduleDayEntity scheduleDayEntity;
 
     @Override
     public Long getCod() {
@@ -75,35 +75,35 @@ public class Activity extends BaseEntity {
         this.styleActivity = styleActivity;
     }
 
-    public BigDecimal getPriceOfHotel() {
-        return priceOfHotel;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPriceOfHotel(BigDecimal priceOfHotel) {
-        this.priceOfHotel = priceOfHotel;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public LocalDateTime getDtStart() {
+    public LocalTime getDtStart() {
         return dtStart;
     }
 
-    public void setDtStart(LocalDateTime dtStart) {
+    public void setDtStart(LocalTime dtStart) {
         this.dtStart = dtStart;
     }
 
-    public LocalDateTime getDtEnd() {
+    public LocalTime getDtEnd() {
         return dtEnd;
     }
 
-    public void setDtEnd(LocalDateTime dtEnd) {
+    public void setDtEnd(LocalTime dtEnd) {
         this.dtEnd = dtEnd;
     }
 
-    public ScheduleDay getScheduleDay() {
-        return scheduleDay;
+    public ScheduleDayEntity getScheduleDayEntity() {
+        return scheduleDayEntity;
     }
 
-    public void setScheduleDay(ScheduleDay scheduleDay) {
-        this.scheduleDay = scheduleDay;
+    public void setScheduleDayEntity(ScheduleDayEntity scheduleDayEntity) {
+        this.scheduleDayEntity = scheduleDayEntity;
     }
 }

@@ -10,8 +10,6 @@ public class ActivityDTO {
     private BigDecimal price = BigDecimal.ZERO;
     private LocalTime startActivity;
     private LocalTime finishActivity;
-    //private byte[] photo;
-
 
     public String getDescription() {
         return description;

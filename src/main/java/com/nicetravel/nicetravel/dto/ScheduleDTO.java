@@ -1,40 +1,58 @@
 package com.nicetravel.nicetravel.dto;
 
-import com.nicetravel.nicetravel.model.enuns.StyleTravel;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleDTO {
 
-    private int totalDays;
-    private List<ScheduleDayDTO> activities = new ArrayList<>();
-    private StyleTravel styleTravel;
+    private int qtdDays;
+    private List<ScheduleDayDTO> scheduleDay = new ArrayList<>();
+    private String imageUrl;
+    private String nameCity;
 
-    public int getTotalDays() {
-        return totalDays;
+    public int getQtdDays() {
+        return qtdDays;
     }
 
-    public ScheduleDTO setTotalDays(int totalDays) {
-        this.totalDays = totalDays;
+    public ScheduleDTO setQtdDays(int qtdDays) {
+        this.qtdDays = qtdDays;
         return this;
     }
 
-    public List<ScheduleDayDTO> getActivities() {
-        return activities;
+    public List<ScheduleDayDTO> getScheduleDay() {
+        return scheduleDay;
     }
 
-    public ScheduleDTO setActivities(List<ScheduleDayDTO> activities) {
-        this.activities = activities;
+    public ScheduleDTO setScheduleDay(List<ScheduleDayDTO> scheduleDay) {
+        this.scheduleDay = scheduleDay;
         return this;
     }
 
-    public StyleTravel getStyleTravel() {
-        return styleTravel;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public ScheduleDTO setStyleTravel(StyleTravel styleTravel) {
-        this.styleTravel = styleTravel;
+    public BigDecimal getPriceFinal() {
+        return getScheduleDay()
+                .stream()
+                .map(day -> day.getActivities().stream()
+                        .map(ActivityDTO::getPrice)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public ScheduleDTO setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getNameCity() {
+        return nameCity;
+    }
+
+    public ScheduleDTO setNameCity(String nameCity) {
+        this.nameCity = nameCity;
         return this;
     }
 }
