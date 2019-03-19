@@ -1,4 +1,4 @@
-package com.nicetravel.nicetravel.service.persist;
+package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;

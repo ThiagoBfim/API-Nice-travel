@@ -1,11 +1,11 @@
 package com.nicetravel.nicetravel.config;
 
-import com.nicetravel.nicetravel.service.persist.AbstractTravelScheduleService;
-import com.nicetravel.nicetravel.service.persist.MockTravelScheduleService;
-import com.nicetravel.nicetravel.service.persist.TravelScheduleImplService;
-import com.nicetravel.nicetravel.service.retrieve.AbstractFindTravelScheduleService;
-import com.nicetravel.nicetravel.service.retrieve.FindTravelScheduleImplService;
-import com.nicetravel.nicetravel.service.retrieve.MockFindTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.persist.MockTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.persist.TravelScheduleImplService;
+import com.nicetravel.nicetravel.service.travel.retrieve.AbstractFindTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.retrieve.FindTravelScheduleImplService;
+import com.nicetravel.nicetravel.service.travel.retrieve.MockFindTravelScheduleService;
 import com.nicetravel.nicetravel.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

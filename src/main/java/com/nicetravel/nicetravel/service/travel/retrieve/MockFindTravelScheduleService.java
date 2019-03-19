@@ -1,4 +1,4 @@
-package com.nicetravel.nicetravel.service.retrieve;
+package com.nicetravel.nicetravel.service.travel.retrieve;
 
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;

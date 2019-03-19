@@ -1,8 +1,8 @@
 package com.nicetravel.nicetravel.resource;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.service.persist.AbstractTravelScheduleService;
-import com.nicetravel.nicetravel.service.retrieve.AbstractFindTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
+import com.nicetravel.nicetravel.service.travel.retrieve.AbstractFindTravelScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
