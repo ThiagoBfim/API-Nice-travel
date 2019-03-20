@@ -1,5 +1,7 @@
 package com.nicetravel.nicetravel.service.external;
 
+import com.nicetravel.nicetravel.exceptions.GooglePlaceNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -21,6 +23,7 @@ public class GoogleMapsAPI {
     @Autowired
     private Environment environment;
 
+    private static final String INVALID_REQUEST = "INVALID_REQUEST";
     private static final String urlGoogle = "https://maps.googleapis.com/maps/api/place/details/json?";
     private static final String urlImageGoogle = "https://maps.googleapis.com/maps/api/place/photo?";
 
@@ -29,6 +32,11 @@ public class GoogleMapsAPI {
         ResponseEntity<String> responsePlaceInformation = getPlaceInformation(placeId);
 
         JSONObject bodyObject = new JSONObject(responsePlaceInformation.getBody());
+        String status = new JSONObject(responsePlaceInformation.getBody())
+                .optString("status");
+        if (StringUtils.isEmpty(status) || INVALID_REQUEST.equals(status)) {
+            throw new GooglePlaceNotFoundException(String.format("NOT FOUND A CITY WITH PLACE ID %s", placeId));
+        }
         JSONObject result = bodyObject.getJSONObject("result");
 
         JSONObject photo = (JSONObject) (result.getJSONArray("photos").get(0));
