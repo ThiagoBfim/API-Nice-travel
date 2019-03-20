@@ -29,10 +29,10 @@ public class CityEntity extends BaseEntity {
     @Column(name = "CO_PLACE_ID", nullable = false)
     private String placeID;
 
-    @Column(name = "TX_PHOTO", nullable = false, length = 300)
+    @Column(name = "TX_PHOTO", nullable = false, length = 1000)
     private String photoLink;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "TB_CITY_TO_TYPE", schema = Constants.SCHEMA,
             joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
                     foreignKey = @ForeignKey(name = "FK_CITY_TO_TYPE"))},

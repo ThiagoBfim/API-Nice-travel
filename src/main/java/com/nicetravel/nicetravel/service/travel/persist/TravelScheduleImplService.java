@@ -9,6 +9,7 @@ import com.nicetravel.nicetravel.repository.TypeCityRepository;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -32,7 +33,9 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         throw new UnsupportedOperationException("HAVE TO BE IMPLEMENTED");
     }
 
+
     @Override
+    @Transactional
     protected CityEntity saveCityOnDatabase(String placeID) {
         Optional<CityEntity> cityEntityOptional = cityRepository.findByPlaceID(placeID);
         if (cityEntityOptional.isPresent()) {
@@ -40,6 +43,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         }
         PlaceDTO placeDTO = googleMapsAPI.getPlaceDTO(placeID);
         CityEntity cityEntity = new CityEntity();
+        cityEntity.setPlaceID(placeID);
         cityEntity.setPhotoLink(placeDTO.getImageUrl());
         cityEntity.setName(placeDTO.getName());
         cityEntity.setLatitude(placeDTO.getLat());
@@ -50,7 +54,8 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         return cityEntity;
     }
 
-    private void updateCityTypes(PlaceDTO placeDTO, CityEntity cityEntity) {
+    @Transactional(readOnly = true)
+    void updateCityTypes(PlaceDTO placeDTO, CityEntity cityEntity) {
         if (placeDTO.getTypes() != null) {
             Set<TypeCityEntity> typeCityEntityList = new HashSet<>();
             Stream.of(placeDTO.getTypes().split(","))
