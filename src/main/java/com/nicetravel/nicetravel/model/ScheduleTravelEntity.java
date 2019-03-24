@@ -22,7 +22,7 @@ public class ScheduleTravelEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleTravelEntity")
     private List<ScheduleDayEntity> scheduleDayEntities;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_SCHEDULE_TRAVEL_TO_CITY"), nullable = false)
     private CityEntity cityEntity;
 
