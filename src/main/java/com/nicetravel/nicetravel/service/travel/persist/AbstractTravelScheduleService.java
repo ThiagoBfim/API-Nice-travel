@@ -14,7 +14,7 @@ public abstract class AbstractTravelScheduleService {
     public ScheduleDTO generateTravelSchedule(String placeID, int numberDays) {
         CityEntity cityEntity = saveCityOnDatabase(placeID);
         ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravelOnDatabase(cityEntity, numberDays);
-        return createSchedule(scheduleTravelEntity);
+        return createScheduleDTO(scheduleTravelEntity);
     }
 
     /**
@@ -38,6 +38,8 @@ public abstract class AbstractTravelScheduleService {
     @Transactional
     protected abstract CityEntity saveCityOnDatabase(String placeID);
 
-    protected abstract ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity);
+    protected abstract ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity);
 
+    @Transactional
+    public abstract boolean publishTravelSchedule(Long travelId);
 }

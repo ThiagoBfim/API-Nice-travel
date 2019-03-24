@@ -7,7 +7,7 @@ import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 public class MockTravelScheduleService extends AbstractTravelScheduleService {
 
     @Override
-    public ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity) {
+    public ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
         return new ScheduleDTO()
                 .setQtdDays(scheduleTravelEntity.getNumberDays())
                 .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
@@ -17,8 +17,14 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
+    public boolean publishTravelSchedule(Long travelId) {
+        return travelId == 1L;
+    }
+
+    @Override
     protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
+        travelEntity.setCod(1L);
         travelEntity.setCityEntity(cityEntity);
         travelEntity.setNumberDays(numberDays);
         travelEntity.setPublicAccess(Boolean.FALSE);

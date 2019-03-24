@@ -6,6 +6,7 @@ import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.TypeCityEntity;
 import com.nicetravel.nicetravel.repository.CityRepository;
+import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.repository.TypeCityRepository;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
@@ -32,13 +33,16 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     @Autowired
     private GoogleMapsAPI googleMapsAPI;
 
+    @Autowired
+    private ScheduleTravelRepository scheduleTravelRepository;
+
     @Override
     protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
         scheduleTravelEntity.setCityEntity(cityEntity);
         scheduleTravelEntity.setNumberDays(numberDays);
-        return scheduleTravelEntity;
+        return scheduleTravelRepository.save(scheduleTravelEntity);
     }
 
 
@@ -73,7 +77,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected ScheduleDTO createSchedule(ScheduleTravelEntity scheduleTravelEntity) {
+    protected ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
         List<ScheduleDayDTO> scheduleDayDTOS = createScheduleDays(scheduleTravelEntity);
         return new ScheduleDTO()
                 .setQtdDays(scheduleTravelEntity.getNumberDays())
@@ -82,6 +86,18 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
                 .setScheduleCod(scheduleTravelEntity.getCod())
                 .setScheduleDay(scheduleDayDTOS);
 
+    }
+
+    @Override
+    public boolean publishTravelSchedule(Long travelId) {
+        Optional<ScheduleTravelEntity> scheduleTravelOptional = scheduleTravelRepository.findById(travelId);
+        if (scheduleTravelOptional.isPresent()) {
+            ScheduleTravelEntity scheduleTravel = scheduleTravelOptional.get();
+            scheduleTravel.setPublicAccess(Boolean.TRUE);
+            scheduleTravelRepository.save(scheduleTravel);
+            return true;
+        }
+        return false;
     }
 
     private List<ScheduleDayDTO> createScheduleDays(ScheduleTravelEntity scheduleTravelEntity) {

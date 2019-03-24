@@ -30,4 +30,9 @@ public class ScheduleResource {
         return travelScheduleService.generateTravelSchedule(placeID, numberDays);
     }
 
+    @PostMapping("/publish")
+    public boolean publishTravelSchedule(@RequestParam("travelId") Long travelId) {
+        return travelScheduleService.publishTravelSchedule(travelId);
+    }
+
 }
