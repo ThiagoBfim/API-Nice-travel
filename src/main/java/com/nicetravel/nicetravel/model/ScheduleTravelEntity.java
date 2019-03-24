@@ -26,6 +26,9 @@ public class ScheduleTravelEntity extends BaseEntity {
     @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_SCHEDULE_TRAVEL_TO_CITY"), nullable = false)
     private CityEntity cityEntity;
 
+    @Column(name = "ST_PUBLIC_ACCESS", nullable = false)
+    private Boolean publicAccess;
+
     @Override
     public Long getCod() {
         return cod;
@@ -57,5 +60,13 @@ public class ScheduleTravelEntity extends BaseEntity {
 
     public void setCityEntity(CityEntity cityEntity) {
         this.cityEntity = cityEntity;
+    }
+
+    public Boolean getPublicAccess() {
+        return publicAccess;
+    }
+
+    public void setPublicAccess(Boolean publicAccess) {
+        this.publicAccess = publicAccess;
     }
 }
