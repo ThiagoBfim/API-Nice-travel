@@ -10,6 +10,7 @@ public class ActivityDTO {
     private BigDecimal price = BigDecimal.ZERO;
     private LocalTime startActivity;
     private LocalTime finishActivity;
+    private String styleActivity;
 
     public String getDescription() {
         return description;
@@ -53,6 +54,15 @@ public class ActivityDTO {
 
     public ActivityDTO setFinishActivity(LocalTime finishActivity) {
         this.finishActivity = finishActivity;
+        return this;
+    }
+
+    public String getStyleActivity() {
+        return styleActivity;
+    }
+
+    public ActivityDTO setStyleActivity(String styleActivity) {
+        this.styleActivity = styleActivity;
         return this;
     }
 }

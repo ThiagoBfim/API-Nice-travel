@@ -25,9 +25,9 @@ public class ScheduleResource {
     }
 
     @PostMapping
-    public ScheduleDTO createTravelSchedule(@RequestParam("cityName") String cityName,
+    public ScheduleDTO createTravelSchedule(@RequestParam("placeID") String placeID,
                                             @RequestParam("numberDays") int numberDays) {
-        return travelScheduleService.generateTravelSchedule(cityName, numberDays);
+        return travelScheduleService.generateTravelSchedule(placeID, numberDays);
     }
 
 }

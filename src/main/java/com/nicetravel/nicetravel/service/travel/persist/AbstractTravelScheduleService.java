@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
  */
 public abstract class AbstractTravelScheduleService {
 
-    public ScheduleDTO generateTravelSchedule(String cityName, int numberDays) {
-        CityEntity cityEntity = saveCityOnDatabase(cityName);
+    public ScheduleDTO generateTravelSchedule(String placeID, int numberDays) {
+        CityEntity cityEntity = saveCityOnDatabase(placeID);
         ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravelOnDatabase(cityEntity, numberDays);
         return createSchedule(scheduleTravelEntity);
     }

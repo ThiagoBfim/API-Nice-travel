@@ -21,6 +21,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
         travelEntity.setCityEntity(cityEntity);
         travelEntity.setNumberDays(numberDays);
+        travelEntity.setPublicAccess(Boolean.FALSE);
         return travelEntity;
     }
 
