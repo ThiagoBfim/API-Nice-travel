@@ -26,8 +26,8 @@ public class ScheduleResource {
     }
 
     @GetMapping("/days")
-    public List<ScheduleDayDTO> getScheduleDaysByScheduleCod(@RequestParam("travelId") Long travelId) {
-        return findTravelScheduleService.getScheduleDays(travelId);
+    public List<ScheduleDayDTO> getScheduleDaysByScheduleCod(@RequestParam("scheduleId") Long scheduleId) {
+        return findTravelScheduleService.getScheduleDays(scheduleId);
     }
 
     @PostMapping

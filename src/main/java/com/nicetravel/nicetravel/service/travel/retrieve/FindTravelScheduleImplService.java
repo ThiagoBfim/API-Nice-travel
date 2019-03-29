@@ -13,7 +13,7 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
     }
 
     @Override
-    public List<ScheduleDayDTO> getScheduleDays(Long travelId) {
+    public List<ScheduleDayDTO> getScheduleDays(Long scheduleId) {
         throw new UnsupportedOperationException("HAVE TO BE IMPLEMENTED");
     }
 }

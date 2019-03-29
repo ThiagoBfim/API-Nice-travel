@@ -23,7 +23,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
     }
 
     @Override
-    public List<ScheduleDayDTO> getScheduleDays(Long travelId) {
+    public List<ScheduleDayDTO> getScheduleDays(Long scheduleId) {
         List<ScheduleDayDTO> scheduleDayDTOS = new ArrayList<>();
         for (int i = 1; i <= 2; i++) {
             scheduleDayDTOS.add(new ScheduleDayDTO()
@@ -51,7 +51,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
                         "lazer e sossego com total segurança Responsabilidade e pontualidade")
                 .setStartActivity(LocalTime.of(7, 30))
                 .setFinishActivity(LocalTime.of(18, 00))
-                .setPrice(new BigDecimal(new Random().nextInt(250) + 100)));
+                .setPrice(new BigDecimal(new Random().nextInt(250) + 100.21)));
 
         activityDTOList.add(new ActivityDTO()
                 .setNameOfPlace("Tomar Banho e se arrumar")

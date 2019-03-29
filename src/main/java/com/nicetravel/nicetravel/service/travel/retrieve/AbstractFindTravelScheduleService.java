@@ -9,5 +9,5 @@ public abstract class AbstractFindTravelScheduleService {
 
     public abstract List<ScheduleDTO> getScheduleByCityName(String cityName, Integer sizeElements);
 
-    public abstract List<ScheduleDayDTO> getScheduleDays(Long travelId);
+    public abstract List<ScheduleDayDTO> getScheduleDays(Long scheduleId);
 }
