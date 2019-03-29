@@ -1,12 +1,13 @@
 package com.nicetravel.nicetravel.external;
 
+import com.nicetravel.nicetravel.NicetravelApplicationTests;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class GooglePlaceAPITest {
+public class GooglePlaceAPITest extends NicetravelApplicationTests {
 
 
     @Autowired

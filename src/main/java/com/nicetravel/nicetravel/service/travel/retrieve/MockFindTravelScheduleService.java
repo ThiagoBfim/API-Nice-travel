@@ -22,19 +22,24 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return scheduleDTOS;
     }
 
-    private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
+    @Override
+    public List<ScheduleDayDTO> getScheduleDays(Long travelId) {
         List<ScheduleDayDTO> scheduleDayDTOS = new ArrayList<>();
-        for (int i = 1; i <= qtdDias; i++) {
+        for (int i = 1; i <= 2; i++) {
             scheduleDayDTOS.add(new ScheduleDayDTO()
-                    .setActivities(createActivities())
-                    .setDay(i));
+                    .setDay(i)
+                    .setPriceDay(createActivities()));
         }
+        return scheduleDayDTOS;
+    }
+
+    private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
         return new ScheduleDTO()
                 .setQtdDays(qtdDias)
                 .setNameCity(cityName)
                 .setScheduleCod(qtdDias + 1L)
-                .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV")
-                .setScheduleDay(scheduleDayDTOS);
+                .setPriceFinal(getScheduleDays(1L))
+                .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");
     }
 
     private List<ActivityDTO> createActivities() {

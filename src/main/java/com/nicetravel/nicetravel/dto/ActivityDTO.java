@@ -1,5 +1,7 @@
 package com.nicetravel.nicetravel.dto;
 
+import com.nicetravel.nicetravel.model.ActivityEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
@@ -11,6 +13,18 @@ public class ActivityDTO {
     private LocalTime startActivity;
     private LocalTime finishActivity;
     private String styleActivity;
+
+    public ActivityDTO(ActivityEntity activityEntity) {
+        setNameOfPlace(activityEntity.getName());
+        setDescription(activityEntity.getDescription());
+        setStartActivity(activityEntity.getDtStart());
+        setFinishActivity(activityEntity.getDtEnd());
+        setPrice(activityEntity.getPrice());
+        setStyleActivity(activityEntity.getStyleActivity().getDescription());
+    }
+
+    public ActivityDTO() {
+    }
 
     public String getDescription() {
         return description;

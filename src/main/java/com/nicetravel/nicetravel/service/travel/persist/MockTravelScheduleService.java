@@ -12,8 +12,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
                 .setQtdDays(scheduleTravelEntity.getNumberDays())
                 .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
                 .setNameCity(scheduleTravelEntity.getCityEntity().getName())
-                .setScheduleCod(scheduleTravelEntity.getCod())
-                .setScheduleDay(null);
+                .setScheduleCod(scheduleTravelEntity.getCod());
     }
 
     @Override

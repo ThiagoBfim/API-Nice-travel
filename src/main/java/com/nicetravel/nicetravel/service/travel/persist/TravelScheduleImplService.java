@@ -1,7 +1,6 @@
 package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.TypeCityEntity;
@@ -12,13 +11,10 @@ import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TravelScheduleImplService extends AbstractTravelScheduleService {
@@ -78,14 +74,11 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     protected ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
-        List<ScheduleDayDTO> scheduleDayDTOS = createScheduleDays(scheduleTravelEntity);
         return new ScheduleDTO()
                 .setQtdDays(scheduleTravelEntity.getNumberDays())
                 .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
                 .setNameCity(scheduleTravelEntity.getCityEntity().getName())
-                .setScheduleCod(scheduleTravelEntity.getCod())
-                .setScheduleDay(scheduleDayDTOS);
-
+                .setScheduleCod(scheduleTravelEntity.getCod());
     }
 
     @Override
@@ -100,15 +93,4 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         return false;
     }
 
-    private List<ScheduleDayDTO> createScheduleDays(ScheduleTravelEntity scheduleTravelEntity) {
-        if (CollectionUtils.isEmpty(scheduleTravelEntity.getScheduleDayEntities())) {
-            return null;
-        }
-        return scheduleTravelEntity.getScheduleDayEntities()
-                .stream()
-                .map(s -> new ScheduleDayDTO()
-                        .setDay(s.getDay())
-                        .setActivitiesByActivityEntity(s.getActivities()))
-                .collect(Collectors.toList());
-    }
 }
