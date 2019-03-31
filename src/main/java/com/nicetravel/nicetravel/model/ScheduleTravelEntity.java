@@ -29,6 +29,9 @@ public class ScheduleTravelEntity extends BaseEntity {
     @Column(name = "ST_PUBLIC_ACCESS", nullable = false)
     private Boolean publicAccess;
 
+    @Column(name = "NU_STARS", nullable = false)
+    private Integer numberStar = 0;
+
     @Override
     public Long getCod() {
         return cod;
@@ -68,5 +71,13 @@ public class ScheduleTravelEntity extends BaseEntity {
 
     public void setPublicAccess(Boolean publicAccess) {
         this.publicAccess = publicAccess;
+    }
+
+    public Integer getNumberStar() {
+        return numberStar;
+    }
+
+    public void setNumberStar(Integer numberStar) {
+        this.numberStar = numberStar;
     }
 }
