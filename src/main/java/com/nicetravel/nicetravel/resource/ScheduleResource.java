@@ -23,10 +23,10 @@ public class ScheduleResource {
     private AbstractFindTravelScheduleService findTravelScheduleService;
 
     @GetMapping("/city")
-    public List<ScheduleDTO> getScheduleByCity(@RequestParam("cityName") String cityName,
-                                               @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
+    public List<ScheduleDTO> getSchedulesByCity(@RequestParam("cityName") String cityName,
+                                                @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
         if (StringUtils.isEmpty(cityName)) {
-            throw new EmptyValueException("The parameter of 'cityName' must have value");
+            throw new EmptyValueException("The parameter of 'cityName' must have value.");
         }
         return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
     }
@@ -37,7 +37,7 @@ public class ScheduleResource {
     }
 
     @GetMapping("/ids")
-    public List<ScheduleDTO> publishTravelSchedule(@RequestParam("travelIds") List<Long> travelIds) {
+    public List<ScheduleDTO> getSchedulesByIds(@RequestParam("travelIds") List<Long> travelIds) {
         if (CollectionUtils.isEmpty(travelIds)) {
             throw new EmptyValueException("The parameter of 'travelIds' must have at least one element.");
         }
