@@ -2,12 +2,12 @@ package com.nicetravel.nicetravel.resource;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
+import com.nicetravel.nicetravel.exceptions.EmptyValueException;
 import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.retrieve.AbstractFindTravelScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +25,9 @@ public class ScheduleResource {
     @GetMapping("/city")
     public List<ScheduleDTO> getScheduleByCity(@RequestParam("cityName") String cityName,
                                                @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
+        if (StringUtils.isEmpty(cityName)) {
+            throw new EmptyValueException("The parameter of 'cityName' must have value");
+        }
         return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
     }
 
@@ -34,13 +37,11 @@ public class ScheduleResource {
     }
 
     @GetMapping("/ids")
-    public ResponseEntity<?> publishTravelSchedule(@RequestParam("travelIds") List<Long> travelIds) {
+    public List<ScheduleDTO> publishTravelSchedule(@RequestParam("travelIds") List<Long> travelIds) {
         if (CollectionUtils.isEmpty(travelIds)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("The parameter of 'travelIds' must have at least one element.");
+            throw new EmptyValueException("The parameter of 'travelIds' must have at least one element.");
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(findTravelScheduleService.retrieveTravelSchedule(travelIds));
+        return findTravelScheduleService.retrieveTravelSchedule(travelIds);
     }
 
     @PostMapping
