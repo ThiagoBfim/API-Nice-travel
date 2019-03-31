@@ -33,6 +33,16 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return scheduleDayDTOS;
     }
 
+    @Override
+    public List<ScheduleDTO> retrieveTravelSchedule(List<Long> travelIds) {
+        List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
+        for (int i = 1; i <= travelIds.size(); i++) {
+            ScheduleDTO scheduleTravel = createScheduleTravel("Salvador", new Random().nextInt(10) + 1);
+            scheduleDTOS.add(scheduleTravel);
+        }
+        return scheduleDTOS;
+    }
+
     private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
         return new ScheduleDTO()
                 .setQtdDays(qtdDias)
