@@ -30,8 +30,15 @@ public class ScheduleTravelEntity extends BaseEntity {
     private Boolean publicAccess;
 
     @Column(name = "NU_STARS", nullable = false)
-    private Integer numberStar = 0;
+    private Integer numberStar;
 
+
+    @PrePersist
+    public void prePersist(){
+        if(numberStar == null){
+            numberStar = 0;
+        }
+    }
     @Override
     public Long getCod() {
         return cod;
