@@ -41,5 +41,5 @@ public abstract class AbstractTravelScheduleService {
     protected abstract ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity);
 
     @Transactional
-    public abstract boolean publishTravelSchedule(Long travelId);
+    public abstract boolean publishTravelSchedule(Long scheduleId);
 }

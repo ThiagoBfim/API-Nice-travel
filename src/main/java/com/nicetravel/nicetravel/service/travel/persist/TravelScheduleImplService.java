@@ -82,8 +82,8 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean publishTravelSchedule(Long travelId) {
-        Optional<ScheduleTravelEntity> scheduleTravelOptional = scheduleTravelRepository.findById(travelId);
+    public boolean publishTravelSchedule(Long scheduleId) {
+        Optional<ScheduleTravelEntity> scheduleTravelOptional = scheduleTravelRepository.findById(scheduleId);
         if (scheduleTravelOptional.isPresent()) {
             ScheduleTravelEntity scheduleTravel = scheduleTravelOptional.get();
             scheduleTravel.setPublicAccess(Boolean.TRUE);

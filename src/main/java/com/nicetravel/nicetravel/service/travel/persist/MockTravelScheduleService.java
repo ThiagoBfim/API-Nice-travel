@@ -16,8 +16,8 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean publishTravelSchedule(Long travelId) {
-        return travelId == 1L;
+    public boolean publishTravelSchedule(Long scheduleId) {
+        return scheduleId == 1L;
     }
 
     @Override

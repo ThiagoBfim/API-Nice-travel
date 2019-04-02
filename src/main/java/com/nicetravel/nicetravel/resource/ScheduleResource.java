@@ -45,8 +45,8 @@ public class ScheduleResource {
     }
 
     @PostMapping("/publish")
-    public boolean publishTravelSchedule(@RequestParam("travelId") Long travelId) {
-        return travelScheduleService.publishTravelSchedule(travelId);
+    public boolean publishTravelSchedule(@RequestParam("scheduleId") Long scheduleId) {
+        return travelScheduleService.publishTravelSchedule(scheduleId);
     }
 
 }
