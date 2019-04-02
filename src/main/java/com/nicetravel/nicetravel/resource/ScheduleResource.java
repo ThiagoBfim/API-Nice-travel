@@ -2,12 +2,9 @@ package com.nicetravel.nicetravel.resource;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
-import com.nicetravel.nicetravel.exceptions.EmptyValueException;
 import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.retrieve.AbstractFindTravelScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,23 +22,20 @@ public class ScheduleResource {
     @GetMapping("/city")
     public List<ScheduleDTO> getSchedulesByCity(@RequestParam("cityName") String cityName,
                                                 @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
-        if (StringUtils.isEmpty(cityName)) {
-            throw new EmptyValueException("The parameter of 'cityName' must have value.");
-        }
+        ResourceUtil.validateValue(cityName, "cityName");
         return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
     }
 
     @GetMapping("/days")
     public List<ScheduleDayDTO> getScheduleDaysByScheduleCod(@RequestParam("scheduleId") Long scheduleId) {
+        ResourceUtil.validateValue(scheduleId, "scheduleId");
         return findTravelScheduleService.getScheduleDays(scheduleId);
     }
 
     @GetMapping("/ids")
-    public List<ScheduleDTO> getSchedulesByIds(@RequestParam("travelIds") List<Long> travelIds) {
-        if (CollectionUtils.isEmpty(travelIds)) {
-            throw new EmptyValueException("The parameter of 'travelIds' must have at least one element.");
-        }
-        return findTravelScheduleService.retrieveTravelSchedule(travelIds);
+    public List<ScheduleDTO> getSchedulesByIds(@RequestParam("scheduleIds") List<Long> scheduleIds) {
+        ResourceUtil.validateValue(scheduleIds, "scheduleIds");
+        return findTravelScheduleService.retrieveTravelSchedule(scheduleIds);
     }
 
     @PostMapping

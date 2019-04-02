@@ -11,5 +11,5 @@ public abstract class AbstractFindTravelScheduleService {
 
     public abstract List<ScheduleDayDTO> getScheduleDays(Long scheduleId);
 
-    public abstract List<ScheduleDTO> retrieveTravelSchedule(List<Long> travelIds);
+    public abstract List<ScheduleDTO> retrieveTravelSchedule(List<Long> scheduleIds);
 }

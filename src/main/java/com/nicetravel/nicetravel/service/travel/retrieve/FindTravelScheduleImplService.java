@@ -20,7 +20,7 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
 
 
     @Transactional
-    public List<ScheduleDTO> retrieveTravelSchedule(List<Long> travelIds){
+    public List<ScheduleDTO> retrieveTravelSchedule(List<Long> scheduleIds){
         throw new UnsupportedOperationException("HAVE TO BE IMPLEMENTED");
     }
 }

@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ScheduleResourceTest {
@@ -18,17 +20,37 @@ public class ScheduleResourceTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenIdsWereNull() {
+    public void shouldThrowExceptionWhenGetSchedulesByIdsWereEmpty() {
         try {
-            scheduleResource.getSchedulesByIds(null);
+            scheduleResource.getSchedulesByIds(Collections.emptyList());
             Assert.fail("Have to throw error message.");
         } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'travelIds' must have at least one element.", equalTo(e.getMessage()));
+            Assert.assertThat("The parameter of 'scheduleIds' must have at least one element.", equalTo(e.getMessage()));
         }
     }
 
     @Test
-    public void shouldThrowExceptionWhenCityNameWasNull() {
+    public void shouldThrowExceptionWhenGetSchedulesByIdsWereNull() {
+        try {
+            scheduleResource.getSchedulesByIds(null);
+            Assert.fail("Have to throw error message.");
+        } catch (EmptyValueException e) {
+            Assert.assertThat("The parameter of 'scheduleIds' must have value.", equalTo(e.getMessage()));
+        }
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenGetScheduleByIdWereNull() {
+        try {
+            scheduleResource.getScheduleDaysByScheduleCod(null);
+            Assert.fail("Have to throw error message.");
+        } catch (EmptyValueException e) {
+            Assert.assertThat("The parameter of 'scheduleId' must have value.", equalTo(e.getMessage()));
+        }
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenGetScheduleByCityNameWasNull() {
         try {
             scheduleResource.getSchedulesByCity(null, 1);
             Assert.fail("Have to throw error message.");

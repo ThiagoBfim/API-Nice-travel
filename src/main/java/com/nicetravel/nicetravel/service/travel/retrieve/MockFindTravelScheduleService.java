@@ -34,9 +34,9 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
     }
 
     @Override
-    public List<ScheduleDTO> retrieveTravelSchedule(List<Long> travelIds) {
+    public List<ScheduleDTO> retrieveTravelSchedule(List<Long> scheduleIds) {
         List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
-        for (int i = 1; i <= travelIds.size(); i++) {
+        for (int i = 1; i <= scheduleIds.size(); i++) {
             ScheduleDTO scheduleTravel = createScheduleTravel("Salvador", new Random().nextInt(10) + 1);
             scheduleDTOS.add(scheduleTravel);
         }
