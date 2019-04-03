@@ -42,4 +42,7 @@ public abstract class AbstractTravelScheduleService {
 
     @Transactional
     public abstract boolean publishTravelSchedule(Long scheduleId);
+
+    @Transactional
+    public abstract boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote);
 }

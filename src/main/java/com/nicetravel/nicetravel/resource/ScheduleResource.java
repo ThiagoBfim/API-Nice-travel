@@ -49,4 +49,10 @@ public class ScheduleResource {
         return travelScheduleService.publishTravelSchedule(scheduleId);
     }
 
+    @PostMapping("/vote")
+    public boolean voteTravelSchedule(@RequestParam("scheduleId") Long scheduleId,
+                                      @RequestParam(value = "positiveVote", required = false, defaultValue = "true") Boolean positiveVote) {
+        return travelScheduleService.voteTravelSchedule(scheduleId, positiveVote);
+    }
+
 }

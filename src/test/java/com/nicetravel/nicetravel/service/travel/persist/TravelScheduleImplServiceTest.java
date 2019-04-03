@@ -37,28 +37,20 @@ public class TravelScheduleImplServiceTest extends NicetravelApplicationTests {
 
     @Test
     public void shouldSaveScheduleTravel() {
-        CityEntity cityEntity = travelScheduleService.saveCityOnDatabase("ChIJrTLr-GyuEmsRBfy61i59si0");
-        ScheduleTravelEntity scheduleTravelEntity = travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
+        ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
         Assert.assertNotNull(scheduleTravelEntity);
-        Assert.assertEquals(new Integer(0), scheduleTravelEntity.getNumberStar());
         Assert.assertEquals(5, scheduleTravelEntity.getScheduleDayEntities().size());
     }
 
     @Test
     public void shouldSaveScheduleTravelWithPrivateAccess() {
-        CityEntity cityEntity = travelScheduleService.saveCityOnDatabase("ChIJrTLr-GyuEmsRBfy61i59si0");
-        ScheduleTravelEntity scheduleTravelEntity = travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
-        Assert.assertNotNull(scheduleTravelEntity);
+        ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
         Assert.assertFalse(scheduleTravelEntity.getPublicAccess());
     }
 
     @Test
     public void shouldGivePublicAccesToSchedule() {
-        CityEntity cityEntity = travelScheduleService.saveCityOnDatabase("ChIJrTLr-GyuEmsRBfy61i59si0");
-        ScheduleTravelEntity scheduleTravelEntity = travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
-        Assert.assertNotNull(scheduleTravelEntity);
-        Assert.assertFalse(scheduleTravelEntity.getPublicAccess());
-
+        ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
         //Publish travel schedule
         boolean hasChangeAcessSchedule = travelScheduleService.publishTravelSchedule(scheduleTravelEntity.getCod());
         Assert.assertTrue(hasChangeAcessSchedule);
@@ -75,6 +67,20 @@ public class TravelScheduleImplServiceTest extends NicetravelApplicationTests {
     public void shouldCreateScheduleDTO() {
         ScheduleDTO scheduleDTO = travelScheduleService.generateTravelSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2);
         Assert.assertNotNull(scheduleDTO);
+    }
+
+    @Test
+    public void shouldIncrementVoteScheduleTravel() {
+        ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
+        Assert.assertEquals(new Integer(0), scheduleTravelEntity.getNumberStar());
+        boolean hasChangeAcessSchedule = travelScheduleService.voteTravelSchedule(scheduleTravelEntity.getCod(), true);
+        Assert.assertTrue(hasChangeAcessSchedule);
+        Assert.assertEquals(new Integer(1), scheduleTravelRepository.findById(scheduleTravelEntity.getCod()).get().getNumberStar());
+    }
+
+    private ScheduleTravelEntity createScheduleTravel() {
+        CityEntity cityEntity = travelScheduleService.saveCityOnDatabase("ChIJrTLr-GyuEmsRBfy61i59si0");
+        return travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
     }
 
 }

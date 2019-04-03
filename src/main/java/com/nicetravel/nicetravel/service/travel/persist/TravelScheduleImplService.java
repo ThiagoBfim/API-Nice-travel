@@ -91,10 +91,22 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     public boolean publishTravelSchedule(Long scheduleId) {
+        return updateScheduleTravel(scheduleId, scheduleTravel -> scheduleTravel.setPublicAccess(Boolean.TRUE));
+    }
+
+    @Override
+    public boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote) {
+        return updateScheduleTravel(scheduleId, scheduleTravel -> {
+            int vote = positiveVote ? 1 : -1;
+            scheduleTravel.setNumberStar(scheduleTravel.getNumberStar() + vote);
+        });
+    }
+
+    private boolean updateScheduleTravel(Long scheduleId, UpdateScheduleTravelConsumer consumer) {
         Optional<ScheduleTravelEntity> scheduleTravelOptional = scheduleTravelRepository.findById(scheduleId);
         if (scheduleTravelOptional.isPresent()) {
             ScheduleTravelEntity scheduleTravel = scheduleTravelOptional.get();
-            scheduleTravel.setPublicAccess(Boolean.TRUE);
+            consumer.accept(scheduleTravel);
             scheduleTravelRepository.save(scheduleTravel);
             return true;
         }

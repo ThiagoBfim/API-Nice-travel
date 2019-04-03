@@ -21,6 +21,11 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
+    public boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote) {
+        return false;
+    }
+
+    @Override
     protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
         travelEntity.setCod(1L);
