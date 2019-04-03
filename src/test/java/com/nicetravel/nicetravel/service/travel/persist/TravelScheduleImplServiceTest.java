@@ -41,6 +41,7 @@ public class TravelScheduleImplServiceTest extends NicetravelApplicationTests {
         ScheduleTravelEntity scheduleTravelEntity = travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
         Assert.assertNotNull(scheduleTravelEntity);
         Assert.assertEquals(new Integer(0), scheduleTravelEntity.getNumberStar());
+        Assert.assertEquals(5, scheduleTravelEntity.getScheduleDayEntities().size());
     }
 
     @Test

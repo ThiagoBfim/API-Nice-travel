@@ -2,6 +2,7 @@ package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
+import com.nicetravel.nicetravel.model.ScheduleDayEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.TypeCityEntity;
 import com.nicetravel.nicetravel.repository.CityRepository;
@@ -12,9 +13,7 @@ import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class TravelScheduleImplService extends AbstractTravelScheduleService {
@@ -38,6 +37,15 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
         scheduleTravelEntity.setCityEntity(cityEntity);
         scheduleTravelEntity.setNumberDays(numberDays);
+
+        List<ScheduleDayEntity> scheduleDays = new ArrayList<>();
+        for (int i = 1; i <= numberDays; i++) {
+            ScheduleDayEntity scheduleDayEntity = new ScheduleDayEntity();
+            scheduleDayEntity.setDay(i);
+            scheduleDayEntity.setScheduleTravelEntity(scheduleTravelEntity);
+            scheduleDays.add(scheduleDayEntity);
+        }
+        scheduleTravelEntity.setScheduleDayEntities(scheduleDays);
         return scheduleTravelRepository.save(scheduleTravelEntity);
     }
 
