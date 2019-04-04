@@ -2,7 +2,6 @@ package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.NicetravelApplicationTests;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.exceptions.GooglePlaceNotFoundException;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.repository.CityRepository;
@@ -27,12 +26,6 @@ public class TravelScheduleImplServiceTest extends NicetravelApplicationTests {
         String placeId = "ChIJrTLr-GyuEmsRBfy61i59si0";
         travelScheduleService.saveCityOnDatabase(placeId);
         Assert.assertTrue(cityRepository.findByPlaceID(placeId).isPresent());
-    }
-
-    @Test(expected = GooglePlaceNotFoundException.class)
-    public void shouldNotSaveCity() {
-        String placeId = "FAKE_PLACE_ID";
-        travelScheduleService.saveCityOnDatabase(placeId);
     }
 
     @Test

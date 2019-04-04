@@ -75,7 +75,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         if (placeDTO.getTypes() != null) {
             Set<TypeCityEntity> typeCityEntityList = new HashSet<>();
             Stream.of(placeDTO.getTypes().split(","))
-                    .forEach(type -> typeCityRepository.findByDescription(type).ifPresent(typeCityEntityList::add));
+                    .forEach(type -> typeCityRepository.findByDescription(type.trim()).ifPresent(typeCityEntityList::add));
             cityEntity.setTypeCities(typeCityEntityList);
         }
     }
