@@ -1,7 +1,6 @@
 package com.nicetravel.nicetravel.service.external;
 
 import com.nicetravel.nicetravel.exceptions.GooglePlaceNotFoundException;
-import com.nicetravel.nicetravel.util.PropertiesUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,13 @@ import static com.nicetravel.nicetravel.util.Constants.GOOGLE_MAPS_KEY;
 /**
  * API para o google MAPS/Place
  * <a href='https://developers.google.com/places/web-service/search#Fields'>Google Place API</a>
+ *
  */
 @Service
 public class GoogleMapsAPI {
 
-
     @Autowired
     private Environment environment;
-
-    @Autowired
-    private PropertiesUtil propertiesUtil;
 
     private static final String INVALID_REQUEST = "INVALID_REQUEST";
     private static final String urlGoogle = "https://maps.googleapis.com/maps/api/place/details/json?";
@@ -33,9 +29,6 @@ public class GoogleMapsAPI {
 
 
     public PlaceDTO getPlaceDTO(String placeId) {
-        if(propertiesUtil.isGoogleDisabled()){
-            return getMockPlaceDTO();
-        }
         ResponseEntity<String> responsePlaceInformation = getPlaceInformation(placeId);
 
         JSONObject bodyObject = new JSONObject(responsePlaceInformation.getBody());
@@ -88,13 +81,5 @@ public class GoogleMapsAPI {
                 HttpMethod.GET,
                 entity,
                 String.class);
-    }
-
-    private PlaceDTO getMockPlaceDTO() {
-        return new PlaceDTO().setName("teste")
-                .setLat(123.45)
-                .setLng(543.21)
-                .setTypes("bar, bank")
-                .setImageUrl("http://");
     }
 }

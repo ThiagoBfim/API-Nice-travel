@@ -1,17 +1,20 @@
 package com.nicetravel.nicetravel.external;
 
-import com.nicetravel.nicetravel.NicetravelApplicationTests;
 import com.nicetravel.nicetravel.exceptions.GooglePlaceNotFoundException;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@Ignore("This test will consult Google API. " +
-        "To enable this test have to be used with propertie: nice-travel.google.enabled=true.")
-public class GooglePlaceAPITest extends NicetravelApplicationTests {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@TestPropertySource(locations = "classpath:test.properties")
+public class GooglePlaceAPITest {
 
     @Autowired
     private GoogleMapsAPI googleMapsAPI;
