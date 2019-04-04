@@ -1,6 +1,6 @@
 package com.nicetravel.nicetravel.service.travel.persist;
 
-import com.nicetravel.nicetravel.NicetravelApplicationMockApisTests;
+import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class TravelScheduleImplServiceTest extends NicetravelApplicationMockApisTests {
+public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest {
 
     @Autowired
     private AbstractTravelScheduleService travelScheduleService;

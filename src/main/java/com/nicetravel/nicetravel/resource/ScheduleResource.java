@@ -40,12 +40,14 @@ public class ScheduleResource {
 
     @PostMapping
     public ScheduleDTO createTravelSchedule(@RequestParam("placeID") String placeID,
-                                            @RequestParam("numberDays") int numberDays) {
+                                            @RequestParam("numberDays") Integer numberDays) {
+        ResourceUtil.validateValue(numberDays, "numberDays");
         return travelScheduleService.generateTravelSchedule(placeID, numberDays);
     }
 
     @PostMapping("/publish")
     public boolean publishTravelSchedule(@RequestParam("scheduleId") Long scheduleId) {
+        ResourceUtil.validateValue(scheduleId, "scheduleId");
         return travelScheduleService.publishTravelSchedule(scheduleId);
     }
 

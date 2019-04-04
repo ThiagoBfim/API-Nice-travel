@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
-public class NicetravelApplicationMockApisTests {
+public class MockNicetravelApplicationTest {
 
     @MockBean
     private GoogleMapsAPI googleMapsAPI;
