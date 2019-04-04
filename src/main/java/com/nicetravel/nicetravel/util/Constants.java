@@ -4,6 +4,6 @@ public interface Constants {
     String SCHEMA = "DB_NICE_TRAVEL";
     String DEVELOP_MODE = "nice-travel.develop.enabled";
     String GOOGLE_MAPS_KEY = "nice-travel.google.api-key";
-    String GOOGLE_ÈNABLED = "nice-travel.google.enabled";
+    String GOOGLE_ENABLED = "nice-travel.google.enabled";
 
 }

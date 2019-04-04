@@ -6,7 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import static com.nicetravel.nicetravel.util.Constants.DEVELOP_MODE;
-import static com.nicetravel.nicetravel.util.Constants.GOOGLE_ÈNABLED;
+import static com.nicetravel.nicetravel.util.Constants.GOOGLE_ENABLED;
 
 @Component
 public class PropertiesUtil {
@@ -19,6 +19,6 @@ public class PropertiesUtil {
     }
 
     public boolean isGoogleDisabled() {
-        return BooleanUtils.isFalse(environment.getProperty(GOOGLE_ÈNABLED, Boolean.class));
+        return BooleanUtils.isFalse(environment.getProperty(GOOGLE_ENABLED, Boolean.class));
     }
 }
