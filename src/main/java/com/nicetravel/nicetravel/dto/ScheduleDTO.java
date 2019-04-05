@@ -1,9 +1,6 @@
 package com.nicetravel.nicetravel.dto;
 
-import org.springframework.util.CollectionUtils;
-
 import java.math.BigDecimal;
-import java.util.List;
 
 public class ScheduleDTO {
 
@@ -30,17 +27,8 @@ public class ScheduleDTO {
         return priceFinal;
     }
 
-    public ScheduleDTO setPriceFinal(List<ScheduleDayDTO> scheduleDay) {
-        if (CollectionUtils.isEmpty(scheduleDay)) {
-            this.priceFinal = BigDecimal.ZERO;
-            return this;
-        }
-        this.priceFinal = scheduleDay
-                .stream()
-                .filter(s -> s.getPriceDay() != null)
-                .map(ScheduleDayDTO::getPriceDay)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+    public ScheduleDTO setPriceFinal(BigDecimal priceFinal) {
+        this.priceFinal = priceFinal;
         return this;
     }
 

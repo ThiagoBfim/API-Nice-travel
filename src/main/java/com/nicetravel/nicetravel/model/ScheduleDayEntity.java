@@ -1,8 +1,10 @@
 package com.nicetravel.nicetravel.model;
 
 import com.nicetravel.nicetravel.util.Constants;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -53,5 +55,15 @@ public class ScheduleDayEntity extends BaseEntity {
 
     public void setScheduleTravelEntity(ScheduleTravelEntity scheduleTravelEntity) {
         this.scheduleTravelEntity = scheduleTravelEntity;
+    }
+
+    public BigDecimal getPriceDay() {
+        if (CollectionUtils.isEmpty(activities)) {
+            return BigDecimal.ZERO;
+        }
+        return activities.stream()
+                .filter(a -> a.getPrice() != null)
+                .map(ActivityEntity::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

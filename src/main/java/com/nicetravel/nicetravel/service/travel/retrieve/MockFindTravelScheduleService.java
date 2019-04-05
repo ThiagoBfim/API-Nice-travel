@@ -3,6 +3,7 @@ package com.nicetravel.nicetravel.service.travel.retrieve;
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -28,9 +29,19 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         for (int i = 1; i <= 2; i++) {
             scheduleDayDTOS.add(new ScheduleDayDTO()
                     .setDay(i)
-                    .setPriceDay(createActivities()));
+                    .setPriceDay(calculatePriceDay(createActivities())));
         }
         return scheduleDayDTOS;
+    }
+
+    public BigDecimal calculatePriceDay(List<ActivityDTO> activityDTOS) {
+        if (CollectionUtils.isEmpty(activityDTOS)) {
+            return BigDecimal.ZERO;
+        }
+        return activityDTOS.stream()
+                .filter(a -> a.getPrice() != null)
+                .map(ActivityDTO::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override
@@ -48,8 +59,20 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
                 .setQtdDays(qtdDias)
                 .setNameCity(cityName)
                 .setScheduleCod(qtdDias + 1L)
-                .setPriceFinal(getScheduleDays(1L))
+                .setPriceFinal(calculatePriceTravel(getScheduleDays(1L)))
                 .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");
+    }
+
+
+    private BigDecimal calculatePriceTravel(List<ScheduleDayDTO> scheduleDay){
+        if (CollectionUtils.isEmpty(scheduleDay)) {
+            return  BigDecimal.ZERO;
+        }
+        return scheduleDay
+                .stream()
+                .filter(s -> s.getPriceDay() != null)
+                .map(ScheduleDayDTO::getPriceDay)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private List<ActivityDTO> createActivities() {

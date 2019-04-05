@@ -1,8 +1,10 @@
 package com.nicetravel.nicetravel.model;
 
 import com.nicetravel.nicetravel.util.Constants;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -86,5 +88,23 @@ public class ScheduleTravelEntity extends BaseEntity {
 
     public void setNumberStar(Integer numberStar) {
         this.numberStar = numberStar;
+    }
+
+    public String getCityImageUrl() {
+        return cityEntity.getPhotoLink();
+    }
+
+    public String getCityName() {
+        return cityEntity.getName();
+    }
+
+    public BigDecimal getPriceFinal() {
+        if (CollectionUtils.isEmpty(scheduleDayEntities)) {
+            return BigDecimal.ZERO;
+        }
+        return scheduleDayEntities.stream()
+                .filter(a -> a.getPriceDay() != null)
+                .map(ScheduleDayEntity::getPriceDay)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

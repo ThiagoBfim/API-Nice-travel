@@ -1,61 +1,64 @@
 package com.nicetravel.nicetravel.recource;
 
-import com.nicetravel.nicetravel.exceptions.EmptyValueException;
+import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
+import com.nicetravel.nicetravel.dto.ScheduleDTO;
+import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
+import com.nicetravel.nicetravel.model.CityEntity;
+import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
+import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
-public class ScheduleResourceTest {
-
+    @Autowired
     private ScheduleResource scheduleResource;
 
-    @Before
-    public void setUp() {
-        scheduleResource = new ScheduleResource();
+    @MockBean
+    private ScheduleTravelRepository scheduleTravelRepository;
+
+
+    @Test
+    @Ignore
+    public void shouldReturnListScheduleDTO() {
+        List<Long> ids = new ArrayList<>();
+        ids.add(1L);
+        ids.add(2L);
+        List<ScheduleDTO> schedulesByIds = scheduleResource.getSchedulesByIds(Collections.singletonList(1L));
+
     }
 
     @Test
-    public void shouldThrowExceptionWhenGetSchedulesByIdsWereEmpty() {
-        try {
-            scheduleResource.getSchedulesByIds(Collections.emptyList());
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'scheduleIds' must have at least one element.", equalTo(e.getMessage()));
-        }
+    @Ignore
+    public void shouldReturnOneScheduleDTO() {
+        List<ScheduleDayDTO> scheduleDaysByScheduleCod = scheduleResource.getScheduleDaysByScheduleCod(1L);
     }
 
     @Test
-    public void shouldThrowExceptionWhenGetSchedulesByIdsWereNull() {
-        try {
-            scheduleResource.getSchedulesByIds(null);
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'scheduleIds' must have value.", equalTo(e.getMessage()));
-        }
-    }
+    public void shouldReturnTwoElementsWithSameCityName() {
 
-    @Test
-    public void shouldThrowExceptionWhenGetScheduleByIdWereNull() {
-        try {
-            scheduleResource.getScheduleDaysByScheduleCod(null);
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'scheduleId' must have value.", equalTo(e.getMessage()));
-        }
-    }
+        List<ScheduleTravelEntity> scheduleTravel = new ArrayList<>();
+        ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
+        CityEntity cityEntity = new CityEntity();
+        cityEntity.setName("CITY");
+        scheduleTravelEntity.setNumberDays(2);
+        scheduleTravelEntity.setCityEntity(cityEntity);
+        scheduleTravel.add(scheduleTravelEntity);
+        scheduleTravel.add(scheduleTravelEntity);
+        Mockito.when(scheduleTravelRepository.findByCityEntityNameAndPublicAccess(Mockito.eq("CITY"), Mockito.eq(true), Mockito.any()))
+                .thenReturn(scheduleTravel);
 
-    @Test
-    public void shouldThrowExceptionWhenGetScheduleByCityNameWasNull() {
-        try {
-            scheduleResource.getSchedulesByCity(null, 1);
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'cityName' must have value.", equalTo(e.getMessage()));
-        }
+        List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("CITY", 2);
+        Assert.assertEquals(2, scheduleDTOS.size());
+        Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
     }
 }
