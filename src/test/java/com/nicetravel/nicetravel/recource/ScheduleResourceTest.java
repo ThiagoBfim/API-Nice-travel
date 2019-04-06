@@ -10,14 +10,13 @@ import com.nicetravel.nicetravel.repository.ScheduleDayRepository;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class ScheduleResourceTest extends MockNicetravelApplicationTest {
@@ -31,15 +30,35 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
     @MockBean
     private ScheduleDayRepository scheduleDayRepository;
 
+    @Test
+    public void shouldReturnListScheduleDTO() {
+        List<Long> ids = Arrays.asList(1L,2L);
+        List<ScheduleTravelEntity> scheduleTravelEntityList = new ScheduleTravelListBuilder()
+                .createTravelEntity()
+                .createEntity(1)
+                .createTravelEntity()
+                .createEntity(2)
+                .retrieveListTravel();
+        Mockito.when(scheduleTravelRepository.findAllById(Mockito.eq(ids))).thenReturn(scheduleTravelEntityList);
+        List<ScheduleDTO> schedulesByIds = scheduleResource.getSchedulesByIds(ids);
+        Assert.assertEquals(2, schedulesByIds.size());
+    }
 
     @Test
-    @Ignore
-    public void shouldReturnListScheduleDTO() {
-        List<Long> ids = new ArrayList<>();
-        ids.add(1L);
-        ids.add(2L);
-        List<ScheduleDTO> schedulesByIds = scheduleResource.getSchedulesByIds(Collections.singletonList(1L));
+    public void shouldReturnTwoElementsWithSameCityName() {
 
+        List<ScheduleTravelEntity> scheduleTravelEntityList = new ScheduleTravelListBuilder()
+                .createTravelEntity()
+                .createEntity(1)
+                .createTravelEntity()
+                .createEntity(2)
+                .retrieveListTravel();
+        Mockito.when(scheduleTravelRepository.findByCityEntityNameAndPublicAccess(Mockito.eq("CITY"), Mockito.eq(true), Mockito.any()))
+                .thenReturn(scheduleTravelEntityList);
+
+        List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("CITY", 2);
+        Assert.assertEquals(2, scheduleDTOS.size());
+        Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
     }
 
     @Test
@@ -55,27 +74,54 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
         Assert.assertEquals(2, scheduleDaysByScheduleCod.size());
     }
 
-    @Test
-    public void shouldReturnTwoElementsWithSameCityName() {
+    /**
+     * Esse builder utiliza interface fluente para tornar o código mais legivel
+     */
+    private static class ScheduleTravelListBuilder {
+        List<ScheduleTravelEntity> scheduleTravel;
 
-        List<ScheduleTravelEntity> scheduleTravel = new ArrayList<>();
-        ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
-        scheduleTravel.add(scheduleTravelEntity);
-        scheduleTravel.add(scheduleTravelEntity);
-        Mockito.when(scheduleTravelRepository.findByCityEntityNameAndPublicAccess(Mockito.eq("CITY"), Mockito.eq(true), Mockito.any()))
-                .thenReturn(scheduleTravel);
+        ScheduleTravelListBuilder() {
+            scheduleTravel = new ArrayList<>();
+        }
 
-        List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("CITY", 2);
-        Assert.assertEquals(2, scheduleDTOS.size());
-        Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
+        public ScheduleTravelBuilder createTravelEntity() {
+            return new ScheduleTravelBuilder(this);
+        }
+
+        public List<ScheduleTravelEntity> retrieveListTravel() {
+            return scheduleTravel;
+        }
+
+        public void addScheduleTravelEntity(ScheduleTravelEntity scheduleTravelEntity) {
+            this.scheduleTravel.add(scheduleTravelEntity);
+        }
+
+        private static class ScheduleTravelBuilder {
+
+            private ScheduleTravelEntity scheduleTravelEntity;
+            private ScheduleTravelListBuilder scheduleTravelListBuilder;
+
+            ScheduleTravelBuilder(ScheduleTravelListBuilder scheduleTravelListBuilder) {
+                this.scheduleTravelListBuilder = scheduleTravelListBuilder;
+                scheduleTravelEntity = new ScheduleTravelEntity();
+            }
+
+            private void includeCity() {
+                CityEntity cityEntity = new CityEntity();
+                cityEntity.setName("CITY");
+                scheduleTravelEntity.setCityEntity(cityEntity);
+            }
+
+            ScheduleTravelListBuilder createEntity(long id) {
+                scheduleTravelEntity.setCod(id);
+                scheduleTravelEntity = new ScheduleTravelEntity();
+                scheduleTravelEntity.setNumberDays(2);
+                includeCity();
+                scheduleTravelListBuilder.addScheduleTravelEntity(scheduleTravelEntity);
+                return scheduleTravelListBuilder;
+            }
+
+        }
     }
 
-    private ScheduleTravelEntity createScheduleTravel() {
-        ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
-        CityEntity cityEntity = new CityEntity();
-        cityEntity.setName("CITY");
-        scheduleTravelEntity.setNumberDays(2);
-        scheduleTravelEntity.setCityEntity(cityEntity);
-        return scheduleTravelEntity;
-    }
 }

@@ -37,7 +37,8 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
 
     @Transactional
     public List<ScheduleDTO> retrieveTravelSchedule(@NonNull List<Long> scheduleIds) {
-        throw new UnsupportedOperationException("HAVE TO BE IMPLEMENTED");
+        List<ScheduleTravelEntity> scheduleTravelEntityList = scheduleTravelRepository.findAllById(scheduleIds);
+        return scheduleTravelEntityList.stream().map(this::scheduleEntityToDTO).collect(Collectors.toList());
     }
 
     private ScheduleDTO scheduleEntityToDTO(ScheduleTravelEntity scheduleTravel) {
