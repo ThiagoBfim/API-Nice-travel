@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
@@ -45,8 +46,20 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
     }
 
     @Test
-    public void shouldReturnTwoElementsWithSameCityName() {
+    public void shouldIncreaseVoteAndReturnTrue() {
 
+        ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
+        scheduleTravelEntity.setCod(1L);
+        scheduleTravelEntity.setNumberStar(0);
+
+        Mockito.when(scheduleTravelRepository.findById(Mockito.eq(1L)))
+                .thenReturn(Optional.of(scheduleTravelEntity));
+        boolean increaseVote = scheduleResource.voteTravelSchedule(1L, Boolean.TRUE);
+        Assert.assertTrue(increaseVote);
+    }
+
+    @Test
+    public void shouldReturnTwoElementsWithSameCityName() {
         List<ScheduleTravelEntity> scheduleTravelEntityList = new ScheduleTravelListBuilder()
                 .createTravelEntity()
                 .createEntity(1)
@@ -102,8 +115,8 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
             private ScheduleTravelListBuilder scheduleTravelListBuilder;
 
             ScheduleTravelBuilder(ScheduleTravelListBuilder scheduleTravelListBuilder) {
-                this.scheduleTravelListBuilder = scheduleTravelListBuilder;
                 scheduleTravelEntity = new ScheduleTravelEntity();
+                this.scheduleTravelListBuilder = scheduleTravelListBuilder;
             }
 
             private void includeCity() {
@@ -114,12 +127,12 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
             ScheduleTravelListBuilder createEntity(long id) {
                 scheduleTravelEntity.setCod(id);
-                scheduleTravelEntity = new ScheduleTravelEntity();
                 scheduleTravelEntity.setNumberDays(2);
                 includeCity();
                 scheduleTravelListBuilder.addScheduleTravelEntity(scheduleTravelEntity);
                 return scheduleTravelListBuilder;
             }
+
 
         }
     }
