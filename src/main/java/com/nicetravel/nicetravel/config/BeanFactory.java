@@ -1,5 +1,11 @@
 package com.nicetravel.nicetravel.config;
 
+import com.nicetravel.nicetravel.service.activity.persist.AbstractActivityService;
+import com.nicetravel.nicetravel.service.activity.persist.ActivityImplService;
+import com.nicetravel.nicetravel.service.activity.persist.MockActivityService;
+import com.nicetravel.nicetravel.service.activity.retrieve.AbstractFindActivityService;
+import com.nicetravel.nicetravel.service.activity.retrieve.FindActivityImplService;
+import com.nicetravel.nicetravel.service.activity.retrieve.MockFindActivityService;
 import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.persist.MockTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.persist.TravelScheduleImplService;
@@ -31,6 +37,22 @@ public class BeanFactory {
             return new MockFindTravelScheduleService();
         }
         return new FindTravelScheduleImplService();
+    }
+
+    @Bean
+    public AbstractFindActivityService findActivityService(){
+        if(propertiesUtil.isDevelopMode()){
+            return new MockFindActivityService();
+        }
+        return new FindActivityImplService();
+    }
+
+    @Bean
+    public AbstractActivityService activityService(){
+        if(propertiesUtil.isDevelopMode()){
+            return new MockActivityService();
+        }
+        return new ActivityImplService();
     }
 
 }
