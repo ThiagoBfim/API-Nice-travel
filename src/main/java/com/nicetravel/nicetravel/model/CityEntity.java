@@ -6,7 +6,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_CITY", schema = Constants.SCHEMA
+@Table(
+        name = "TB_CITY",
+        schema = Constants.SCHEMA,
+        uniqueConstraints = {@UniqueConstraint(name = "UK_DS_NAME",columnNames = "DS_NAME")}
 )
 public class CityEntity extends BaseEntity {
 
@@ -17,7 +20,7 @@ public class CityEntity extends BaseEntity {
     @GeneratedValue(generator = PK_GENERATOR_NAME, strategy = GenerationType.AUTO)
     private Long cod;
 
-    @Column(name = "DS_NAME", nullable = false, length = 300, unique = true)//FIXME UK está errada.
+    @Column(name = "DS_NAME", nullable = false, length = 300)
     private String name;
 
     @Column(name = "DS_LATITUDE", nullable = false)
