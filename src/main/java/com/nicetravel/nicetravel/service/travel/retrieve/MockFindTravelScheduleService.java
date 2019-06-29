@@ -26,7 +26,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
     @Override
     public List<ScheduleDayDTO> getScheduleDays(Long scheduleId) {
         List<ScheduleDayDTO> scheduleDayDTOS = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= scheduleId; i++) {
             scheduleDayDTOS.add(new ScheduleDayDTO()
                     .setDay(i)
                     .setPriceDay(calculatePriceDay(createActivities())));

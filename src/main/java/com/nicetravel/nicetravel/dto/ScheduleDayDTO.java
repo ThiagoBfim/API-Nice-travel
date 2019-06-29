@@ -1,6 +1,7 @@
 package com.nicetravel.nicetravel.dto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ScheduleDayDTO {
 
@@ -17,7 +18,7 @@ public class ScheduleDayDTO {
     }
 
     public BigDecimal getPriceDay() {
-        return priceDay;
+        return priceDay.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public ScheduleDayDTO setPriceDay(BigDecimal priceDay) {
