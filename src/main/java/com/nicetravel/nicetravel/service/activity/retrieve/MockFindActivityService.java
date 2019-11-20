@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MockFindActivityService extends AbstractFindActivityService{
     @Override
-    public List<ActivityDTO> getActivities() {
+    public List<ActivityDTO> getActivities(Long scheduleDayId) {
         List<ActivityDTO> lista = new ArrayList<>();
         for (int i =0;i<9;i++){
             lista.add(

@@ -6,6 +6,6 @@ import java.util.List;
 
 public abstract class AbstractFindActivityService {
 
-    public abstract List<ActivityDTO> getActivities();
+    public abstract List<ActivityDTO> getActivities(Long scheduleDayId);
 
 }

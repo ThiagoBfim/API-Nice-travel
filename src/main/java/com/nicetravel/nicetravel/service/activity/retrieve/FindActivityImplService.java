@@ -2,10 +2,8 @@ package com.nicetravel.nicetravel.service.activity.retrieve;
 
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.model.ActivityEntity;
-import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,9 +15,12 @@ public class FindActivityImplService extends AbstractFindActivityService {
     private ActivityRepository activityRepository;
 
     @Override
-    public List<ActivityDTO> getActivities() {
-        List<ActivityEntity> lista =  activityRepository.findAll(); //FIXME dessa forma vai buscar todos, é necessário filtrar pelo Schedule ScheduleTravelEntity#cod
-        return lista.stream().map(this::activityEntityToDTO).collect(Collectors.toList());
+    public List<ActivityDTO> getActivities(Long scheduleDayId) {
+        List<ActivityEntity> activities = activityRepository.findAllByScheduleDayEntityCod(scheduleDayId);
+        return activities
+                .stream()
+                .map(this::activityEntityToDTO)
+                .collect(Collectors.toList());
     }
 
 
