@@ -13,6 +13,8 @@ public class ActivityDTO {
     private LocalTime startActivity;
     private LocalTime finishActivity;
     private String styleActivity;
+    private Long idScheduleDay;
+    private Long id;
 
     public ActivityDTO(ActivityEntity activityEntity) {
         setNameOfPlace(activityEntity.getName());
@@ -20,6 +22,7 @@ public class ActivityDTO {
         setStartActivity(activityEntity.getDtStart());
         setFinishActivity(activityEntity.getDtEnd());
         setPrice(activityEntity.getPrice());
+        setIdScheduleDay(activityEntity.getScheduleDayEntity().getCod());
         setStyleActivity(activityEntity.getStyleActivity().getDescription());
     }
 
@@ -77,6 +80,24 @@ public class ActivityDTO {
 
     public ActivityDTO setStyleActivity(String styleActivity) {
         this.styleActivity = styleActivity;
+        return this;
+    }
+
+    public Long getIdScheduleDay() {
+        return idScheduleDay;
+    }
+
+    public ActivityDTO setIdScheduleDay(Long idScheduleDay) {
+        this.idScheduleDay = idScheduleDay;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public ActivityDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 }

@@ -1,5 +1,6 @@
 package com.nicetravel.nicetravel.service.travel.retrieve;
 
+import com.github.javafaker.Faker;
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
@@ -46,7 +47,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
     public List<ScheduleDTO> retrieveTravelSchedule(List<Long> scheduleIds) {
         List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
         for (int i = 1; i <= scheduleIds.size(); i++) {
-            ScheduleDTO scheduleTravel = createScheduleTravel("Salvador", new Random().nextInt(10) + 1);
+            ScheduleDTO scheduleTravel = createScheduleTravel(new Faker().address().cityName(), new Random().nextInt(10) + 1);
             scheduleDTOS.add(scheduleTravel);
         }
         return scheduleDTOS;

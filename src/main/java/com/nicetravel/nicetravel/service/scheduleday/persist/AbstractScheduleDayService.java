@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 public abstract class AbstractScheduleDayService {
 
+    @Transactional
     public abstract void removeById(Long scheduleDayId);
 
     public ScheduleDayDTO addScheduleDay(Long scheduleId){

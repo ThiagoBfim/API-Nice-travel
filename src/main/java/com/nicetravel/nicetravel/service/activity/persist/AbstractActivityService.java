@@ -1,9 +1,12 @@
 package com.nicetravel.nicetravel.service.activity.persist;
 
-import com.nicetravel.nicetravel.model.ActivityEntity;
+import com.nicetravel.nicetravel.dto.ActivityDTO;
+
+import javax.transaction.Transactional;
 
 public abstract class AbstractActivityService {
 
-    public abstract ActivityEntity saveActivityOnDatabase(ActivityEntity scheduleDayEntity);
+    @Transactional
+    public abstract ActivityDTO saveActivityOnDatabase(ActivityDTO activityDTO);
 
 }
