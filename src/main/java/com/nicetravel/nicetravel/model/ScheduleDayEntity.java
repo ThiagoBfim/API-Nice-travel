@@ -5,6 +5,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,16 +22,19 @@ public class ScheduleDayEntity extends BaseEntity {
     @Column(name = "NU_DAY", nullable = false)
     private Integer day;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleDayEntity")
-    private List<ActivityEntity> activities;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleDayEntity", cascade = CascadeType.ALL)
+    private List<ActivityEntity> activities = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CO_SCHEDULE_TRAVEL", foreignKey = @ForeignKey(name = "FK_SCHEDULE_DAY_TO_SCHEDULE_TRAVEL"), nullable = false)
     private ScheduleTravelEntity scheduleTravelEntity;
 
     @Override
     public Long getCod() {
         return cod;
+    }
+    public void setCod(Long cod) {
+        this.cod = cod;
     }
 
     public Integer getDay() {

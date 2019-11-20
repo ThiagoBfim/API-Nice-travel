@@ -2,11 +2,8 @@ package com.nicetravel.nicetravel.recource;
 
 import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
-import com.nicetravel.nicetravel.model.ScheduleDayEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
-import com.nicetravel.nicetravel.repository.ScheduleDayRepository;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
 import org.junit.Assert;
@@ -27,9 +24,6 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
     @MockBean
     private ScheduleTravelRepository scheduleTravelRepository;
-
-    @MockBean
-    private ScheduleDayRepository scheduleDayRepository;
 
     @Test
     public void shouldReturnListScheduleDTO() {
@@ -72,19 +66,6 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
         List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("CITY", 2);
         Assert.assertEquals(2, scheduleDTOS.size());
         Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
-    }
-
-    @Test
-    public void shouldReturnListScheduleDaysDTO() {
-        List<ScheduleDayEntity> scheduleDayEntities = new ArrayList<>();
-        ScheduleDayEntity scheduleDayEntity = new ScheduleDayEntity();
-        scheduleDayEntity.setDay(1);
-        scheduleDayEntities.add(scheduleDayEntity);
-        scheduleDayEntities.add(scheduleDayEntity);
-
-        Mockito.when(scheduleDayRepository.findAllByScheduleTravelEntityCod(Mockito.eq(1L))).thenReturn(scheduleDayEntities);
-        List<ScheduleDayDTO> scheduleDaysByScheduleCod = scheduleResource.getScheduleDaysByScheduleCod(1L);
-        Assert.assertEquals(2, scheduleDaysByScheduleCod.size());
     }
 
     /**

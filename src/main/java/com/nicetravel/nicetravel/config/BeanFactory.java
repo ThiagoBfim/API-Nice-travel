@@ -6,6 +6,12 @@ import com.nicetravel.nicetravel.service.activity.persist.MockActivityService;
 import com.nicetravel.nicetravel.service.activity.retrieve.AbstractFindActivityService;
 import com.nicetravel.nicetravel.service.activity.retrieve.FindActivityImplService;
 import com.nicetravel.nicetravel.service.activity.retrieve.MockFindActivityService;
+import com.nicetravel.nicetravel.service.scheduleday.persist.AbstractScheduleDayService;
+import com.nicetravel.nicetravel.service.scheduleday.persist.MockScheduleDayService;
+import com.nicetravel.nicetravel.service.scheduleday.persist.ScheduleDayImplService;
+import com.nicetravel.nicetravel.service.scheduleday.retrieve.AbstractFindScheduleDayService;
+import com.nicetravel.nicetravel.service.scheduleday.retrieve.FindScheduleDayImplService;
+import com.nicetravel.nicetravel.service.scheduleday.retrieve.MockFindScheduleDayService;
 import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.persist.MockTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.persist.TravelScheduleImplService;
@@ -37,6 +43,22 @@ public class BeanFactory {
             return new MockFindTravelScheduleService();
         }
         return new FindTravelScheduleImplService();
+    }
+
+    @Bean
+    public AbstractScheduleDayService scheduleDay() {
+        if (propertiesUtil.isDevelopMode()) {
+            return new MockScheduleDayService();
+        }
+        return new ScheduleDayImplService();
+    }
+
+    @Bean
+    public AbstractFindScheduleDayService findScheduleDay() {
+        if (propertiesUtil.isDevelopMode()) {
+            return new MockFindScheduleDayService();
+        }
+        return new FindScheduleDayImplService();
     }
 
     @Bean

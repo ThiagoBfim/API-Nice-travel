@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class ScheduleDayDTO {
 
+    private Long id;
     private int day;
     private BigDecimal priceDay;
 
@@ -25,4 +26,12 @@ public class ScheduleDayDTO {
          return this;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public ScheduleDayDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
 }

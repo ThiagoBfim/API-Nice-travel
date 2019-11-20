@@ -1,7 +1,6 @@
 package com.nicetravel.nicetravel.resource;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
 import com.nicetravel.nicetravel.service.travel.persist.AbstractTravelScheduleService;
 import com.nicetravel.nicetravel.service.travel.retrieve.AbstractFindTravelScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,6 @@ public class ScheduleResource {
         return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
     }
 
-    @GetMapping("/days")
-    public List<ScheduleDayDTO> getScheduleDaysByScheduleCod(@RequestParam("scheduleId") Long scheduleId) {
-        ResourceUtil.validateValue(scheduleId, "scheduleId");
-        return findTravelScheduleService.getScheduleDays(scheduleId);
-    }
-
     @GetMapping("/ids")
     public List<ScheduleDTO> getSchedulesByIds(@RequestParam("scheduleIds") List<Long> scheduleIds) {
         ResourceUtil.validateValue(scheduleIds, "scheduleIds");
@@ -42,6 +35,7 @@ public class ScheduleResource {
     public ScheduleDTO createTravelSchedule(@RequestParam("placeID") String placeID,
                                             @RequestParam("numberDays") Integer numberDays) {
         ResourceUtil.validateValue(numberDays, "numberDays");
+        ResourceUtil.validateValue(placeID, "placeID");
         return travelScheduleService.generateTravelSchedule(placeID, numberDays);
     }
 
