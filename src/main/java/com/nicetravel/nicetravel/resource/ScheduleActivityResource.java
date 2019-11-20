@@ -15,14 +15,14 @@ import java.util.List;
 public class ScheduleActivityResource {
 
     @Autowired
-    AbstractFindActivityService abstractFindActivityService;
+    private AbstractFindActivityService abstractFindActivityService;
 
     @Autowired
-    AbstractActivityService abstractActivityService;
+    private AbstractActivityService abstractActivityService;
 
     @GetMapping
-    public List<ActivityDTO> getActivities(){
-        return abstractFindActivityService.getActivities();
+    public List<ActivityDTO> getActivities(@RequestParam("scheduleDayId") Long scheduleDayId){
+        return abstractFindActivityService.getActivities(scheduleDayId);
     }
 
     @PostMapping
