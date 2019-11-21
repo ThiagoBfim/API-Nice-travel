@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 public abstract class AbstractActivityService {
 
     @Transactional
-    public abstract ActivityDTO saveActivityOnDatabase(ActivityDTO activityDTO);
+    public abstract ActivityDTO saveActivity(ActivityDTO activityDTO);
 
+    public abstract void delete(Long activityId);
 }

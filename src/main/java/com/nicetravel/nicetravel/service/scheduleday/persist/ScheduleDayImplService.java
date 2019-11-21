@@ -16,7 +16,7 @@ public class ScheduleDayImplService extends AbstractScheduleDayService {
     private ScheduleTravelRepository scheduleRepository;
 
     @Override
-    public void removeById(Long scheduleDayId) {
+    public void deleteById(Long scheduleDayId) {
         scheduleDayRepository.deleteById(scheduleDayId);
     }
 

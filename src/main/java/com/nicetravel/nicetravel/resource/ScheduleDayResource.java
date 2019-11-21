@@ -25,13 +25,13 @@ public class ScheduleDayResource {
         return findScheduleDayService.getScheduleDays(scheduleId);
     }
 
-    @DeleteMapping("/remove")
-    public void removeByScheduleDayId(@RequestParam("scheduleDayId") Long scheduleDayId) {
+    @DeleteMapping("/delete")
+    public void deleteByScheduleDayId(@RequestParam("scheduleDayId") Long scheduleDayId) {
         ResourceUtil.validateValue(scheduleDayId, "scheduleDayId");
-        scheduleDayService.removeById(scheduleDayId);
+        scheduleDayService.deleteById(scheduleDayId);
     }
 
-    @DeleteMapping("/add")
+    @PostMapping("/add")
     public ScheduleDayDTO addScheduleDay(@RequestParam("scheduleId") Long scheduleId) {
         ResourceUtil.validateValue(scheduleId, "scheduleId");
         return scheduleDayService.addScheduleDay(scheduleId);

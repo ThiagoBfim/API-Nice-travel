@@ -24,7 +24,7 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
     @Test
     public void shouldSaveCity() {
         String placeId = "ChIJrTLr-GyuEmsRBfy61i59si0";
-        travelScheduleService.saveCityOnDatabase(placeId);
+        travelScheduleService.saveCity(placeId);
         Assert.assertTrue(cityRepository.findByPlaceID(placeId).isPresent());
     }
 
@@ -72,8 +72,8 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
     }
 
     private ScheduleTravelEntity createScheduleTravel() {
-        CityEntity cityEntity = travelScheduleService.saveCityOnDatabase("ChIJrTLr-GyuEmsRBfy61i59si0");
-        return travelScheduleService.saveScheduleTravelOnDatabase(cityEntity, 5);
+        CityEntity cityEntity = travelScheduleService.saveCity("ChIJrTLr-GyuEmsRBfy61i59si0");
+        return travelScheduleService.saveScheduleTravel(cityEntity, 5);
     }
 
 }

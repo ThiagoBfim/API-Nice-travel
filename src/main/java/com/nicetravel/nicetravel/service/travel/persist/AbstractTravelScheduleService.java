@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 public abstract class AbstractTravelScheduleService {
 
     public ScheduleDTO generateTravelSchedule(String placeID, int numberDays) {
-        CityEntity cityEntity = saveCityOnDatabase(placeID);
-        ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravelOnDatabase(cityEntity, numberDays);
+        CityEntity cityEntity = saveCity(placeID);
+        ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravel(cityEntity, numberDays);
         return createScheduleDTO(scheduleTravelEntity);
     }
 
@@ -25,7 +25,7 @@ public abstract class AbstractTravelScheduleService {
      * @return ScheduleTravelEntity
      */
     @Transactional
-    protected abstract ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays);
+    protected abstract ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays);
 
     /**
      * This method have to find city in Google API {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI} and save the City.
@@ -36,7 +36,7 @@ public abstract class AbstractTravelScheduleService {
      * @return CityEntity
      */
     @Transactional
-    protected abstract CityEntity saveCityOnDatabase(String placeID);
+    protected abstract CityEntity saveCity(String placeID);
 
     protected abstract ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity);
 

@@ -21,12 +21,19 @@ public class ScheduleActivityResource {
 
     @GetMapping
     public List<ActivityDTO> getActivities(@RequestParam("scheduleDayId") Long scheduleDayId) {
+        ResourceUtil.validateValue(scheduleDayId, "scheduleDayId");
         return abstractFindActivityService.getActivities(scheduleDayId);
     }
 
     @PostMapping
     public ActivityDTO addActivity(@Valid @RequestBody ActivityDTO activityDTO) {
-        return abstractActivityService.saveActivityOnDatabase(activityDTO);
+        return abstractActivityService.saveActivity(activityDTO);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteActivity(@RequestParam("activityId") Long activityId) {
+        ResourceUtil.validateValue(activityId, "activityId");
+        abstractActivityService.delete(activityId);
     }
 
 }

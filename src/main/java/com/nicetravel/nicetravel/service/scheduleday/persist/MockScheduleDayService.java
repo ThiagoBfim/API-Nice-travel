@@ -9,13 +9,16 @@ import java.util.Random;
 public class MockScheduleDayService extends AbstractScheduleDayService {
 
     @Override
-    public void removeById(Long scheduleDayId) {
+    public void deleteById(Long scheduleDayId) {
         //NOOP
     }
 
     @Override
     public ScheduleDayEntity saveScheduleDay(Long scheduleId) {
-        return new ScheduleDayEntity();
+        ScheduleDayEntity scheduleDayEntity = new ScheduleDayEntity();
+        scheduleDayEntity.setDay(10);
+        scheduleDayEntity.setCod(10L);
+        return scheduleDayEntity;
     }
 
 

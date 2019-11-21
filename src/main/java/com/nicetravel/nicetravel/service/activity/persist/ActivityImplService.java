@@ -17,7 +17,7 @@ public class ActivityImplService extends AbstractActivityService {
     private ScheduleDayRepository scheduleDayRepository;
 
     @Override
-    public ActivityDTO saveActivityOnDatabase(ActivityDTO activityDTO) {
+    public ActivityDTO saveActivity(ActivityDTO activityDTO) {
         ActivityEntity activityEntity;
         if (activityDTO.getId() != null) {
             activityEntity = activityRepository.getOne(activityDTO.getId());
@@ -34,5 +34,10 @@ public class ActivityImplService extends AbstractActivityService {
         ActivityEntity activitySaved = activityRepository.save(activityEntity);
         activityDTO.setId(activitySaved.getCod());
         return activityDTO;
+    }
+
+    @Override
+    public void delete(Long activityId) {
+        activityRepository.deleteById(activityId);
     }
 }

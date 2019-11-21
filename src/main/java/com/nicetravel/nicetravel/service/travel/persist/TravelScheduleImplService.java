@@ -32,7 +32,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     private ScheduleTravelRepository scheduleTravelRepository;
 
     @Override
-    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
+    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
         scheduleTravelEntity.setCityEntity(cityEntity);
@@ -52,7 +52,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     @Transactional
-    protected CityEntity saveCityOnDatabase(String placeID) {
+    protected CityEntity saveCity(String placeID) {
         Optional<CityEntity> cityEntityOptional = cityRepository.findByPlaceID(placeID);
         if (cityEntityOptional.isPresent()) {
             return cityEntityOptional.get();

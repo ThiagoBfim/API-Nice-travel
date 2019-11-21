@@ -26,7 +26,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected ScheduleTravelEntity saveScheduleTravelOnDatabase(CityEntity cityEntity, int numberDays) {
+    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays) {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
         travelEntity.setCod(1L);
         travelEntity.setCityEntity(cityEntity);
@@ -36,7 +36,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected CityEntity saveCityOnDatabase(String cityName) {
+    protected CityEntity saveCity(String cityName) {
         return createCityEntity(cityName);
     }
 

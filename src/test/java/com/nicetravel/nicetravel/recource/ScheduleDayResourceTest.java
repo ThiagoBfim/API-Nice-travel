@@ -44,7 +44,7 @@ public class ScheduleDayResourceTest extends MockNicetravelApplicationTest {
 
     @Test
     public void shouldDeleteScheduleDays() {
-        scheduleDayResource.removeByScheduleDayId(1L);
+        scheduleDayResource.deleteByScheduleDayId(1L);
         Mockito.verify(scheduleDayRepository).deleteById(Mockito.eq(1L));
     }
 
