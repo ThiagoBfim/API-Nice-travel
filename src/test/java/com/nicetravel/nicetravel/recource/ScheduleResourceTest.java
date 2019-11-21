@@ -6,8 +6,11 @@ import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Answers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,9 +28,12 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
     @MockBean
     private ScheduleTravelRepository scheduleTravelRepository;
 
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    private ScheduleTravelEntity scheduleTravelEntity;
+
     @Test
     public void shouldReturnListScheduleDTO() {
-        List<Long> ids = Arrays.asList(1L,2L);
+        List<Long> ids = Arrays.asList(1L, 2L);
         List<ScheduleTravelEntity> scheduleTravelEntityList = new ScheduleTravelListBuilder()
                 .createTravelEntity()
                 .createEntity(1)
@@ -41,7 +47,6 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
     @Test
     public void shouldIncreaseVoteAndReturnTrue() {
-
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setCod(1L);
         scheduleTravelEntity.setNumberStar(0);
@@ -67,6 +72,22 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
         Assert.assertEquals(2, scheduleDTOS.size());
         Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
     }
+
+    @Test
+    public void shouldCreateTravel() {
+        Mockito.when(scheduleTravelRepository.save(Mockito.any())).thenReturn(scheduleTravelEntity);
+        ScheduleDTO travelSchedule = scheduleResource.createTravelSchedule("123", 5);
+        Assert.assertNotNull(travelSchedule);
+    }
+
+    @Test
+    public void shouldPublishTravelSchedule() {
+        ScheduleTravelEntity spy = Mockito.spy(ScheduleTravelEntity.class);
+        Mockito.when(scheduleTravelRepository.findById(Mockito.eq(1L))).thenReturn(Optional.of(spy));
+        scheduleResource.publishTravelSchedule(1L);
+        Assertions.assertThat(spy.getPublicAccess()).isEqualTo(Boolean.TRUE);
+    }
+
 
     /**
      * Esse builder utiliza interface fluente para tornar o código mais legivel

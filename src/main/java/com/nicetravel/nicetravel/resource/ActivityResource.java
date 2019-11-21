@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/activity")
-public class ScheduleActivityResource {
+public class ActivityResource {
 
     @Autowired
     private AbstractFindActivityService abstractFindActivityService;

@@ -51,6 +51,10 @@ public class ActivityEntity extends BaseEntity {
         return cod;
     }
 
+    public void setCod(Long cod) {
+        this.cod = cod;
+    }
+
     public String getName() {
         return name;
     }

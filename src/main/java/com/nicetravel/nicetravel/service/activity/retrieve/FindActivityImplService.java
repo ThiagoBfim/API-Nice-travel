@@ -26,6 +26,7 @@ public class FindActivityImplService extends AbstractFindActivityService {
 
     private ActivityDTO activityEntityToDTO(ActivityEntity activityEntity) {
         return new ActivityDTO()
+                .setId(activityEntity.getCod())
                 .setStyleActivity(activityEntity.getStyleActivity().getDescription())
                 .setPrice(activityEntity.getPrice())
                 .setStartActivity(activityEntity.getDtStart())
