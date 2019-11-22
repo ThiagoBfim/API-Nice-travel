@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class ActivityResourceTest extends MockNicetravelApplicationTest {
     private ActivityEntity mockActivity(long cod) {
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setCod(cod);
+        activityEntity.setDtStart(LocalTime.now());
         activityEntity.setStyleActivity(StyleActivity.OTHER);
         return activityEntity;
     }
