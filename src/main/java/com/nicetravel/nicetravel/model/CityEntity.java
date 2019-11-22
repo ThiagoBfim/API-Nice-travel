@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(
         name = "TB_CITY",
         schema = Constants.SCHEMA,
-        uniqueConstraints = {@UniqueConstraint(name = "UK_DS_NAME",columnNames = "DS_NAME")}
+        uniqueConstraints = {@UniqueConstraint(name = "UK_PLACE_ID",columnNames = "CO_PLACE_ID")}
 )
 public class CityEntity extends BaseEntity {
 
