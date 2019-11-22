@@ -1,6 +1,7 @@
 package com.nicetravel.nicetravel.service.activity.retrieve;
 
 import com.nicetravel.nicetravel.dto.ActivityDTO;
+import com.nicetravel.nicetravel.model.enuns.StyleActivity;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
@@ -22,6 +23,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
                 .setDescription("Faby Buggy apresenta o que tem de melhor no nosso lindo litoral Sul ,PORTO DE GALINHAS/PE e Regiões , " +
                         "aqui vocês vão encontrar as opções de Lazer,cultura e Diversões .. Somos uma equipe que trabalhamos para seu " +
                         "lazer e sossego com total segurança Responsabilidade e pontualidade")
+                .setStyleActivity(StyleActivity.PARK.getDescription())
                 .setStartActivity(LocalTime.of(7, 30))
                 .setFinishActivity(LocalTime.of(18, 00))
                 .setPrice(new BigDecimal(new Random().nextInt(250) + 100.21)));
@@ -29,6 +31,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
         activityDTOList.add(new ActivityDTO()
                 .setNameOfPlace("Tomar Banho e se arrumar")
                 .setDescription("Tomar um banho e se prepara para noite.")
+                .setStyleActivity(StyleActivity.OTHER.getDescription())
                 .setStartActivity(LocalTime.of(18, 00))
                 .setFinishActivity(LocalTime.of(19, 30)));
 
@@ -36,14 +39,17 @@ public class MockFindActivityService extends AbstractFindActivityService {
                 .setNameOfPlace("Cabidela da Natália")
                 .setDescription("Pratos típicos muito bons. O carro chefe da casa, a galinha à cabidela, " +
                         "é imperdível. Cardápio variado: carnes, aves, peixes e pizzas.")
+                .setStyleActivity(StyleActivity.RESTAURANT.getDescription())
                 .setStartActivity(LocalTime.of(19, 40))
                 .setFinishActivity(LocalTime.of(21, 20))
                 .setPrice(new BigDecimal(new Random().nextInt(60) + 15)));
 
 
+
         activityDTOList.add(new ActivityDTO()
                 .setNameOfPlace("Birosca da Cachaça")
                 .setDescription("Cachaças de vários sabores, com diversidade de gosto, preços de alcance para todos, muita variedade, com frutas, madeiras")
+                .setStyleActivity(StyleActivity.BAR.getDescription())
                 .setStartActivity(LocalTime.of(21, 40))
                 .setFinishActivity(LocalTime.of(23, 59))
                 .setPrice(new BigDecimal(new Random().nextInt(120))));
