@@ -6,6 +6,10 @@ import com.nicetravel.nicetravel.model.enuns.StyleActivity;
 import com.nicetravel.nicetravel.repository.ActivityRepository;
 import com.nicetravel.nicetravel.repository.ScheduleDayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
+
+import java.math.BigDecimal;
+import java.time.LocalTime;
 
 
 public class ActivityImplService extends AbstractActivityService {
@@ -17,23 +21,24 @@ public class ActivityImplService extends AbstractActivityService {
     private ScheduleDayRepository scheduleDayRepository;
 
     @Override
-    public ActivityDTO saveActivity(ActivityDTO activityDTO) {
+    public ActivityDTO saveActivity(String description, String nameOfPlace, BigDecimal price, LocalTime startActivity,
+                                    LocalTime finishActivity, String styleActivity, Long idScheduleDay, @Nullable Long id) {
+
         ActivityEntity activityEntity;
-        if (activityDTO.getId() != null) {
-            activityEntity = activityRepository.getOne(activityDTO.getId());
+        if (id != null) {
+            activityEntity = activityRepository.getOne(id);
         } else {
             activityEntity = new ActivityEntity();
         }
-        activityEntity.setName(activityDTO.getNameOfPlace());
-        activityEntity.setStyleActivity(StyleActivity.valueOfEnum(activityDTO.getStyleActivity()));
-        activityEntity.setPrice(activityDTO.getPrice());
-        activityEntity.setDtStart(activityDTO.getStartActivity());
-        activityEntity.setDtEnd(activityDTO.getFinishActivity());
-        activityEntity.setDescription(activityDTO.getDescription());
-        activityEntity.setScheduleDayEntity(scheduleDayRepository.getOne(activityDTO.getIdScheduleDay()));
+        activityEntity.setName(nameOfPlace);
+        activityEntity.setStyleActivity(StyleActivity.valueOfEnum(styleActivity));
+        activityEntity.setPrice(price);
+        activityEntity.setDtStart(startActivity);
+        activityEntity.setDtEnd(finishActivity);
+        activityEntity.setDescription(description);
+        activityEntity.setScheduleDayEntity(scheduleDayRepository.getOne(idScheduleDay));
         ActivityEntity activitySaved = activityRepository.save(activityEntity);
-        activityDTO.setId(activitySaved.getCod());
-        return activityDTO;
+        return new ActivityDTO(activitySaved);
     }
 
     @Override

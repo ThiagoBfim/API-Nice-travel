@@ -3,6 +3,7 @@ package com.nicetravel.nicetravel.recource;
 import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
 import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.model.ActivityEntity;
+import com.nicetravel.nicetravel.model.ScheduleDayEntity;
 import com.nicetravel.nicetravel.model.enuns.StyleActivity;
 import com.nicetravel.nicetravel.repository.ActivityRepository;
 import com.nicetravel.nicetravel.resource.ActivityResource;
@@ -12,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +49,19 @@ public class ActivityResourceTest extends MockNicetravelApplicationTest {
 
     @Test
     public void shouldAddActivity() {
-        ActivityDTO activityDTO = new ActivityDTO()
-                .setIdScheduleDay(11L)
-                .setStyleActivity(StyleActivity.OTHER.getDescription());
         ActivityEntity activityEntity = new ActivityEntity();
+        activityEntity.setScheduleDayEntity(Mockito.mock(ScheduleDayEntity.class));
+        activityEntity.setStyleActivity(StyleActivity.OTHER);
         activityEntity.setCod(9L);
         Mockito.when(activityRepository.save(Mockito.any())).thenReturn(activityEntity);
-        ActivityDTO activityDTORetrieved = activityResource.addActivity(activityDTO);
+        ActivityDTO activityDTORetrieved = activityResource.addActivity("-",
+                "-",
+                BigDecimal.ZERO,
+                LocalTime.now(),
+                null,
+                StyleActivity.OTHER.getDescription(),
+                11L,
+                null);
         Assertions.assertThat(activityDTORetrieved.getId()).isEqualTo(activityEntity.getCod());
     }
 

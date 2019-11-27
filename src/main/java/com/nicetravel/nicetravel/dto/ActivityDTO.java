@@ -24,6 +24,7 @@ public class ActivityDTO {
         setPrice(activityEntity.getPrice());
         setIdScheduleDay(activityEntity.getScheduleDayEntity().getCod());
         setStyleActivity(activityEntity.getStyleActivity().getDescription());
+        setId(activityEntity.getCod());
     }
 
     public ActivityDTO() {
