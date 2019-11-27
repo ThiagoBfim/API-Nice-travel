@@ -1,7 +1,6 @@
 package com.nicetravel.nicetravel.service.travel.retrieve;
 
 import com.github.javafaker.Faker;
-import com.nicetravel.nicetravel.dto.ActivityDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.dto.ScheduleDayDTO;
 import org.springframework.util.CollectionUtils;
@@ -33,16 +32,6 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return scheduleDayDTOS;
     }
 
-    private BigDecimal calculatePriceDay(List<ActivityDTO> activityDTOS) {
-        if (CollectionUtils.isEmpty(activityDTOS)) {
-            return BigDecimal.ZERO;
-        }
-        return activityDTOS.stream()
-                .filter(a -> a.getPrice() != null)
-                .map(ActivityDTO::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
     @Override
     public List<ScheduleDTO> retrieveTravelSchedule(List<Long> scheduleIds) {
         List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
@@ -55,6 +44,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
 
     private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
         return new ScheduleDTO()
+                .setUserName("Joaquim")
                 .setQtdDays(qtdDias)
                 .setNameCity(cityName)
                 .setScheduleCod(qtdDias + 1L)
