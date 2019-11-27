@@ -61,7 +61,7 @@ public class ScheduleResourceExceptionsTest {
     @Test
     public void shouldThrowExceptionWhenCreateTravelDaysWasNull() {
         try {
-            scheduleResource.createTravelSchedule("PLACE_ID", null);
+            scheduleResource.createTravelSchedule("PLACE_ID", null, "132", "emai@mail", "teste");
             Assert.fail("Have to throw error message.");
         } catch (EmptyValueException e) {
             Assert.assertThat("The parameter of 'numberDays' must have value.", equalTo(e.getMessage()));
@@ -71,7 +71,7 @@ public class ScheduleResourceExceptionsTest {
     @Test
     public void shouldThrowExceptionWhenCreateTravelPlaceIdWasNull() {
         try {
-            scheduleResource.createTravelSchedule(null, 5);
+            scheduleResource.createTravelSchedule(null, 5, "132", "emai@mail", "teste");
             Assert.fail("Have to throw error message.");
         } catch (EmptyValueException e) {
             Assert.assertThat("The parameter of 'placeID' must have value.", equalTo(e.getMessage()));

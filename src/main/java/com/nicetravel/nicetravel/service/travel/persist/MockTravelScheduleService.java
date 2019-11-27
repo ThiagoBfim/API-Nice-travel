@@ -3,6 +3,7 @@ package com.nicetravel.nicetravel.service.travel.persist;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
+import com.nicetravel.nicetravel.model.UserEntity;
 
 public class MockTravelScheduleService extends AbstractTravelScheduleService {
 
@@ -26,12 +27,18 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays) {
+    protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
+        return new UserEntity();
+    }
+
+    @Override
+    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays, UserEntity userOwner) {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
         travelEntity.setCod(1L);
         travelEntity.setCityEntity(cityEntity);
         travelEntity.setNumberDays(numberDays);
         travelEntity.setPublicAccess(Boolean.FALSE);
+        travelEntity.setUserOwner(userOwner);
         return travelEntity;
     }
 

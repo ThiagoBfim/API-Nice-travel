@@ -1,13 +1,11 @@
 package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
-import com.nicetravel.nicetravel.model.CityEntity;
-import com.nicetravel.nicetravel.model.ScheduleDayEntity;
-import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
-import com.nicetravel.nicetravel.model.TypeCityEntity;
+import com.nicetravel.nicetravel.model.*;
 import com.nicetravel.nicetravel.repository.CityRepository;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.repository.TypeCityRepository;
+import com.nicetravel.nicetravel.repository.UserRepository;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +29,25 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     @Autowired
     private ScheduleTravelRepository scheduleTravelRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays) {
+    protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
+        UserEntity userEntity = userRepository.findByUid(userUID).orElse(new UserEntity());
+        userEntity.setUid(userUID);
+        userEntity.setEmail(userEmail);
+        userEntity.setName(userName);
+        return userRepository.save(userEntity);
+    }
+
+    @Override
+    protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays, UserEntity userOwner) {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
         scheduleTravelEntity.setCityEntity(cityEntity);
         scheduleTravelEntity.setNumberDays(numberDays);
+        scheduleTravelEntity.setUserOwner(userOwner);
 
         List<ScheduleDayEntity> scheduleDays = new ArrayList<>();
         for (int i = 1; i <= numberDays; i++) {
@@ -82,11 +93,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     protected ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
-        return new ScheduleDTO()
-                .setQtdDays(scheduleTravelEntity.getNumberDays())
-                .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
-                .setNameCity(scheduleTravelEntity.getCityEntity().getName())
-                .setScheduleCod(scheduleTravelEntity.getCod());
+        return new ScheduleDTO(scheduleTravelEntity);
     }
 
     @Override

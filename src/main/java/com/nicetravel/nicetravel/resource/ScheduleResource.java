@@ -33,10 +33,16 @@ public class ScheduleResource {
 
     @PostMapping
     public ScheduleDTO createTravelSchedule(@RequestParam("placeID") String placeID,
-                                            @RequestParam("numberDays") Integer numberDays) {
+                                            @RequestParam("numberDays") Integer numberDays,
+                                            @RequestParam("userUID") String userUID,
+                                            @RequestParam("userEmail") String userEmail,
+                                            @RequestParam("userName") String userName) {
         ResourceUtil.validateValue(numberDays, "numberDays");
         ResourceUtil.validateValue(placeID, "placeID");
-        return travelScheduleService.generateTravelSchedule(placeID, numberDays);
+        ResourceUtil.validateValue(userUID, "userUID");
+        ResourceUtil.validateValue(userEmail, "userEmail");
+        ResourceUtil.validateValue(userName, "userName");
+        return travelScheduleService.generateTravelSchedule(placeID, numberDays, userUID, userEmail, userName);
     }
 
     @PostMapping("/publish")

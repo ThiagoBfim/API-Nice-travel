@@ -4,6 +4,7 @@ import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
+import com.nicetravel.nicetravel.model.UserEntity;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
 import org.assertj.core.api.Assertions;
@@ -76,7 +77,7 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
     @Test
     public void shouldCreateTravel() {
         Mockito.when(scheduleTravelRepository.save(Mockito.any())).thenReturn(scheduleTravelEntity);
-        ScheduleDTO travelSchedule = scheduleResource.createTravelSchedule("123", 5);
+        ScheduleDTO travelSchedule = scheduleResource.createTravelSchedule("123", 5, "132", "emai@mail", "teste");
         Assert.assertNotNull(travelSchedule);
     }
 
@@ -130,6 +131,7 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
             ScheduleTravelListBuilder createEntity(long id) {
                 scheduleTravelEntity.setCod(id);
                 scheduleTravelEntity.setNumberDays(2);
+                scheduleTravelEntity.setUserOwner(new UserEntity());
                 includeCity();
                 scheduleTravelListBuilder.addScheduleTravelEntity(scheduleTravelEntity);
                 return scheduleTravelListBuilder;

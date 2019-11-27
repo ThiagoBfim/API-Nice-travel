@@ -30,12 +30,7 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
     }
 
     private ScheduleDTO scheduleEntityToDTO(ScheduleTravelEntity scheduleTravel) {
-        return new ScheduleDTO()
-                .setPriceFinal(scheduleTravel.getPriceFinal())
-                .setScheduleCod(scheduleTravel.getCod())
-                .setImageUrl(scheduleTravel.getCityImageUrl())
-                .setNameCity(scheduleTravel.getCityName())
-                .setQtdDays(scheduleTravel.getNumberDays());
+        return new ScheduleDTO(scheduleTravel);
     }
 
 }

@@ -29,6 +29,10 @@ public class ScheduleTravelEntity extends BaseEntity {
     @JoinColumn(name = "CO_CITY", foreignKey = @ForeignKey(name = "FK_SCHEDULE_TRAVEL_TO_CITY"), nullable = false)
     private CityEntity cityEntity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CO_USER", foreignKey = @ForeignKey(name = "FK_SCHEDULE_TRAVEL_TO_USER"), nullable = false)
+    private UserEntity userOwner;
+
     @Column(name = "ST_PUBLIC_ACCESS", nullable = false)
     private Boolean publicAccess;
 
@@ -97,6 +101,14 @@ public class ScheduleTravelEntity extends BaseEntity {
 
     public String getCityName() {
         return cityEntity.getName();
+    }
+
+    public UserEntity getUserOwner() {
+        return userOwner;
+    }
+
+    public void setUserOwner(UserEntity userOwner) {
+        this.userOwner = userOwner;
     }
 
     public BigDecimal getPriceFinal() {

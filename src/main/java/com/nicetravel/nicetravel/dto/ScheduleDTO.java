@@ -1,5 +1,7 @@
 package com.nicetravel.nicetravel.dto;
 
+import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
+
 import java.math.BigDecimal;
 
 public class ScheduleDTO {
@@ -9,6 +11,22 @@ public class ScheduleDTO {
     private String nameCity;
     private Long scheduleCod;
     private BigDecimal priceFinal;
+    private String userUID;
+    private String userName;
+
+    public ScheduleDTO() {
+        //NOOP
+    }
+
+    public ScheduleDTO(ScheduleTravelEntity scheduleTravel) {
+        setPriceFinal(scheduleTravel.getPriceFinal());
+        setScheduleCod(scheduleTravel.getCod());
+        setImageUrl(scheduleTravel.getCityImageUrl());
+        setNameCity(scheduleTravel.getCityName());
+        setQtdDays(scheduleTravel.getNumberDays());
+        setUserName(scheduleTravel.getUserOwner().getName());
+        setUserUID(scheduleTravel.getUserOwner().getUid());
+    }
 
     public int getQtdDays() {
         return qtdDays;
@@ -52,6 +70,24 @@ public class ScheduleDTO {
 
     public ScheduleDTO setScheduleCod(Long scheduleCod) {
         this.scheduleCod = scheduleCod;
+        return this;
+    }
+
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public ScheduleDTO setUserUID(String userUID) {
+        this.userUID = userUID;
+        return this;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public ScheduleDTO setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 }

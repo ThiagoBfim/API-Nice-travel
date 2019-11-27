@@ -4,6 +4,7 @@ import com.nicetravel.nicetravel.MockNicetravelApplicationTest;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
+import com.nicetravel.nicetravel.model.UserEntity;
 import com.nicetravel.nicetravel.repository.CityRepository;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import org.junit.Assert;
@@ -58,7 +59,7 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
 
     @Test
     public void shouldCreateScheduleDTO() {
-        ScheduleDTO scheduleDTO = travelScheduleService.generateTravelSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2);
+        ScheduleDTO scheduleDTO = travelScheduleService.generateTravelSchedule("ChIJrTLr-GyuEmsRBfy61i59si0", 2, "132", "emai@mail", "teste");
         Assert.assertNotNull(scheduleDTO);
     }
 
@@ -73,7 +74,8 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
 
     private ScheduleTravelEntity createScheduleTravel() {
         CityEntity cityEntity = travelScheduleService.saveCity("ChIJrTLr-GyuEmsRBfy61i59si0");
-        return travelScheduleService.saveScheduleTravel(cityEntity, 5);
+        UserEntity userOwner = travelScheduleService.createOrGetUser("123", "teste@mail.com", "teste");
+        return travelScheduleService.saveScheduleTravel(cityEntity, 5, userOwner);
     }
 
 }
