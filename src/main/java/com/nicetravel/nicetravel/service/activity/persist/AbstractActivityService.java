@@ -19,5 +19,6 @@ public abstract class AbstractActivityService {
                                              Long idScheduleDay,
                                              @Nullable Long id);
 
+    @Transactional
     public abstract void delete(Long activityId);
 }
