@@ -25,7 +25,7 @@ public enum StyleActivity {
 
     public static StyleActivity valueOfEnum(@NonNull String description) {
         for (StyleActivity type : StyleActivity.values()) {
-            if (description.trim().equals(type.getDescription())) {
+            if (description.trim().equalsIgnoreCase(type.getDescription())) {
                 return type;
             }
         }
