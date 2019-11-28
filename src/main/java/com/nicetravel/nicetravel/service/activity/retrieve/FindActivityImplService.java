@@ -27,13 +27,6 @@ public class FindActivityImplService extends AbstractFindActivityService {
 
 
     private ActivityDTO activityEntityToDTO(ActivityEntity activityEntity) {
-        return new ActivityDTO()
-                .setId(activityEntity.getCod())
-                .setStyleActivity(activityEntity.getStyleActivity().getDescription())
-                .setPrice(activityEntity.getPrice())
-                .setStartActivity(activityEntity.getDtStart())
-                .setFinishActivity(activityEntity.getDtEnd())
-                .setNameOfPlace(activityEntity.getName())
-                .setDescription(activityEntity.getDescription());
+        return new ActivityDTO(activityEntity);
     }
 }
