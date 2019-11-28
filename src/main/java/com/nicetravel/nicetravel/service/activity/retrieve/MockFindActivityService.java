@@ -19,6 +19,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
     private List<ActivityDTO> createActivities() {
         List<ActivityDTO> activityDTOList = new ArrayList<>();
         activityDTOList.add(new ActivityDTO()
+                .setId(1L)
                 .setNameOfPlace("Faby Buggy Turismo")
                 .setDescription("Faby Buggy apresenta o que tem de melhor no nosso lindo litoral Sul ,PORTO DE GALINHAS/PE e Regiões , " +
                         "aqui vocês vão encontrar as opções de Lazer,cultura e Diversões .. Somos uma equipe que trabalhamos para seu " +
@@ -29,6 +30,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
                 .setPrice(new BigDecimal(new Random().nextInt(250) + 100.21)));
 
         activityDTOList.add(new ActivityDTO()
+                .setId(2L)
                 .setNameOfPlace("Tomar Banho e se arrumar")
                 .setDescription("Tomar um banho e se prepara para noite.")
                 .setStyleActivity(StyleActivity.OTHER.getDescription())
@@ -36,6 +38,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
                 .setFinishActivity(LocalTime.of(19, 30)));
 
         activityDTOList.add(new ActivityDTO()
+                .setId(3L)
                 .setNameOfPlace("Cabidela da Natália")
                 .setDescription("Pratos típicos muito bons. O carro chefe da casa, a galinha à cabidela, " +
                         "é imperdível. Cardápio variado: carnes, aves, peixes e pizzas.")
@@ -47,6 +50,7 @@ public class MockFindActivityService extends AbstractFindActivityService {
 
 
         activityDTOList.add(new ActivityDTO()
+                .setId(4L)
                 .setNameOfPlace("Birosca da Cachaça")
                 .setDescription("Cachaças de vários sabores, com diversidade de gosto, preços de alcance para todos, muita variedade, com frutas, madeiras")
                 .setStyleActivity(StyleActivity.BAR.getDescription())

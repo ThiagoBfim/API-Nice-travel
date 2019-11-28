@@ -50,4 +50,6 @@ public abstract class AbstractTravelScheduleService {
 
     @Transactional
     public abstract boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote);
+
+    public abstract void delete(Long scheduleId);
 }

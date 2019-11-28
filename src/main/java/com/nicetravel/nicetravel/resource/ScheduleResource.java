@@ -45,6 +45,12 @@ public class ScheduleResource {
         return travelScheduleService.generateTravelSchedule(placeID, numberDays, userUID, userEmail, userName);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteTravelSchedule(@RequestParam("scheduleId") Long scheduleId) {
+        ResourceUtil.validateValue(scheduleId, "scheduleId");
+        travelScheduleService.delete(scheduleId);
+    }
+
     @PostMapping("/publish")
     public boolean publishTravelSchedule(@RequestParam("scheduleId") Long scheduleId) {
         ResourceUtil.validateValue(scheduleId, "scheduleId");

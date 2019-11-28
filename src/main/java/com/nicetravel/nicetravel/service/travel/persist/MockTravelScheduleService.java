@@ -27,6 +27,10 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
+    public void delete(Long scheduleId) {
+    }
+
+    @Override
     protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
         return new UserEntity();
     }

@@ -109,6 +109,11 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         });
     }
 
+    @Override
+    public void delete(Long scheduleId) {
+        scheduleTravelRepository.deleteById(scheduleId);
+    }
+
     private boolean updateScheduleTravel(Long scheduleId, UpdateScheduleTravelConsumer consumer) {
         Optional<ScheduleTravelEntity> scheduleTravelOptional = scheduleTravelRepository.findById(scheduleId);
         if (scheduleTravelOptional.isPresent()) {
