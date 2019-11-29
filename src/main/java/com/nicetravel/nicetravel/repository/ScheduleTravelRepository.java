@@ -9,6 +9,7 @@ import java.util.List;
 public interface ScheduleTravelRepository extends JpaRepository<ScheduleTravelEntity, Long> {
 
     List<ScheduleTravelEntity> findByCityEntityNameAndPublicAccess(String cityName, Boolean publicAccess, Pageable pageable);
+    List<ScheduleTravelEntity> findByPublicAccessOrderByNumberStarDesc(Boolean publicAccess, Pageable pageable);
 
     List<ScheduleTravelEntity> findAllByUserOwnerUid(String userUID);
 }

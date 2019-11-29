@@ -40,25 +40,6 @@ public class ScheduleResourceExceptionsTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenGetScheduleByCityNameWasNull() {
-        try {
-            scheduleResource.getSchedulesByCity(null, 1);
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'cityName' must have value.", equalTo(e.getMessage()));
-        }
-    }
-   @Test
-    public void shouldThrowExceptionWhenGetScheduleByCityNameWasEmpty() {
-        try {
-            scheduleResource.getSchedulesByCity("", 1);
-            Assert.fail("Have to throw error message.");
-        } catch (EmptyValueException e) {
-            Assert.assertThat("The parameter of 'cityName' must have value.", equalTo(e.getMessage()));
-        }
-    }
-
-    @Test
     public void shouldThrowExceptionWhenCreateTravelDaysWasNull() {
         try {
             scheduleResource.createTravelSchedule("PLACE_ID", null, "132", "emai@mail", "teste");

@@ -17,9 +17,15 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
     private ScheduleTravelRepository scheduleTravelRepository;
 
     @Override
-    public List<ScheduleDTO> getScheduleByCityName(@NonNull String cityName, @NonNull Integer sizeElements) {
-        List<ScheduleTravelEntity> scheduleTravelEntityList = scheduleTravelRepository
-                .findByCityEntityNameAndPublicAccess(cityName, Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
+    public List<ScheduleDTO> getScheduleByCityName(String cityName, @NonNull Integer sizeElements) {
+        List<ScheduleTravelEntity> scheduleTravelEntityList;
+        if (cityName == null) {
+            scheduleTravelEntityList = scheduleTravelRepository
+                    .findByPublicAccessOrderByNumberStarDesc(Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
+        } else {
+            scheduleTravelEntityList = scheduleTravelRepository
+                    .findByCityEntityNameAndPublicAccess(cityName, Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
+        }
         return scheduleTravelEntityList.stream().map(this::scheduleEntityToDTO).collect(Collectors.toList());
     }
 

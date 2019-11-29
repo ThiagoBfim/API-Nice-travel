@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class AbstractFindTravelScheduleService {
 
-    public abstract List<ScheduleDTO> getScheduleByCityName(@NonNull String cityName, @NonNull Integer sizeElements);
+    public abstract List<ScheduleDTO> getScheduleByCityName(String cityName, @NonNull Integer sizeElements);
 
     public abstract List<ScheduleDTO> retrieveTravelSchedule(@NonNull List<Long> scheduleIds);
 
