@@ -15,7 +15,6 @@ import static com.nicetravel.nicetravel.util.Constants.GOOGLE_MAPS_KEY;
 /**
  * API para o google MAPS/Place
  * <a href='https://developers.google.com/places/web-service/search#Fields'>Google Place API</a>
- *
  */
 @Service
 public class GoogleMapsAPI {
@@ -39,8 +38,13 @@ public class GoogleMapsAPI {
         }
         JSONObject result = bodyObject.getJSONObject("result");
 
-        JSONObject photo = (JSONObject) (result.getJSONArray("photos").get(0));
-        String imageUrl = createImageURL(photo);
+        String imageUrl;
+        if (StringUtils.isNotBlank(result.optString("photos"))) {
+            JSONObject photo = (JSONObject) (result.getJSONArray("photos").get(0));
+            imageUrl = createImageURL(photo);
+        } else {
+            imageUrl = "https://i.pinimg.com/736x/07/0e/67/070e67abfd0cb1c8fb9336ab5c44ec8a.jpg";
+        }
 
         JSONObject locationJson = result.getJSONObject("geometry").getJSONObject("location");
         String name = (String) result.get("name");
