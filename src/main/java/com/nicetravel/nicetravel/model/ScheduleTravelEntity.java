@@ -19,9 +19,6 @@ public class ScheduleTravelEntity extends BaseEntity {
     @GeneratedValue(generator = PK_GENERATOR_NAME, strategy = GenerationType.AUTO)
     private Long cod;
 
-    @Column(name = "NU_DIAS", nullable = false)
-    private Integer numberDays;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleTravelEntity", cascade = CascadeType.ALL)
     private List<ScheduleDayEntity> scheduleDayEntities = new ArrayList<>();
 
@@ -53,14 +50,6 @@ public class ScheduleTravelEntity extends BaseEntity {
 
     public void setCod(Long cod) {
         this.cod = cod;
-    }
-
-    public Integer getNumberDays() {
-        return numberDays;
-    }
-
-    public void setNumberDays(Integer numberDays) {
-        this.numberDays = numberDays;
     }
 
     public List<ScheduleDayEntity> getScheduleDayEntities() {

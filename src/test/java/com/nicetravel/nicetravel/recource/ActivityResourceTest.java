@@ -44,6 +44,7 @@ public class ActivityResourceTest extends MockNicetravelApplicationTest {
         activityEntity.setCod(cod);
         activityEntity.setDtStart(LocalTime.now());
         activityEntity.setStyleActivity(StyleActivity.OTHER);
+        activityEntity.setScheduleDayEntity(new ScheduleDayEntity());
         return activityEntity;
     }
 

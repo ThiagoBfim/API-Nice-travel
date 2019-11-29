@@ -46,7 +46,6 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
         scheduleTravelEntity.setCityEntity(cityEntity);
-        scheduleTravelEntity.setNumberDays(numberDays);
         scheduleTravelEntity.setUserOwner(userOwner);
 
         List<ScheduleDayEntity> scheduleDays = new ArrayList<>();

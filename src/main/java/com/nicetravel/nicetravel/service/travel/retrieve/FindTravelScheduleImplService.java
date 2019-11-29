@@ -29,6 +29,12 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
         return scheduleTravelEntityList.stream().map(this::scheduleEntityToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ScheduleDTO> retrieveTravelScheduleByUserUID(String userUID) {
+        return scheduleTravelRepository.findAllByUserOwnerUid(userUID)
+                .stream().map(this::scheduleEntityToDTO).collect(Collectors.toList());
+    }
+
     private ScheduleDTO scheduleEntityToDTO(ScheduleTravelEntity scheduleTravel) {
         return new ScheduleDTO(scheduleTravel);
     }

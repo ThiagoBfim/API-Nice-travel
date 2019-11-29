@@ -31,6 +31,12 @@ public class ScheduleResource {
         return findTravelScheduleService.retrieveTravelSchedule(scheduleIds);
     }
 
+    @GetMapping("/userUID")
+    public List<ScheduleDTO> getSchedulesByUserUID(@RequestParam("userUID") String userUID) {
+        ResourceUtil.validateValue(userUID, "userUID");
+        return findTravelScheduleService.retrieveTravelScheduleByUserUID(userUID);
+    }
+
     @PostMapping
     public ScheduleDTO createTravelSchedule(@RequestParam("placeID") String placeID,
                                             @RequestParam("numberDays") Integer numberDays,

@@ -130,7 +130,6 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
             ScheduleTravelListBuilder createEntity(long id) {
                 scheduleTravelEntity.setCod(id);
-                scheduleTravelEntity.setNumberDays(2);
                 scheduleTravelEntity.setUserOwner(new UserEntity());
                 includeCity();
                 scheduleTravelListBuilder.addScheduleTravelEntity(scheduleTravelEntity);

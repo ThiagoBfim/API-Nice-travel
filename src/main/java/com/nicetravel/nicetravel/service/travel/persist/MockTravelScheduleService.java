@@ -10,7 +10,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     @Override
     public ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
         return new ScheduleDTO()
-                .setQtdDays(scheduleTravelEntity.getNumberDays())
+                .setQtdDays(scheduleTravelEntity.getScheduleDayEntities().size())
                 .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
                 .setNameCity(scheduleTravelEntity.getCityEntity().getName())
                 .setScheduleCod(scheduleTravelEntity.getCod());
@@ -40,7 +40,6 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         ScheduleTravelEntity travelEntity = new ScheduleTravelEntity();
         travelEntity.setCod(1L);
         travelEntity.setCityEntity(cityEntity);
-        travelEntity.setNumberDays(numberDays);
         travelEntity.setPublicAccess(Boolean.FALSE);
         travelEntity.setUserOwner(userOwner);
         return travelEntity;

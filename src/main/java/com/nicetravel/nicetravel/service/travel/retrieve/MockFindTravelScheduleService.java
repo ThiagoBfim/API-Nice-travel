@@ -42,6 +42,16 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return scheduleDTOS;
     }
 
+    @Override
+    public List<ScheduleDTO> retrieveTravelScheduleByUserUID(String userUID) {
+        List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            ScheduleDTO scheduleTravel = createScheduleTravel(new Faker().address().cityName(), new Random().nextInt(10) + 1);
+            scheduleDTOS.add(scheduleTravel);
+        }
+        return scheduleDTOS;
+    }
+
     private ScheduleDTO createScheduleTravel(String cityName, int qtdDias) {
         return new ScheduleDTO()
                 .setUserName("Joaquim")

@@ -23,7 +23,7 @@ public class ScheduleDTO {
         setScheduleCod(scheduleTravel.getCod());
         setImageUrl(scheduleTravel.getCityImageUrl());
         setNameCity(scheduleTravel.getCityName());
-        setQtdDays(scheduleTravel.getNumberDays());
+        setQtdDays(scheduleTravel.getScheduleDayEntities().size());
         setUserName(scheduleTravel.getUserOwner().getName());
         setUserUID(scheduleTravel.getUserOwner().getUid());
     }
