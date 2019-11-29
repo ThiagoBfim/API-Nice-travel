@@ -12,7 +12,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
         return new ScheduleDTO()
                 .setQtdDays(scheduleTravelEntity.getScheduleDayEntities().size())
                 .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
-                .setNameCity(scheduleTravelEntity.getCityEntity().getName())
+                .setCityAddress(scheduleTravelEntity.getCityEntity().getName())
                 .setScheduleCod(scheduleTravelEntity.getCod());
     }
 

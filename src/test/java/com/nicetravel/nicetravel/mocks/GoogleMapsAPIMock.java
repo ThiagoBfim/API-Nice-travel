@@ -9,6 +9,7 @@ public class GoogleMapsAPIMock {
                 .setLat(123.45)
                 .setLng(543.21)
                 .setTypes("bar, bank")
+                .setFormattedAddress("teste - DF")
                 .setImageUrl("http://");
     }
 }

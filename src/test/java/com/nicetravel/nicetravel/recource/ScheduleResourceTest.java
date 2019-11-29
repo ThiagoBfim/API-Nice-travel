@@ -66,12 +66,12 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
                 .createTravelEntity()
                 .createEntity(2)
                 .retrieveListTravel();
-        Mockito.when(scheduleTravelRepository.findByCityEntityNameAndPublicAccess(Mockito.eq("CITY"), Mockito.eq(true), Mockito.any()))
+        Mockito.when(scheduleTravelRepository.findByCityEntityPlaceIDAndPublicAccess(Mockito.eq("12345"), Mockito.eq(true), Mockito.any()))
                 .thenReturn(scheduleTravelEntityList);
 
-        List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("CITY", 2);
+        List<ScheduleDTO> scheduleDTOS = scheduleResource.getSchedulesByCity("12345", 2);
         Assert.assertEquals(2, scheduleDTOS.size());
-        Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY".equals(t.getNameCity())));
+        Assert.assertTrue(scheduleDTOS.stream().allMatch(t -> "CITY - DF".equals(t.getCityAddress())));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
             private void includeCity() {
                 CityEntity cityEntity = new CityEntity();
-                cityEntity.setName("CITY");
+                cityEntity.setFormattedAddress("CITY - DF");
                 scheduleTravelEntity.setCityEntity(cityEntity);
             }
 

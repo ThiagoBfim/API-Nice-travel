@@ -4,6 +4,7 @@ import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import com.nicetravel.nicetravel.repository.util.PagableUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 
@@ -17,14 +18,14 @@ public class FindTravelScheduleImplService extends AbstractFindTravelScheduleSer
     private ScheduleTravelRepository scheduleTravelRepository;
 
     @Override
-    public List<ScheduleDTO> getScheduleByCityName(String cityName, @NonNull Integer sizeElements) {
+    public List<ScheduleDTO> getScheduleByPlaceID(String placeID, @NonNull Integer sizeElements) {
         List<ScheduleTravelEntity> scheduleTravelEntityList;
-        if (cityName == null) {
+        if (StringUtils.isBlank(placeID)) {
             scheduleTravelEntityList = scheduleTravelRepository
                     .findByPublicAccessOrderByNumberStarDesc(Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
         } else {
             scheduleTravelEntityList = scheduleTravelRepository
-                    .findByCityEntityNameAndPublicAccess(cityName, Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
+                    .findByCityEntityPlaceIDAndPublicAccess(placeID, Boolean.TRUE, PagableUtil.createPagable(0, sizeElements));
         }
         return scheduleTravelEntityList.stream().map(this::scheduleEntityToDTO).collect(Collectors.toList());
     }

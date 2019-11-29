@@ -8,7 +8,7 @@ public class ScheduleDTO {
 
     private int qtdDays;
     private String imageUrl;
-    private String nameCity;
+    private String cityAddress;
     private Long scheduleCod;
     private BigDecimal priceFinal;
     private String userUID;
@@ -22,7 +22,7 @@ public class ScheduleDTO {
         setPriceFinal(scheduleTravel.getPriceFinal());
         setScheduleCod(scheduleTravel.getCod());
         setImageUrl(scheduleTravel.getCityImageUrl());
-        setNameCity(scheduleTravel.getCityName());
+        setCityAddress(scheduleTravel.getFormattedAdress());
         setQtdDays(scheduleTravel.getScheduleDayEntities().size());
         setUserName(scheduleTravel.getUserOwner().getName());
         setUserUID(scheduleTravel.getUserOwner().getUid());
@@ -55,12 +55,12 @@ public class ScheduleDTO {
         return this;
     }
 
-    public String getNameCity() {
-        return nameCity;
+    public String getCityAddress() {
+        return cityAddress;
     }
 
-    public ScheduleDTO setNameCity(String nameCity) {
-        this.nameCity = nameCity;
+    public ScheduleDTO setCityAddress(String cityAddress) {
+        this.cityAddress = cityAddress;
         return this;
     }
 

@@ -9,6 +9,7 @@ public class PlaceDTO implements Serializable {
     private String name;
     private String imageUrl;
     private String types;
+    private String formattedAddress;
 
     public Double getLat() {
         return lat;
@@ -52,6 +53,15 @@ public class PlaceDTO implements Serializable {
 
     public PlaceDTO setTypes(String types) {
         this.types = types;
+        return this;
+    }
+
+    public String getFormattedAddress() {
+        return formattedAddress;
+    }
+
+    public PlaceDTO setFormattedAddress(String formattedAddress) {
+        this.formattedAddress = formattedAddress;
         return this;
     }
 }

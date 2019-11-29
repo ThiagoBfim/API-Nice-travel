@@ -46,6 +46,7 @@ public class GoogleMapsAPI {
             imageUrl = "https://i.pinimg.com/736x/07/0e/67/070e67abfd0cb1c8fb9336ab5c44ec8a.jpg";
         }
 
+        String formattedAddress = result.optString("formatted_address");
         JSONObject locationJson = result.getJSONObject("geometry").getJSONObject("location");
         String name = (String) result.get("name");
 
@@ -53,7 +54,13 @@ public class GoogleMapsAPI {
         Double lat = (Double) locationJson.get("lat");
 
         String types = result.getJSONArray("types").join(",").replaceAll("\"", "");
-        return new PlaceDTO().setLng(lng).setLat(lat).setName(name).setImageUrl(imageUrl).setTypes(types);
+        return new PlaceDTO()
+                .setLng(lng)
+                .setLat(lat)
+                .setName(name)
+                .setImageUrl(imageUrl)
+                .setTypes(types)
+                .setFormattedAddress(formattedAddress);
 
     }
 
@@ -75,7 +82,7 @@ public class GoogleMapsAPI {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlGoogle)
                 .queryParam("placeid", placeId)
-                .queryParam("fields", "name,rating,geometry,photos,types")
+                .queryParam("fields", "formatted_address,name,rating,geometry,photos,types")
                 .queryParam("key", environment.getProperty(GOOGLE_MAPS_KEY));
 
         HttpEntity<?> entity = new HttpEntity<>(headers);

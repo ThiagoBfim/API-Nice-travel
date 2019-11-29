@@ -88,8 +88,8 @@ public class ScheduleTravelEntity extends BaseEntity {
         return cityEntity.getPhotoLink();
     }
 
-    public String getCityName() {
-        return cityEntity.getName();
+    public String getFormattedAdress() {
+        return cityEntity.getFormattedAddress();
     }
 
     public UserEntity getUserOwner() {

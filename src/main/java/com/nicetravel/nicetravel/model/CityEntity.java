@@ -35,6 +35,9 @@ public class CityEntity extends BaseEntity {
     @Column(name = "TX_PHOTO", nullable = false, length = 1000)
     private String photoLink;
 
+    @Column(name = "FORMATTED_ADDRESS", nullable = false, length = 1000)
+    private String formattedAddress;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "TB_CITY_TO_TYPE", schema = Constants.SCHEMA,
             joinColumns = {@JoinColumn(name = "CO_CITY", nullable = false, updatable = false,
@@ -95,5 +98,13 @@ public class CityEntity extends BaseEntity {
 
     public void setPlaceID(String placeID) {
         this.placeID = placeID;
+    }
+
+    public String getFormattedAddress() {
+        return formattedAddress;
+    }
+
+    public void setFormattedAddress(String formattedAddress) {
+        this.formattedAddress = formattedAddress;
     }
 }

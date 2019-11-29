@@ -13,10 +13,10 @@ import java.util.Random;
 public class MockFindTravelScheduleService extends AbstractFindTravelScheduleService {
 
     @Override
-    public List<ScheduleDTO> getScheduleByCityName(String cityName, Integer sizeElements) {
+    public List<ScheduleDTO> getScheduleByPlaceID(String placeID, Integer sizeElements) {
         List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
         for (int i = 1; i <= sizeElements; i++) {
-            ScheduleDTO scheduleTravel = createScheduleTravel(cityName, new Random().nextInt(10) + 1);
+            ScheduleDTO scheduleTravel = createScheduleTravel(placeID, new Random().nextInt(10) + 1);
             scheduleDTOS.add(scheduleTravel);
         }
         return scheduleDTOS;
@@ -56,7 +56,7 @@ public class MockFindTravelScheduleService extends AbstractFindTravelScheduleSer
         return new ScheduleDTO()
                 .setUserName("Joaquim")
                 .setQtdDays(qtdDias)
-                .setNameCity(cityName)
+                .setCityAddress(cityName)
                 .setScheduleCod(qtdDias + 1L)
                 .setPriceFinal(calculatePriceTravel(getScheduleDays(1L)))
                 .setImageUrl("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");

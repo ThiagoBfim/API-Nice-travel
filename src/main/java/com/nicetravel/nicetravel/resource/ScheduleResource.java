@@ -19,9 +19,9 @@ public class ScheduleResource {
     private AbstractFindTravelScheduleService findTravelScheduleService;
 
     @GetMapping("/city")
-    public List<ScheduleDTO> getSchedulesByCity(@RequestParam(value = "cityName", required = false) String cityName,
+    public List<ScheduleDTO> getSchedulesByCity(@RequestParam(value = "placeID", required = false) String placeID,
                                                 @RequestParam(value = "sizeElements", required = false, defaultValue = "1") Integer sizeElements) {
-        return findTravelScheduleService.getScheduleByCityName(cityName, sizeElements);
+        return findTravelScheduleService.getScheduleByPlaceID(placeID, sizeElements);
     }
 
     @GetMapping("/ids")

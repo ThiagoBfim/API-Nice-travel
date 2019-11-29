@@ -74,6 +74,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         cityEntity.setName(placeDTO.getName());
         cityEntity.setLatitude(placeDTO.getLat());
         cityEntity.setLongitude(placeDTO.getLng());
+        cityEntity.setFormattedAddress(placeDTO.getFormattedAddress());
 
         updateCityTypes(placeDTO, cityEntity);
         cityRepository.save(cityEntity);
