@@ -1,6 +1,7 @@
 package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
+import com.nicetravel.nicetravel.exceptions.IntegrationException;
 import com.nicetravel.nicetravel.model.*;
 import com.nicetravel.nicetravel.repository.*;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
@@ -103,13 +104,22 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote) {
-        if(voteScheduleRepository.countAllByUserVoteUid(userUID) > 0){
+        if (voteScheduleRepository.countAllByUserVoteUid(userUID) > 0) {
             return false;
         }
         return updateScheduleTravel(scheduleId, scheduleTravel -> {
             int vote = positiveVote ? 1 : -1;
             scheduleTravel.setNumberStar(scheduleTravel.getNumberStar() + vote);
+            createVoteSchedule(userUID, scheduleTravel);
         });
+    }
+
+    private void createVoteSchedule(String userUID, ScheduleTravelEntity scheduleTravel) {
+        VoteScheduleEntity voteScheduleEntity = new VoteScheduleEntity();
+        voteScheduleEntity.setScheduleTravelEntity(scheduleTravel);
+        voteScheduleEntity.setUserVote(userRepository.findByUid(userUID)
+                .orElseThrow(() -> new IntegrationException("Não foi encontrado um usuário com UID: " + userUID)));
+        voteScheduleRepository.save(voteScheduleEntity);
     }
 
     @Override
