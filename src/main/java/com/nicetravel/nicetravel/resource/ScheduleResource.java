@@ -64,8 +64,11 @@ public class ScheduleResource {
 
     @PostMapping("/vote")
     public boolean voteTravelSchedule(@RequestParam("scheduleId") Long scheduleId,
+                                      @RequestParam("userUID") String userUID,
                                       @RequestParam(value = "positiveVote", required = false, defaultValue = "true") Boolean positiveVote) {
-        return travelScheduleService.voteTravelSchedule(scheduleId, positiveVote);
+        ResourceUtil.validateValue(scheduleId, "scheduleId");
+        ResourceUtil.validateValue(userUID, "userUID");
+        return travelScheduleService.voteTravelSchedule(scheduleId, userUID, positiveVote);
     }
 
 }

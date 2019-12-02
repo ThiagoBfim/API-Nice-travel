@@ -67,7 +67,7 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
     public void shouldIncrementVoteScheduleTravel() {
         ScheduleTravelEntity scheduleTravelEntity = createScheduleTravel();
         Assert.assertEquals(new Integer(0), scheduleTravelEntity.getNumberStar());
-        boolean hasChangeAcessSchedule = travelScheduleService.voteTravelSchedule(scheduleTravelEntity.getCod(), true);
+        boolean hasChangeAcessSchedule = travelScheduleService.voteTravelSchedule(scheduleTravelEntity.getCod(), "132", true);
         Assert.assertTrue(hasChangeAcessSchedule);
         Assert.assertEquals(new Integer(1), scheduleTravelRepository.findById(scheduleTravelEntity.getCod()).get().getNumberStar());
     }

@@ -49,7 +49,7 @@ public abstract class AbstractTravelScheduleService {
     public abstract boolean publishTravelSchedule(Long scheduleId);
 
     @Transactional
-    public abstract boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote);
+    public abstract boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote);
 
     public abstract void delete(Long scheduleId);
 }

@@ -22,7 +22,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote) {
+    public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote) {
         return false;
     }
 

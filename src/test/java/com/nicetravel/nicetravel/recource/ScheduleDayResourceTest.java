@@ -10,6 +10,8 @@ import com.nicetravel.nicetravel.resource.ScheduleDayResource;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Answers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,6 +30,9 @@ public class ScheduleDayResourceTest extends MockNicetravelApplicationTest {
     @MockBean
     private ScheduleTravelRepository scheduleTravelRepository;
 
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    private ScheduleDayEntity scheduleDayEntity;
+
     @Test
     public void shouldReturnListScheduleDaysDTO() {
         List<ScheduleDayEntity> scheduleDayEntities = new ArrayList<>();
@@ -44,6 +49,7 @@ public class ScheduleDayResourceTest extends MockNicetravelApplicationTest {
 
     @Test
     public void shouldDeleteScheduleDays() {
+        Mockito.when(scheduleDayRepository.getOne(Mockito.eq(1L))).thenReturn(scheduleDayEntity);
         scheduleDayResource.deleteByScheduleDayId(1L);
         Mockito.verify(scheduleDayRepository).deleteById(Mockito.eq(1L));
     }

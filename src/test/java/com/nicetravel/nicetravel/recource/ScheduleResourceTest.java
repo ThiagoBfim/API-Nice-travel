@@ -54,7 +54,7 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
         Mockito.when(scheduleTravelRepository.findById(Mockito.eq(1L)))
                 .thenReturn(Optional.of(scheduleTravelEntity));
-        boolean increaseVote = scheduleResource.voteTravelSchedule(1L, Boolean.TRUE);
+        boolean increaseVote = scheduleResource.voteTravelSchedule(1L,"123", Boolean.TRUE);
         Assert.assertTrue(increaseVote);
     }
 

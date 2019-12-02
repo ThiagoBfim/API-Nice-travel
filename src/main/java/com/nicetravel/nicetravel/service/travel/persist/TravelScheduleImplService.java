@@ -2,10 +2,7 @@ package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.*;
-import com.nicetravel.nicetravel.repository.CityRepository;
-import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
-import com.nicetravel.nicetravel.repository.TypeCityRepository;
-import com.nicetravel.nicetravel.repository.UserRepository;
+import com.nicetravel.nicetravel.repository.*;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,9 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private VoteScheduleRepository voteScheduleRepository;
 
     @Override
     protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
@@ -102,7 +102,10 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean voteTravelSchedule(Long scheduleId, Boolean positiveVote) {
+    public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote) {
+        if(voteScheduleRepository.countAllByUserVoteUid(userUID) > 0){
+            return false;
+        }
         return updateScheduleTravel(scheduleId, scheduleTravel -> {
             int vote = positiveVote ? 1 : -1;
             scheduleTravel.setNumberStar(scheduleTravel.getNumberStar() + vote);
