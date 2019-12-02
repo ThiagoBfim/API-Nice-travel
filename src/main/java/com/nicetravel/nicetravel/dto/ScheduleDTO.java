@@ -13,6 +13,8 @@ public class ScheduleDTO {
     private BigDecimal priceFinal;
     private String userUID;
     private String userName;
+    private Integer numberStar;
+    private Boolean publish;
 
     public ScheduleDTO() {
         //NOOP
@@ -26,6 +28,26 @@ public class ScheduleDTO {
         setQtdDays(scheduleTravel.getScheduleDayEntities().size());
         setUserName(scheduleTravel.getUserOwner().getName());
         setUserUID(scheduleTravel.getUserOwner().getUid());
+        setNumberStar(scheduleTravel.getNumberStar());
+        setPublish(scheduleTravel.getPublicAccess());
+    }
+
+    public Boolean getPublish() {
+        return publish;
+    }
+
+    public ScheduleDTO setPublish(Boolean publish) {
+        this.publish = publish;
+        return this;
+    }
+
+    public Integer getNumberStar() {
+        return numberStar;
+    }
+
+    public ScheduleDTO setNumberStar(Integer numberStar) {
+        this.numberStar = numberStar;
+        return this;
     }
 
     public int getQtdDays() {

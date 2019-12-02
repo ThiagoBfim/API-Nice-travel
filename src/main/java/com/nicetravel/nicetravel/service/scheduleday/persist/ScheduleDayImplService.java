@@ -7,6 +7,8 @@ import com.nicetravel.nicetravel.repository.ScheduleDayRepository;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class ScheduleDayImplService extends AbstractScheduleDayService {
 
     @Autowired
@@ -17,7 +19,21 @@ public class ScheduleDayImplService extends AbstractScheduleDayService {
 
     @Override
     public void deleteById(Long scheduleDayId) {
+        updateDays(scheduleDayId);
         scheduleDayRepository.deleteById(scheduleDayId);
+    }
+
+    private void updateDays(Long scheduleDayId) {
+        ScheduleDayEntity scheduleDay = scheduleDayRepository.getOne(scheduleDayId);
+        List<ScheduleDayEntity> schedulesDays = scheduleDayRepository.findAllByScheduleTravelEntityCod(scheduleDay.getScheduleTravelEntity().getCod());
+
+        schedulesDays
+                .stream()
+                .filter(d -> d.getDay() > scheduleDay.getDay())
+                .forEach(d -> d.setDay(d.getDay() - 1));
+
+        scheduleDayRepository.saveAll(schedulesDays);
+
     }
 
     @Override

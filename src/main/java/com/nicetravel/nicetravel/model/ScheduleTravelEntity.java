@@ -42,6 +42,9 @@ public class ScheduleTravelEntity extends BaseEntity {
         if(numberStar == null){
             numberStar = 0;
         }
+        if(publicAccess == null){
+            publicAccess = Boolean.FALSE;
+        }
     }
     @Override
     public Long getCod() {
