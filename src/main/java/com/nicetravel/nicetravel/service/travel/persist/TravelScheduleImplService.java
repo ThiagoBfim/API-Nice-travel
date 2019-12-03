@@ -34,7 +34,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     private VoteScheduleRepository voteScheduleRepository;
 
     @Override
-    protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
+    protected UserEntity saveOrUpdateUser(String userUID, String userEmail, String userName) {
         UserEntity userEntity = userRepository.findByUid(userUID).orElse(new UserEntity());
         userEntity.setUid(userUID);
         userEntity.setEmail(userEmail);
@@ -62,7 +62,6 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
 
     @Override
-    @Transactional
     protected CityEntity saveCity(String placeID) {
         Optional<CityEntity> cityEntityOptional = cityRepository.findByPlaceID(placeID);
         if (cityEntityOptional.isPresent()) {
@@ -103,23 +102,30 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote) {
-        if (voteScheduleRepository.countAllByUserVoteUid(userUID) > 0) {
+    public boolean voteTravelSchedule(Long scheduleId, UserEntity userEntity, Boolean positiveVote) {
+        if (voteScheduleRepository.countAllByUserVote(userEntity) > 0) {
             return false;
         }
         return updateScheduleTravel(scheduleId, scheduleTravel -> {
             int vote = positiveVote ? 1 : -1;
             scheduleTravel.setNumberStar(scheduleTravel.getNumberStar() + vote);
-            createVoteSchedule(userUID, scheduleTravel);
+            createVoteSchedule(userEntity, scheduleTravel);
         });
     }
 
-    private void createVoteSchedule(String userUID, ScheduleTravelEntity scheduleTravel) {
+    private void createVoteSchedule(UserEntity userEntity, ScheduleTravelEntity scheduleTravel) {
         VoteScheduleEntity voteScheduleEntity = new VoteScheduleEntity();
         voteScheduleEntity.setScheduleTravelEntity(scheduleTravel);
-        voteScheduleEntity.setUserVote(userRepository.findByUid(userUID)
-                .orElseThrow(() -> new IntegrationException("Não foi encontrado um usuário com UID: " + userUID)));
+        voteScheduleEntity.setUserVote(userEntity);
         voteScheduleRepository.save(voteScheduleEntity);
+    }
+
+
+    @Override
+    public ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner) {
+        ScheduleTravelEntity scheduleTravelBeDuplicated = scheduleTravelRepository.findById(scheduleId)
+                .orElseThrow(() -> new IntegrationException("Não foi encontrado um cronograma com ID" + scheduleId));
+        return createScheduleDTO(scheduleTravelRepository.save(scheduleTravelBeDuplicated.duplicate(userOwner)));
     }
 
     @Override

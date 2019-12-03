@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TB_SCHEDULE_TRAVEL", schema = Constants.SCHEMA)
@@ -38,14 +39,26 @@ public class ScheduleTravelEntity extends BaseEntity {
 
 
     @PrePersist
-    public void prePersist(){
-        if(numberStar == null){
+    public void prePersist() {
+        if (numberStar == null) {
             numberStar = 0;
         }
-        if(publicAccess == null){
+        if (publicAccess == null) {
             publicAccess = Boolean.FALSE;
         }
     }
+
+    public ScheduleTravelEntity duplicate(UserEntity userOwner) {
+        ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
+        scheduleTravelEntity.setCityEntity(this.getCityEntity());
+        scheduleTravelEntity.setUserOwner(userOwner);
+        scheduleTravelEntity.setScheduleDayEntities(scheduleDayEntities
+                .stream()
+                .map(day -> day.duplicate(scheduleTravelEntity))
+                .collect(Collectors.toList()));
+        return scheduleTravelEntity;
+    }
+
     @Override
     public Long getCod() {
         return cod;

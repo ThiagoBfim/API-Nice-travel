@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TB_SCHEDULE_DAY", schema = Constants.SCHEMA)
@@ -29,10 +30,22 @@ public class ScheduleDayEntity extends BaseEntity {
     @JoinColumn(name = "CO_SCHEDULE_TRAVEL", foreignKey = @ForeignKey(name = "FK_SCHEDULE_DAY_TO_SCHEDULE_TRAVEL"), nullable = false)
     private ScheduleTravelEntity scheduleTravelEntity;
 
+    public ScheduleDayEntity duplicate(ScheduleTravelEntity scheduleTravelEntity) {
+        ScheduleDayEntity scheduleDayEntity = new ScheduleDayEntity();
+        scheduleDayEntity.setDay(day);
+        scheduleDayEntity.setScheduleTravelEntity(scheduleTravelEntity);
+        scheduleDayEntity.setActivities(activities
+                .stream()
+                .map(act -> act.duplicate(scheduleDayEntity))
+                .collect(Collectors.toList()));
+        return scheduleDayEntity;
+    }
+
     @Override
     public Long getCod() {
         return cod;
     }
+
     public void setCod(Long cod) {
         this.cod = cod;
     }
@@ -70,4 +83,5 @@ public class ScheduleDayEntity extends BaseEntity {
                 .map(ActivityEntity::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
 }

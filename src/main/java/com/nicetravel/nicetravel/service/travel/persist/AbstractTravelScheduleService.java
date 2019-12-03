@@ -4,6 +4,7 @@ import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.UserEntity;
+import org.springframework.lang.Nullable;
 
 import javax.transaction.Transactional;
 
@@ -14,12 +15,12 @@ public abstract class AbstractTravelScheduleService {
 
     public ScheduleDTO generateTravelSchedule(String placeID, int numberDays, String userUID, String userEmail, String userName) {
         CityEntity cityEntity = saveCity(placeID);
-        UserEntity userOwner = createOrGetUser(userUID, userEmail, userName);
+        UserEntity userOwner = saveOrUpdateUser(userUID, userEmail, userName);
         ScheduleTravelEntity scheduleTravelEntity = saveScheduleTravel(cityEntity, numberDays, userOwner);
         return createScheduleDTO(scheduleTravelEntity);
     }
 
-    protected abstract UserEntity createOrGetUser(String userUID, String userEmail, String userName);
+    protected abstract UserEntity saveOrUpdateUser(String userUID, @Nullable String userEmail, @Nullable String userName);
 
     /**
      * This method have to save the  {@link ScheduleTravelEntity}.
@@ -48,8 +49,19 @@ public abstract class AbstractTravelScheduleService {
     @Transactional
     public abstract boolean publishTravelSchedule(Long scheduleId);
 
+    public abstract boolean voteTravelSchedule(Long scheduleId, UserEntity userUID, Boolean positiveVote);
+
     @Transactional
-    public abstract boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote);
+    public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote){
+        return voteTravelSchedule(scheduleId, saveOrUpdateUser(userUID, null, null), positiveVote);
+    }
 
     public abstract void delete(Long scheduleId);
+
+    protected abstract ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner);
+
+    @Transactional
+    public ScheduleDTO duplicateSchedule(Long scheduleId, String userUID, String userEmail, String userName) {
+        return duplicateSchedule(scheduleId, saveOrUpdateUser(userUID, userEmail, userName));
+    }
 }

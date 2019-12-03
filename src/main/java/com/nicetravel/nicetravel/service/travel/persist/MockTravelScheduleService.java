@@ -22,7 +22,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote) {
+    public boolean voteTravelSchedule(Long scheduleId, UserEntity userEntity, Boolean positiveVote) {
         return false;
     }
 
@@ -31,7 +31,12 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     }
 
     @Override
-    protected UserEntity createOrGetUser(String userUID, String userEmail, String userName) {
+    public ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner) {
+        return new ScheduleDTO();
+    }
+
+    @Override
+    protected UserEntity saveOrUpdateUser(String userUID, String userEmail, String userName) {
         return new UserEntity();
     }
 

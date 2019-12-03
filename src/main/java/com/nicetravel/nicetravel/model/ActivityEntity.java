@@ -46,6 +46,19 @@ public class ActivityEntity extends BaseEntity {
     @JoinColumn(name = "CO_SCHEDULE_DAY", foreignKey = @ForeignKey(name = "FK_ACTIVITY_TO_SCHEDULE_DAY"), nullable = false)
     private ScheduleDayEntity scheduleDayEntity;
 
+
+    public ActivityEntity duplicate(ScheduleDayEntity scheduleDayEntity) {
+        ActivityEntity activityEntity = new ActivityEntity();
+        activityEntity.setStyleActivity(styleActivity);
+        activityEntity.setDtStart(dtStart);
+        activityEntity.setDtEnd(dtEnd);
+        activityEntity.setPrice(price);
+        activityEntity.setName(name);
+        activityEntity.setDescription(description);
+        activityEntity.setScheduleDayEntity(scheduleDayEntity);
+        return activityEntity;
+    }
+
     @Override
     public Long getCod() {
         return cod;
@@ -110,4 +123,5 @@ public class ActivityEntity extends BaseEntity {
     public void setScheduleDayEntity(ScheduleDayEntity scheduleDayEntity) {
         this.scheduleDayEntity = scheduleDayEntity;
     }
+
 }

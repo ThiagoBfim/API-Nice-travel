@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(
         name = "TB_USER",
         schema = Constants.SCHEMA,
-        uniqueConstraints = {@UniqueConstraint(name = "UK_UID_FIREBASE",columnNames = "CO_UID_FIREBASE")}
+        uniqueConstraints = {@UniqueConstraint(name = "UK_UID_FIREBASE", columnNames = "CO_UID_FIREBASE")}
 )
 public class UserEntity extends BaseEntity {
 
@@ -19,13 +19,13 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(generator = PK_GENERATOR_NAME, strategy = GenerationType.AUTO)
     private Long cod;
 
-    @Column(name = "DS_NAME", nullable = false, length = 300)
+    @Column(name = "DS_NAME", length = 300)
     private String name;
 
-    @Column(name = "DS_EMAIL", nullable = false)
+    @Column(name = "DS_EMAIL")
     private String email;
 
-    @Column(name = "CO_UID_FIREBASE", nullable = false)
+    @Column(name = "CO_UID_FIREBASE", nullable = false, updatable = false)
     private String uid;
 
     @Override
@@ -42,7 +42,9 @@ public class UserEntity extends BaseEntity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null) {
+            this.name = name;
+        }
     }
 
     public String getEmail() {
@@ -50,7 +52,9 @@ public class UserEntity extends BaseEntity {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null) {
+            this.email = email;
+        }
     }
 
     public String getUid() {

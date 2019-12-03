@@ -74,7 +74,7 @@ public class TravelScheduleImplServiceTest extends MockNicetravelApplicationTest
 
     private ScheduleTravelEntity createScheduleTravel() {
         CityEntity cityEntity = travelScheduleService.saveCity("ChIJrTLr-GyuEmsRBfy61i59si0");
-        UserEntity userOwner = travelScheduleService.createOrGetUser("123", "teste@mail.com", "teste");
+        UserEntity userOwner = travelScheduleService.saveOrUpdateUser("123", "teste@mail.com", "teste");
         return travelScheduleService.saveScheduleTravel(cityEntity, 5, userOwner);
     }
 

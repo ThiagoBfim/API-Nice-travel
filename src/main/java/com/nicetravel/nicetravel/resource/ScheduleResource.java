@@ -62,6 +62,19 @@ public class ScheduleResource {
         return travelScheduleService.publishTravelSchedule(scheduleId);
     }
 
+
+    @PostMapping("/duplicate")
+    public ScheduleDTO duplicateSchedule(@RequestParam("scheduleId") Long scheduleId,
+                                         @RequestParam("userUID") String userUID,
+                                         @RequestParam("userEmail") String userEmail,
+                                         @RequestParam("userName") String userName) {
+        ResourceUtil.validateValue(scheduleId, "scheduleId");
+        ResourceUtil.validateValue(userUID, "userUID");
+        ResourceUtil.validateValue(userEmail, "userEmail");
+        ResourceUtil.validateValue(userName, "userName");
+        return travelScheduleService.duplicateSchedule(scheduleId, userUID, userEmail, userName);
+    }
+
     @PostMapping("/vote")
     public boolean voteTravelSchedule(@RequestParam("scheduleId") Long scheduleId,
                                       @RequestParam("userUID") String userUID,
