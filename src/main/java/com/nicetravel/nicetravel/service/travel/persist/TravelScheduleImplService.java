@@ -108,7 +108,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     @Override
     @Transactional
     public boolean voteTravelSchedule(Long scheduleId, UserEntity userEntity, Boolean positiveVote) {
-        if (voteScheduleRepository.countAllByUserVote(userEntity) > 0) {
+        if (voteScheduleRepository.countAllByUserVoteAndScheduleTravelEntity_Cod(userEntity, scheduleId) > 0) {
             return false;
         }
         return updateScheduleTravel(scheduleId, scheduleTravel -> {

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 public interface VoteScheduleRepository extends JpaRepository<VoteScheduleEntity, Long> {
 
-    long countAllByUserVote(UserEntity user);
+    long countAllByUserVoteAndScheduleTravelEntity_Cod(UserEntity user, Long scheduleCod);
 
     @Modifying
     long deleteAllByScheduleTravelEntity_Cod(Long scheduleCod);
