@@ -130,6 +130,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
     @Override
     public void delete(Long scheduleId) {
+        voteScheduleRepository.deleteAllByScheduleTravelEntityCod(scheduleId);
         scheduleTravelRepository.deleteById(scheduleId);
     }
 

@@ -56,6 +56,7 @@ public abstract class AbstractTravelScheduleService {
         return voteTravelSchedule(scheduleId, saveOrUpdateUser(userUID, null, null), positiveVote);
     }
 
+    @Transactional
     public abstract void delete(Long scheduleId);
 
     protected abstract ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner);
