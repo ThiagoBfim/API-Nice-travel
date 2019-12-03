@@ -6,8 +6,6 @@ import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.UserEntity;
 import org.springframework.lang.Nullable;
 
-import javax.transaction.Transactional;
-
 /**
  * This class use Template Method pattern
  */
@@ -30,7 +28,6 @@ public abstract class AbstractTravelScheduleService {
      * @param userOwner
      * @return ScheduleTravelEntity
      */
-    @Transactional
     protected abstract ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays, UserEntity userOwner);
 
     /**
@@ -41,27 +38,22 @@ public abstract class AbstractTravelScheduleService {
      * @param placeID {@link com.nicetravel.nicetravel.service.external.GoogleMapsAPI}
      * @return CityEntity
      */
-    @Transactional
     protected abstract CityEntity saveCity(String placeID);
 
     protected abstract ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity);
 
-    @Transactional
     public abstract boolean publishTravelSchedule(Long scheduleId);
 
     public abstract boolean voteTravelSchedule(Long scheduleId, UserEntity userUID, Boolean positiveVote);
 
-    @Transactional
     public boolean voteTravelSchedule(Long scheduleId, String userUID, Boolean positiveVote){
         return voteTravelSchedule(scheduleId, saveOrUpdateUser(userUID, null, null), positiveVote);
     }
 
-    @Transactional
     public abstract void delete(Long scheduleId);
 
     protected abstract ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner);
 
-    @Transactional
     public ScheduleDTO duplicateSchedule(Long scheduleId, String userUID, String userEmail, String userName) {
         return duplicateSchedule(scheduleId, saveOrUpdateUser(userUID, userEmail, userName));
     }

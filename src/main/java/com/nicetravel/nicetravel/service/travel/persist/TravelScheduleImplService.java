@@ -34,6 +34,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     private VoteScheduleRepository voteScheduleRepository;
 
     @Override
+    @Transactional
     protected UserEntity saveOrUpdateUser(String userUID, String userEmail, String userName) {
         UserEntity userEntity = userRepository.findByUid(userUID).orElse(new UserEntity());
         userEntity.setUid(userUID);
@@ -43,6 +44,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
+    @Transactional
     protected ScheduleTravelEntity saveScheduleTravel(CityEntity cityEntity, int numberDays, UserEntity userOwner) {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setPublicAccess(Boolean.FALSE);
@@ -62,6 +64,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
 
 
     @Override
+    @Transactional
     protected CityEntity saveCity(String placeID) {
         Optional<CityEntity> cityEntityOptional = cityRepository.findByPlaceID(placeID);
         if (cityEntityOptional.isPresent()) {
@@ -97,11 +100,13 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
+    @Transactional
     public boolean publishTravelSchedule(Long scheduleId) {
         return updateScheduleTravel(scheduleId, scheduleTravel -> scheduleTravel.setPublicAccess(Boolean.TRUE));
     }
 
     @Override
+    @Transactional
     public boolean voteTravelSchedule(Long scheduleId, UserEntity userEntity, Boolean positiveVote) {
         if (voteScheduleRepository.countAllByUserVote(userEntity) > 0) {
             return false;
@@ -113,15 +118,9 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         });
     }
 
-    private void createVoteSchedule(UserEntity userEntity, ScheduleTravelEntity scheduleTravel) {
-        VoteScheduleEntity voteScheduleEntity = new VoteScheduleEntity();
-        voteScheduleEntity.setScheduleTravelEntity(scheduleTravel);
-        voteScheduleEntity.setUserVote(userEntity);
-        voteScheduleRepository.save(voteScheduleEntity);
-    }
-
 
     @Override
+    @Transactional
     public ScheduleDTO duplicateSchedule(Long scheduleId, UserEntity userOwner) {
         ScheduleTravelEntity scheduleTravelBeDuplicated = scheduleTravelRepository.findById(scheduleId)
                 .orElseThrow(() -> new IntegrationException("Não foi encontrado um cronograma com ID" + scheduleId));
@@ -129,9 +128,17 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     }
 
     @Override
+    @Transactional
     public void delete(Long scheduleId) {
-        voteScheduleRepository.deleteAllByScheduleTravelEntityCod(scheduleId);
+        voteScheduleRepository.deleteAllByScheduleTravelEntity_Cod(scheduleId);
         scheduleTravelRepository.deleteById(scheduleId);
+    }
+
+    private void createVoteSchedule(UserEntity userEntity, ScheduleTravelEntity scheduleTravel) {
+        VoteScheduleEntity voteScheduleEntity = new VoteScheduleEntity();
+        voteScheduleEntity.setScheduleTravelEntity(scheduleTravel);
+        voteScheduleEntity.setUserVote(userEntity);
+        voteScheduleRepository.save(voteScheduleEntity);
     }
 
     private boolean updateScheduleTravel(Long scheduleId, UpdateScheduleTravelConsumer consumer) {
