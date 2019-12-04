@@ -28,6 +28,9 @@ public class UserEntity extends BaseEntity {
     @Column(name = "CO_UID_FIREBASE", nullable = false, updatable = false)
     private String uid;
 
+    @Column(name = "CO_UID_STRIPE", nullable = false, updatable = false)
+    private String paymentId;
+
     @Override
     public Long getCod() {
         return cod;
@@ -63,5 +66,14 @@ public class UserEntity extends BaseEntity {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public UserEntity setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+        return this;
     }
 }

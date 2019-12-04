@@ -3,9 +3,13 @@ package com.nicetravel.nicetravel.service.travel.persist;
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.exceptions.IntegrationException;
 import com.nicetravel.nicetravel.model.*;
-import com.nicetravel.nicetravel.repository.*;
+import com.nicetravel.nicetravel.repository.CityRepository;
+import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
+import com.nicetravel.nicetravel.repository.TypeCityRepository;
+import com.nicetravel.nicetravel.repository.VoteScheduleRepository;
 import com.nicetravel.nicetravel.service.external.GoogleMapsAPI;
 import com.nicetravel.nicetravel.service.external.PlaceDTO;
+import com.nicetravel.nicetravel.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +32,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     private ScheduleTravelRepository scheduleTravelRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private VoteScheduleRepository voteScheduleRepository;
@@ -36,11 +40,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
     @Override
     @Transactional
     protected UserEntity saveOrUpdateUser(String userUID, String userEmail, String userName) {
-        UserEntity userEntity = userRepository.findByUid(userUID).orElse(new UserEntity());
-        userEntity.setUid(userUID);
-        userEntity.setEmail(userEmail);
-        userEntity.setName(userName);
-        return userRepository.save(userEntity);
+        return userService.saveOrUpdateUser(userUID, userEmail, userName);
     }
 
     @Override
