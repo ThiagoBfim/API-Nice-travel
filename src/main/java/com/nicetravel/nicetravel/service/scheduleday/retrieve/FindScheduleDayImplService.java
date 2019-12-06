@@ -16,7 +16,7 @@ public class FindScheduleDayImplService extends AbstractFindScheduleDayService {
 
     @Override
     public List<ScheduleDayDTO> getScheduleDays(@NonNull Long scheduleId) {
-        List<ScheduleDayEntity> scheduleDayEntities = scheduleDayRepository.findAllByScheduleTravelEntityCod(scheduleId);
+        List<ScheduleDayEntity> scheduleDayEntities = scheduleDayRepository.findAllByScheduleTravelEntityCodOrderByDay(scheduleId);
         return scheduleDayEntities.stream().map(this::scheduleDayToDTO).collect(Collectors.toList());
     }
 

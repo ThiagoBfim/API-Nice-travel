@@ -25,7 +25,7 @@ public class ScheduleDayImplService extends AbstractScheduleDayService {
 
     private void updateDays(Long scheduleDayId) {
         ScheduleDayEntity scheduleDay = scheduleDayRepository.getOne(scheduleDayId);
-        List<ScheduleDayEntity> schedulesDays = scheduleDayRepository.findAllByScheduleTravelEntityCod(scheduleDay.getScheduleTravelEntity().getCod());
+        List<ScheduleDayEntity> schedulesDays = scheduleDayRepository.findAllByScheduleTravelEntityCodOrderByDay(scheduleDay.getScheduleTravelEntity().getCod());
 
         schedulesDays
                 .stream()
@@ -51,5 +51,17 @@ public class ScheduleDayImplService extends AbstractScheduleDayService {
                 .setId(scheduleDay.getCod())
                 .setDay(scheduleDay.getDay())
                 .setPriceDay(scheduleDay.getPriceDay());
+    }
+
+    @Override
+    public void reorder(Long scheduleDayIdFrom, Long scheduleDayIdTo) {
+        ScheduleDayEntity scheduleDayFrom = scheduleDayRepository.getOne(scheduleDayIdFrom);
+        ScheduleDayEntity scheduleDayTo = scheduleDayRepository.getOne(scheduleDayIdTo);
+        int dayTo = scheduleDayTo.getDay();
+        int dayFrom = scheduleDayFrom.getDay();
+        scheduleDayTo.setDay(dayFrom);
+        scheduleDayRepository.save(scheduleDayTo);
+        scheduleDayFrom.setDay(dayTo);
+        scheduleDayRepository.save(scheduleDayFrom);
     }
 }

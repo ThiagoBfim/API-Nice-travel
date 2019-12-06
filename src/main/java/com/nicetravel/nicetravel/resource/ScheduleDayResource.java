@@ -37,4 +37,12 @@ public class ScheduleDayResource {
         scheduleDayService.deleteById(scheduleDayId);
     }
 
+    @PostMapping("/reorder")
+    public void reorderScheduleDays(@RequestParam("scheduleDayIdFrom") Long scheduleDayIdFrom,
+                                    @RequestParam("scheduleDayIdTo") Long scheduleDayIdTo) {
+        ResourceUtil.validateValue(scheduleDayIdFrom, "scheduleDayIdFrom");
+        ResourceUtil.validateValue(scheduleDayIdTo, "scheduleDayIdTo");
+        scheduleDayService.reorder(scheduleDayIdFrom, scheduleDayIdTo);
+    }
+
 }

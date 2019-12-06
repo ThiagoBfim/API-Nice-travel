@@ -42,7 +42,7 @@ public class ScheduleDayResourceTest extends MockNicetravelApplicationTest {
         scheduleDayEntities.add(scheduleDayEntity);
         scheduleDayEntities.add(scheduleDayEntity);
 
-        Mockito.when(scheduleDayRepository.findAllByScheduleTravelEntityCod(Mockito.eq(1L))).thenReturn(scheduleDayEntities);
+        Mockito.when(scheduleDayRepository.findAllByScheduleTravelEntityCodOrderByDay(Mockito.eq(1L))).thenReturn(scheduleDayEntities);
         List<ScheduleDayDTO> scheduleDaysByScheduleCod = scheduleDayResource.getScheduleDaysByScheduleCod(1L);
         Assert.assertEquals(2, scheduleDaysByScheduleCod.size());
     }

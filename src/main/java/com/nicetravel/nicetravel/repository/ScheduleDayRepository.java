@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ScheduleDayRepository extends JpaRepository<ScheduleDayEntity, Long> {
 
-    List<ScheduleDayEntity> findAllByScheduleTravelEntityCod(Long scheduleTravelCod);
+    List<ScheduleDayEntity> findAllByScheduleTravelEntityCodOrderByDay(Long scheduleTravelCod);
 }

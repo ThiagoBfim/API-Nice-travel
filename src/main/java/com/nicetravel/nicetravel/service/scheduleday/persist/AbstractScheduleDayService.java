@@ -20,4 +20,5 @@ public abstract class AbstractScheduleDayService {
 
     protected abstract ScheduleDayDTO createScheduleDayDTO(ScheduleDayEntity scheduleDayEntity);
 
+    public abstract void reorder(Long scheduleDayIdFrom, Long scheduleDayIdTo);
 }

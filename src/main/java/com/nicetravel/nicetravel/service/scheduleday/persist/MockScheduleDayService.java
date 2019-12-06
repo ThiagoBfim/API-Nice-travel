@@ -24,9 +24,14 @@ public class MockScheduleDayService extends AbstractScheduleDayService {
 
     @Override
     protected ScheduleDayDTO createScheduleDayDTO(ScheduleDayEntity scheduleDayEntity) {
-        return  new ScheduleDayDTO()
+        return new ScheduleDayDTO()
                 .setId(scheduleDayEntity.getCod())
                 .setDay(scheduleDayEntity.getDay())
                 .setPriceDay(new BigDecimal(new Random().nextInt(250) + 100.21));
+    }
+
+    @Override
+    public void reorder(Long scheduleDayIdFrom, Long scheduleDayIdTo) {
+        //NOOP
     }
 }
