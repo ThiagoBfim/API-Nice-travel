@@ -5,7 +5,9 @@ import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.UserEntity;
+import com.nicetravel.nicetravel.model.VoteScheduleEntity;
 import com.nicetravel.nicetravel.repository.ScheduleTravelRepository;
+import com.nicetravel.nicetravel.repository.VoteScheduleRepository;
 import com.nicetravel.nicetravel.resource.ScheduleResource;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
@@ -28,6 +30,9 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
     @MockBean
     private ScheduleTravelRepository scheduleTravelRepository;
+
+    @MockBean
+    private VoteScheduleRepository voteScheduleRepository;
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private ScheduleTravelEntity scheduleTravelEntity;
@@ -54,6 +59,9 @@ public class ScheduleResourceTest extends MockNicetravelApplicationTest {
 
         Mockito.when(scheduleTravelRepository.findById(Mockito.eq(1L)))
                 .thenReturn(Optional.of(scheduleTravelEntity));
+
+        Mockito.when(voteScheduleRepository.save(Mockito.any()))
+                .thenReturn(new VoteScheduleEntity());
         boolean increaseVote = scheduleResource.voteTravelSchedule(1L,"123", Boolean.TRUE);
         Assert.assertTrue(increaseVote);
     }
