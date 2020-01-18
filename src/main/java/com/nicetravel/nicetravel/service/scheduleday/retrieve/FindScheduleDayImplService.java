@@ -21,9 +21,6 @@ public class FindScheduleDayImplService extends AbstractFindScheduleDayService {
     }
 
     private ScheduleDayDTO scheduleDayToDTO(ScheduleDayEntity scheduleDay) {
-        return new ScheduleDayDTO()
-                .setId(scheduleDay.getCod())
-                .setDay(scheduleDay.getDay())
-                .setPriceDay(scheduleDay.getPriceDay());
+        return new ScheduleDayDTO(scheduleDay);
     }
 }

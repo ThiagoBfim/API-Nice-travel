@@ -47,10 +47,7 @@ public class ScheduleDayImplService extends AbstractScheduleDayService {
 
     @Override
     public ScheduleDayDTO createScheduleDayDTO(ScheduleDayEntity scheduleDay) {
-        return new ScheduleDayDTO()
-                .setId(scheduleDay.getCod())
-                .setDay(scheduleDay.getDay())
-                .setPriceDay(scheduleDay.getPriceDay());
+        return new ScheduleDayDTO(scheduleDay);
     }
 
     @Override

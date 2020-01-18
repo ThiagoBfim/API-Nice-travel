@@ -63,6 +63,7 @@ public class ScheduleDayEntity extends BaseEntity implements DuplicateEntity<Sch
         return activities;
     }
 
+
     public void setActivities(List<ActivityEntity> activities) {
         this.activities = activities;
     }
@@ -75,6 +76,13 @@ public class ScheduleDayEntity extends BaseEntity implements DuplicateEntity<Sch
         this.scheduleTravelEntity = scheduleTravelEntity;
     }
 
+    public int getQtdActivities(){
+        if (CollectionUtils.isEmpty(activities)) {
+            return 0;
+        }
+        return getActivities().size();
+    }
+
     public BigDecimal getPriceDay() {
         if (CollectionUtils.isEmpty(activities)) {
             return BigDecimal.ZERO;
@@ -85,4 +93,10 @@ public class ScheduleDayEntity extends BaseEntity implements DuplicateEntity<Sch
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public String getFirstActivity() {
+        if (CollectionUtils.isEmpty(activities)) {
+            return null;
+        }
+        return getActivities().get(0).getStyleActivity().getDescription();
+    }
 }
