@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "TB_ACTIVITY", schema = Constants.SCHEMA)
-public class ActivityEntity extends BaseEntity {
+public class ActivityEntity extends BaseEntity implements DuplicateEntity<ScheduleDayEntity> {
 
     private static final String PK_GENERATOR_NAME = "PK_ACTIVITY";
 
@@ -46,7 +46,7 @@ public class ActivityEntity extends BaseEntity {
     @JoinColumn(name = "CO_SCHEDULE_DAY", foreignKey = @ForeignKey(name = "FK_ACTIVITY_TO_SCHEDULE_DAY"), nullable = false)
     private ScheduleDayEntity scheduleDayEntity;
 
-
+    @Override
     public ActivityEntity duplicate(ScheduleDayEntity scheduleDayEntity) {
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setStyleActivity(styleActivity);

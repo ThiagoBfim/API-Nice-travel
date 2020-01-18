@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TB_SCHEDULE_DAY", schema = Constants.SCHEMA)
-public class ScheduleDayEntity extends BaseEntity {
+public class ScheduleDayEntity extends BaseEntity implements DuplicateEntity<ScheduleTravelEntity> {
 
     private static final String PK_GENERATOR_NAME = "PK_SCHEDULE_DAY";
 
@@ -30,6 +30,7 @@ public class ScheduleDayEntity extends BaseEntity {
     @JoinColumn(name = "CO_SCHEDULE_TRAVEL", foreignKey = @ForeignKey(name = "FK_SCHEDULE_DAY_TO_SCHEDULE_TRAVEL"), nullable = false)
     private ScheduleTravelEntity scheduleTravelEntity;
 
+    @Override
     public ScheduleDayEntity duplicate(ScheduleTravelEntity scheduleTravelEntity) {
         ScheduleDayEntity scheduleDayEntity = new ScheduleDayEntity();
         scheduleDayEntity.setDay(day);

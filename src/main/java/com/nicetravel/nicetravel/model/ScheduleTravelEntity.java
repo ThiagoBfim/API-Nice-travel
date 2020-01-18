@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TB_SCHEDULE_TRAVEL", schema = Constants.SCHEMA)
-public class ScheduleTravelEntity extends BaseEntity {
+public class ScheduleTravelEntity extends BaseEntity implements DuplicateEntity<UserEntity> {
 
     private static final String PK_GENERATOR_NAME = "PK_SCHEDULE_TRAVEL";
 
@@ -48,6 +48,7 @@ public class ScheduleTravelEntity extends BaseEntity {
         }
     }
 
+    @Override
     public ScheduleTravelEntity duplicate(UserEntity userOwner) {
         ScheduleTravelEntity scheduleTravelEntity = new ScheduleTravelEntity();
         scheduleTravelEntity.setCityEntity(this.getCityEntity());
