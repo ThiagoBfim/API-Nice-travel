@@ -36,6 +36,9 @@ public class GoogleMapsAPI {
         if (StringUtils.isEmpty(status) || INVALID_REQUEST.equals(status)) {
             throw new GooglePlaceNotFoundException(String.format("NOT FOUND A CITY WITH PLACE ID %s", placeId));
         }
+        if(StringUtils.isBlank(bodyObject.optString("result"))){
+            throw new GooglePlaceNotFoundException(bodyObject.getString("error_message"));
+        }
         JSONObject result = bodyObject.getJSONObject("result");
 
         String imageUrl;
