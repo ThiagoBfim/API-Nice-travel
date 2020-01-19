@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.nicetravel.nicetravel.util.Constants.GOOGLE_MAPS_KEY;
 
 /**
@@ -41,12 +44,13 @@ public class GoogleMapsAPI {
         }
         JSONObject result = bodyObject.getJSONObject("result");
 
-        String imageUrl;
+        List<String> imagesUrl = new ArrayList<>();
         if (StringUtils.isNotBlank(result.optString("photos"))) {
-            JSONObject photo = (JSONObject) (result.getJSONArray("photos").get(0));
-            imageUrl = createImageURL(photo);
+            result.getJSONArray("photos").forEach(ph -> {
+                imagesUrl.add(createImageURL((JSONObject) ph));
+            });
         } else {
-            imageUrl = "https://i.pinimg.com/736x/07/0e/67/070e67abfd0cb1c8fb9336ab5c44ec8a.jpg";
+            imagesUrl.add("https://i.pinimg.com/736x/07/0e/67/070e67abfd0cb1c8fb9336ab5c44ec8a.jpg");
         }
 
         String formattedAddress = result.optString("formatted_address");
@@ -61,7 +65,7 @@ public class GoogleMapsAPI {
                 .setLng(lng)
                 .setLat(lat)
                 .setName(name)
-                .setImageUrl(imageUrl)
+                .setImageUrl(imagesUrl)
                 .setTypes(types)
                 .setFormattedAddress(formattedAddress);
 

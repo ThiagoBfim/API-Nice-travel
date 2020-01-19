@@ -2,8 +2,11 @@ package com.nicetravel.nicetravel.service.travel.persist;
 
 import com.nicetravel.nicetravel.dto.ScheduleDTO;
 import com.nicetravel.nicetravel.model.CityEntity;
+import com.nicetravel.nicetravel.model.PhotoCityEntity;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 import com.nicetravel.nicetravel.model.UserEntity;
+
+import java.util.Collections;
 
 public class MockTravelScheduleService extends AbstractTravelScheduleService {
 
@@ -11,7 +14,7 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     public ScheduleDTO createScheduleDTO(ScheduleTravelEntity scheduleTravelEntity) {
         return new ScheduleDTO()
                 .setQtdDays(scheduleTravelEntity.getScheduleDayEntities().size())
-                .setImageUrl(scheduleTravelEntity.getCityEntity().getPhotoLink())
+                .setImagesUrl(scheduleTravelEntity.getCityEntity().getPhotosLinks())
                 .setCityAddress(scheduleTravelEntity.getCityEntity().getName())
                 .setScheduleCod(scheduleTravelEntity.getCod());
     }
@@ -58,7 +61,9 @@ public class MockTravelScheduleService extends AbstractTravelScheduleService {
     private CityEntity createCityEntity(String placeID) {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setName(placeID);
-        cityEntity.setPhotoLink("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");
+        PhotoCityEntity photoCityEntity = new PhotoCityEntity();
+        photoCityEntity.setPhotoLink("https://s3.amazonaws.com/bk-static-prd-newctn/files/styles/discover_destaque/s3/2016-12/42%20-%20Salvador%20de%20Bahia_4.jpg?itok=2NW2cjVV");
+        cityEntity.setPhotos(Collections.singletonList(photoCityEntity));
         return cityEntity;
     }
 }

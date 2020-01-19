@@ -1,13 +1,14 @@
 package com.nicetravel.nicetravel.service.external;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PlaceDTO implements Serializable {
     
     private Double lat;
     private Double lng;
     private String name;
-    private String imageUrl;
+    private List<String> imageUrl;
     private String types;
     private String formattedAddress;
 
@@ -38,11 +39,11 @@ public class PlaceDTO implements Serializable {
         return this;
     }
 
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
-    public PlaceDTO setImageUrl(String imageUrl) {
+    public PlaceDTO setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }

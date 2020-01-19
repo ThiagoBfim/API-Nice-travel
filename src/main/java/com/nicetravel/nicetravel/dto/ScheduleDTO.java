@@ -3,11 +3,12 @@ package com.nicetravel.nicetravel.dto;
 import com.nicetravel.nicetravel.model.ScheduleTravelEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ScheduleDTO {
 
     private int qtdDays;
-    private String imageUrl;
+    private List<String> imagesUrl;
     private String cityAddress;
     private Long scheduleCod;
     private BigDecimal priceFinal;
@@ -23,7 +24,7 @@ public class ScheduleDTO {
     public ScheduleDTO(ScheduleTravelEntity scheduleTravel) {
         setPriceFinal(scheduleTravel.getPriceFinal());
         setScheduleCod(scheduleTravel.getCod());
-        setImageUrl(scheduleTravel.getCityImageUrl());
+        setImagesUrl(scheduleTravel.getCityImageUrl(5));
         setCityAddress(scheduleTravel.getFormattedAdress());
         setQtdDays(scheduleTravel.getScheduleDayEntities().size());
         setUserName(scheduleTravel.getUserOwner().getName());
@@ -59,10 +60,6 @@ public class ScheduleDTO {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
     public BigDecimal getPriceFinal() {
         return priceFinal;
     }
@@ -72,8 +69,12 @@ public class ScheduleDTO {
         return this;
     }
 
-    public ScheduleDTO setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public List<String> getImagesUrl() {
+        return imagesUrl;
+    }
+
+    public ScheduleDTO setImagesUrl(List<String> imagesUrl) {
+        this.imagesUrl = imagesUrl;
         return this;
     }
 

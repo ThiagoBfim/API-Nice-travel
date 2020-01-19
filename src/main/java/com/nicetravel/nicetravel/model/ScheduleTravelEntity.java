@@ -101,8 +101,12 @@ public class ScheduleTravelEntity extends BaseEntity implements DuplicateEntity<
         this.numberStar = numberStar;
     }
 
-    public String getCityImageUrl() {
-        return cityEntity.getPhotoLink();
+    public List<String> getCityImageUrl(int maxSize) {
+        return getCityImageUrl().stream().limit(maxSize).collect(Collectors.toList());
+    }
+
+    public List<String> getCityImageUrl() {
+        return cityEntity.getPhotosLinks();
     }
 
     public String getFormattedAdress() {

@@ -73,7 +73,7 @@ public class TravelScheduleImplService extends AbstractTravelScheduleService {
         PlaceDTO placeDTO = googleMapsAPI.getPlaceDTO(placeID);
         CityEntity cityEntity = new CityEntity();
         cityEntity.setPlaceID(placeID);
-        cityEntity.setPhotoLink(placeDTO.getImageUrl());
+        cityEntity.setPhotosLinks(placeDTO.getImageUrl());
         cityEntity.setName(placeDTO.getName());
         cityEntity.setLatitude(placeDTO.getLat());
         cityEntity.setLongitude(placeDTO.getLng());

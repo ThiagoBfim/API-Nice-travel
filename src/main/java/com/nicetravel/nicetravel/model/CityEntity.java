@@ -1,15 +1,20 @@
 package com.nicetravel.nicetravel.model;
 
 import com.nicetravel.nicetravel.util.Constants;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
         name = "TB_CITY",
         schema = Constants.SCHEMA,
-        uniqueConstraints = {@UniqueConstraint(name = "UK_PLACE_ID",columnNames = "CO_PLACE_ID")}
+        uniqueConstraints = {@UniqueConstraint(name = "UK_PLACE_ID", columnNames = "CO_PLACE_ID")}
 )
 public class CityEntity extends BaseEntity {
 
@@ -32,8 +37,8 @@ public class CityEntity extends BaseEntity {
     @Column(name = "CO_PLACE_ID", nullable = false)
     private String placeID;
 
-    @Column(name = "TX_PHOTO", nullable = false, length = 1000)
-    private String photoLink;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.ALL)
+    private List<PhotoCityEntity> photos = new ArrayList<>();
 
     @Column(name = "FORMATTED_ADDRESS", nullable = false, length = 1000)
     private String formattedAddress;
@@ -76,14 +81,6 @@ public class CityEntity extends BaseEntity {
         this.longitude = longitude;
     }
 
-    public String getPhotoLink() {
-        return photoLink;
-    }
-
-    public void setPhotoLink(String photoLink) {
-        this.photoLink = photoLink;
-    }
-
     public Set<TypeCityEntity> getTypeCities() {
         return typeCities;
     }
@@ -106,5 +103,34 @@ public class CityEntity extends BaseEntity {
 
     public void setFormattedAddress(String formattedAddress) {
         this.formattedAddress = formattedAddress;
+    }
+
+    public List<PhotoCityEntity> getPhotos() {
+        return photos;
+    }
+
+    public CityEntity setPhotos(List<PhotoCityEntity> photos) {
+        this.photos = photos;
+        return this;
+    }
+
+    public CityEntity setPhotosLinks(List<String> photosLinks) {
+        List<PhotoCityEntity> photos = photosLinks
+                .stream()
+                .map(ph -> new PhotoCityEntity()
+                        .setPhotoLink(ph)
+                        .setCity(this))
+                .collect(Collectors.toList());
+        return setPhotos(photos);
+    }
+
+    public List<String> getPhotosLinks() {
+        if (CollectionUtils.isEmpty(photos)) {
+            return Collections.emptyList();
+        }
+        return getPhotos()
+                .stream()
+                .map(PhotoCityEntity::getPhotoLink)
+                .collect(Collectors.toList());
     }
 }
